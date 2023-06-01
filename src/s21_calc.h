@@ -8,23 +8,37 @@
 #include <string.h>
 #include <stdbool.h>
 
-typedef enum type_t {
-    NUM,
-    PLUS,
-    FUNC,
-    X,
-} type_t;
+// typedef enum type_t {
+//     NUM,
+//     PLUS,
+//     MINUS,
+//     MUL,
+//     DIV,
+//     MOD,
+//     SIN,
+//     COS,
+//     OPEN_BRACKET,
+//     CLOSE_BRACKET,
+//     FUNC,
+//     X,
+// } type_t;
 
-typedef struct StackNum {
-    double data;
-    int priority;
-    type_t type;
-    struct StackNum *top;
-    size_t cnt;
-}StackNum;
+// stack functions
+typedef struct stack_t {
+    char data;
+    struct stack_t * next;
+} stack_t;
+stack_t * s_push(stack_t * head, char a);
+char s_pop(stack_t ** head);
+void s_print(stack_t *top);
 
-StackNum* add_num(double num, StackNum *head);
-StackNum *add_oper(char oper, StackNum *head);
+// string format
+void getReversePN(char * text);
+int getPriority(char a);
+bool isOper(char c);
+bool isNum(char c);
+
+
 
 
 #endif  // SRC_S21_CALC_H_
