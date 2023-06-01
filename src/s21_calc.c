@@ -46,12 +46,17 @@ void getReversePN(char * equation) {
         выталкиваем из стека все операторы до открывающейся скобки,
         а открывающуюся скобку удаляем из стека.
         */
-        if (isNum(equation[pos])){
-            while ((equation[pos]>='0' && equation[pos]<='9') || equation[pos]=='.') {
+        if (isdigit(equation[pos])) {
+            while ((equation[pos] >= 48 && equation[pos] <= 57) || equation[pos] == '.' || equation[pos] == 'e' || equation[pos] == 'E') {
                 output[output_pos++] = equation[pos++];
             }
-            pos--;
+            pos--; // если не будет пробела
             output[output_pos++] = ' ';
+
+            if (!isCorrectNum(output)) { // проверка на валид
+                printf("INCORRECT INPUT\n"); // подумать как выводить ошибки в qt
+                exit(-1);
+            }
         }
         if (isOper(equation[pos])) {
             if (operation == NULL) operation = s_push(operation, equation[pos]);
@@ -82,7 +87,9 @@ void getReversePN(char * equation) {
                 s_pop(&operation);
         }
         pos++;
+        
     }
+    printf("%s\n", output);
     while (operation) {
         output[output_pos++] = s_pop(&operation);
         output[output_pos++] = ' ';
@@ -127,13 +134,26 @@ bool isOper(char c) {
     return status;
 }
 
-bool isNum(char c) {
-    bool status = false;
-    if ((c >='0' && c <= '9') || c == '.') status = true;
+bool isCorrectNum(char *array_of_nums) { // скорее всего не нужна, так как не вали не проходит
+    bool status = true;
+    size_t pos = 0, pos_buf = 0;
+    char buffer_separtate_num[NMAX] = {'\0'};
+    while (array_of_nums[pos] != '\0') {
+        while (array_of_nums[pos] != ' ') { // берем отдельное число из общей строки и пороверяем
+            buffer_separtate_num[pos_buf++] = array_of_nums[pos++];
+        }
+
+        if (atof(buffer_separtate_num) == 0.0 && buffer_separtate_num[0] != '0') {
+            status = false;
+        }
+        pos_buf = 0;
+        memset(&buffer_separtate_num, '\0', sizeof(buffer_separtate_num));
+        pos++;
+    }
     return status;
 }
 
-bool isCorrectEquation(char *equation) {
+bool isCorrectFunction(char *equation) {
     /*
     mod
     
@@ -156,7 +176,7 @@ bool isCorrectEquation(char *equation) {
     bool flag_num = false, flag_oper = false, flag_big_oper = false;
 
     while (equation[pos] != '\0') {
-        if (!isNum(equation[pos]) && !isOper(equation[pos])) {
+        if (/*!isNum(equation[pos])&& */!isOper(equation[pos])) {
             if (pos != 'm' && pos != 'c' && pos != 's' && pos != 't' && pos != 'a' && pos != 'l') {
 
             } else {
@@ -198,7 +218,7 @@ bool isCorrectEquation(char *equation) {
 }
 
 int main() {
-    char primer[255] = "255.3 + 2";
+    char primer[255] = "255.3 + 0 * (25*4)";
     getReversePN(primer);
     printf("%s", primer);
     return 0;

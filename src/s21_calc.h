@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include <string.h>
 #include <stdbool.h>
 
@@ -36,7 +37,7 @@ void s_print(stack_t *top);
 void getReversePN(char * text);
 int getPriority(char a);
 bool isOper(char c);
-bool isNum(char c);
+bool isCorrectNum(char *array_of_nums);
 
 
 
