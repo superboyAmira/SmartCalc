@@ -10,13 +10,13 @@ stack_t * s_push(stack_t * head, char a) {
     return ptr;
 }
 
-char s_pop(stack_t ** head) {
+char s_pop(stack_t * head) {
     stack_t * ptr;
     char a = '\0';
-    if (*head == NULL) return '\0';
-    ptr = * head;
+    if (head == NULL) return '\0';
+    ptr = head;
     a = ptr->data;
-    *head = ptr -> next;
+    head = ptr -> next;
     free(ptr);
     return a;
 }
@@ -47,7 +47,7 @@ void getReversePN(char * equation) {
         а открывающуюся скобку удаляем из стека.
         */
         if (isdigit(equation[pos])) {
-            while ((equation[pos] >= 48 && equation[pos] <= 57) || equation[pos] == '.' || equation[pos] == 'e' || equation[pos] == 'E') {
+            while (isNum(equation[pos])) {
                 output[output_pos++] = equation[pos++];
             }
             pos--; // если не будет пробела
@@ -65,7 +65,7 @@ void getReversePN(char * equation) {
                     operation = s_push(operation, equation[pos]);
                 } else {
                     while ((operation!= NULL)&& (getPriority(operation->data)>=getPriority(equation[pos]))) {
-                        output[output_pos++] = s_pop(&operation);
+                        output[output_pos++] = s_pop(operation);
                         output[output_pos++] = ' ';
                     }
                     operation = s_push(operation, equation[pos]);
@@ -78,20 +78,20 @@ void getReversePN(char * equation) {
         if (equation[pos]==')'){
             if ((operation->data)!='('){
                 while(operation!=NULL && (operation->data)!='('){
-                    output[output_pos++] = s_pop(&operation);
+                    output[output_pos++] = s_pop(operation);
                     printf("%c\n",output[output_pos]);
                     output[output_pos++] = ' ';
                 }
             }
             if ((operation!=NULL)&&(operation->data=='('))
-                s_pop(&operation);
+                s_pop(operation);
         }
         pos++;
         
     }
     printf("%s\n", output);
     while (operation) {
-        output[output_pos++] = s_pop(&operation);
+        output[output_pos++] = s_pop(operation);
         output[output_pos++] = ' ';
     }
     output[output_pos] = '\0';
@@ -128,6 +128,12 @@ int getPriority(char ch) {
     return priority;
 }
 
+bool isNum(char c) {
+    bool status = false;
+    if ((c >= 48 && c <= 57) || c == '.' || c == 'e' || c == 'E') status = true;
+    return status;
+}
+
 bool isOper(char c) {
     bool status = false;
     if (c == '+'|| c =='-'|| c =='*'|| c =='/'|| c =='^' || c == '~' || c == 'm') status = true;
@@ -153,6 +159,92 @@ bool isCorrectNum(char *array_of_nums) { // скорее всего не нуж�
     return status;
 }
 
+double ExecutableInstructions(char op, double first, double second) {
+    double result = 0.0;
+    switch (op) {
+        case '+':
+            result = first + second;
+            break;
+        case '-':
+            result = first - second;
+            break;
+        case '*':
+            result = first * second;
+            break;
+        case '/':
+            result = first / second;
+            break;
+        case 'm' :
+            result = fmod(first, second);
+            break;
+    }
+    return result;
+}
+
+
+
+calc_stack_t * cs_push(double num, calc_stack_t *head) {
+    calc_stack_t * ptr;
+    if ((ptr = (calc_stack_t*)malloc(sizeof(calc_stack_t))) == NULL){
+        exit(-1);
+    }
+    ptr->num = num;
+    ptr->next = head;
+    return ptr;
+}
+
+double cs_pop(calc_stack_t *head) {
+    calc_stack_t * ptr;
+    double num = 0.0;
+    if (head == NULL) return 0.0;
+    ptr = head;
+    num = ptr->num;
+    head = ptr->next;
+    free(ptr);
+    return num;
+}
+
+double Calculation(char *equation) {
+    /*
+    Проходим постфиксную запись;
+    При нахождении числа, парсим его и заносим в стек;
+    При нахождении бинарного оператора, берём два последних значения из стека в обратном порядке;
+    При нахождении унарного оператора, в данном случае - унарного минуса, берём последнее значение из стека и вычитаем его из нуля,
+    так как унарный минус является правосторонним оператором;
+    Последнее значение, после отработки алгоритма, является решением выражения.
+    */
+    double first_tmp_num = 0.0;
+    double second_tmp_num = 0.0;
+    char tmp_char[NMAX] = {'\0'};
+    calc_stack_t * buffer = NULL;
+    size_t pos = 0;
+    size_t tmp_pos = 0;
+
+    while (equation[pos] != '\0') {
+        if (isNum(equation[pos])) {
+            while (isNum(equation[pos])) {
+                tmp_char[tmp_pos++] = equation[pos++];
+            }
+            buffer = cs_push(atof(tmp_char), buffer);
+            memset(tmp_char, '\0', sizeof(tmp_char));
+            tmp_pos = 0;
+        }
+        if (isOper(equation[pos])) {
+            if (equation[pos] == '~') {
+                first_tmp_num = cs_pop(buffer);
+                first_tmp_num *= -1.0;
+                buffer = cs_push(first_tmp_num, buffer);
+            } else {
+                second_tmp_num = cs_pop(buffer);
+                first_tmp_num = cs_pop(buffer);
+                sprintf(tmp_char, "%lf", ExecutableInstructions(equation[pos], first_tmp_num, second_tmp_num));
+                buffer = cs_push(atof(tmp_char), buffer);
+            }
+        }
+    }
+    return cs_pop(buffer);
+}
+
 bool isCorrectFunction(char *equation) {
     /*
     mod
@@ -171,7 +263,7 @@ bool isCorrectFunction(char *equation) {
     ln(x)
     log(x)
     */
-   bool status = false;
+    bool status = false;
     size_t pos = 0;
     bool flag_num = false, flag_oper = false, flag_big_oper = false;
 
@@ -215,6 +307,7 @@ bool isCorrectFunction(char *equation) {
             }
         }
     }
+    return true;
 }
 
 int main() {
