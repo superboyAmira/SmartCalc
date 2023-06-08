@@ -1,8 +1,8 @@
 #include "s21_calc.h"
 
-stack_t * s_push(stack_t * head, char a) {
-    stack_t * ptr;
-    if ((ptr = (stack_t*)malloc(sizeof(stack_t))) == NULL){
+char_stack_t * s_push(char_stack_t * head, char a) {
+    char_stack_t * ptr;
+    if ((ptr = (char_stack_t*)malloc(sizeof(char_stack_t))) == NULL){
         exit(-1);
     }
     ptr->data = a;
@@ -10,8 +10,8 @@ stack_t * s_push(stack_t * head, char a) {
     return ptr;
 }
 
-char s_pop(stack_t ** head) {
-    stack_t * ptr;
+char s_pop(char_stack_t ** head) {
+    char_stack_t * ptr;
     char a = '\0';
     if (head == NULL) return '\0';
     ptr = *head;
@@ -21,16 +21,16 @@ char s_pop(stack_t ** head) {
     return a;
 }
 
-void s_print(stack_t *top) {		
-	stack_t *q = top;
-	while (q) {
-		printf("%c", q->data);
-		q = q->next;
-	}
-}
+// void s_print(char_stack_t *top) {		
+// 	char_stack_t *q = top;
+// 	while (q) {
+// 		printf("%c", q->data);
+// 		q = q->next;
+// 	}
+// }
 
 void getReversePN(char * equation) {
-    stack_t * operation = NULL;
+    char_stack_t * operation = NULL;
     char *output = (char*)calloc(strlen(equation),sizeof(char));
     size_t pos = 0, output_pos = 0;
     while (equation[pos] != '\0') {
@@ -59,12 +59,13 @@ void getReversePN(char * equation) {
             // }
         }
         if (isOper(equation[pos])) {
-            if (operation == NULL) operation = s_push(operation, equation[pos]);
-            else {
+            if (operation == NULL) {
+                operation = s_push(operation, equation[pos]);
+            } else {
                 if (getPriority(operation->data) < getPriority(equation[pos])){
                     operation = s_push(operation, equation[pos]);
                 } else {
-                    while ((operation!= NULL)&& (getPriority(operation->data)>=getPriority(equation[pos]))) {
+                    while ((operation != NULL) && (getPriority(operation->data) >= getPriority(equation[pos]))) {
                         output[output_pos++] = s_pop(&operation);
                         output[output_pos++] = ' ';
                     }
@@ -86,8 +87,8 @@ void getReversePN(char * equation) {
             if ((operation!=NULL)&&(operation->data=='('))
                 s_pop(&operation);
         }
-        if (!isdigit(equation[pos])) {
-            
+        if (!isdigit(equation[pos])) { // fucntions
+
         }
         pos++;
         
@@ -98,7 +99,7 @@ void getReversePN(char * equation) {
         output[output_pos++] = ' ';
     }
     output[output_pos] = '\0';
-    equation[0]='\0';
+    memset(equation, '\0', sizeof(equation));
     strcpy(equation, output);
     free(output);
 }
@@ -106,28 +107,27 @@ void getReversePN(char * equation) {
 int getPriority(char ch) {
     int priority = 0;
     switch(ch) {
-    case '~' :
-        priority = 5;
-        break;
-    case '^':
-        priority = 3;
-        break;
-    case '*':
-        priority = 2;
-        break;
-    case '/':
-        priority = 2;
-        break;
-    case 'm':
-        priority = 2;
-        break;
-    case '-':
-        priority = 1;
-        break;
-    case '+':
-        priority = 1;
-        break;
-    default:
+        case '~' :
+            priority = 5;
+            break;
+        case '^':
+            priority = 3;
+            break;
+        case '*':
+            priority = 2;
+            break;
+        case '/':
+            priority = 2;
+            break;
+        case 'm':
+            priority = 2;
+            break;
+        case '-':
+            priority = 1;
+            break;
+        case '+':
+            priority = 1;
+            break;
     }
     return priority;
 }
@@ -315,7 +315,7 @@ bool isCorrectFunction(char *equation) {
 }
 
 int main() {
-    char primer[255] = "255.4 + 45.6 - 10";
+    char primer[255] = "10.0 - ~10";
     getReversePN(primer);
     printf("%s", primer);
     double res = Calculation(primer);

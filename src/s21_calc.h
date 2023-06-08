@@ -25,13 +25,13 @@
 // } type_t;
 
 // stack functions
-typedef struct stack_t {
+typedef struct char_stack_t {
     char data;
-    struct stack_t * next;
-} stack_t;
-stack_t * s_push(stack_t * head, char a);
-char s_pop(stack_t ** head);
-void s_print(stack_t *top);
+    struct char_stack_t * next;
+} char_stack_t;
+char_stack_t * s_push(char_stack_t * head, char a);
+char s_pop(char_stack_t ** head);
+void s_print(char_stack_t *top);
 
 typedef struct calc_stack_t {
     double num;
