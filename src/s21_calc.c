@@ -10,13 +10,13 @@ stack_t * s_push(stack_t * head, char a) {
     return ptr;
 }
 
-char s_pop(stack_t * head) {
+char s_pop(stack_t ** head) {
     stack_t * ptr;
     char a = '\0';
     if (head == NULL) return '\0';
-    ptr = head;
+    ptr = *head;
     a = ptr->data;
-    head = ptr -> next;
+    *head = ptr -> next;
     free(ptr);
     return a;
 }
@@ -53,10 +53,10 @@ void getReversePN(char * equation) {
             pos--; // если не будет пробела
             output[output_pos++] = ' ';
 
-            if (!isCorrectNum(output)) { // проверка на валид
-                printf("INCORRECT INPUT\n"); // подумать как выводить ошибки в qt
-                exit(-1);
-            }
+            // if (!isCorrectNum(output)) { // проверка на валид
+            //     printf("INCORRECT INPUT\n"); // подумать как выводить ошибки в qt
+            //     exit(-1);
+            // }
         }
         if (isOper(equation[pos])) {
             if (operation == NULL) operation = s_push(operation, equation[pos]);
@@ -65,7 +65,7 @@ void getReversePN(char * equation) {
                     operation = s_push(operation, equation[pos]);
                 } else {
                     while ((operation!= NULL)&& (getPriority(operation->data)>=getPriority(equation[pos]))) {
-                        output[output_pos++] = s_pop(operation);
+                        output[output_pos++] = s_pop(&operation);
                         output[output_pos++] = ' ';
                     }
                     operation = s_push(operation, equation[pos]);
@@ -78,20 +78,23 @@ void getReversePN(char * equation) {
         if (equation[pos]==')'){
             if ((operation->data)!='('){
                 while(operation!=NULL && (operation->data)!='('){
-                    output[output_pos++] = s_pop(operation);
+                    output[output_pos++] = s_pop(&operation);
                     printf("%c\n",output[output_pos]);
                     output[output_pos++] = ' ';
                 }
             }
             if ((operation!=NULL)&&(operation->data=='('))
-                s_pop(operation);
+                s_pop(&operation);
+        }
+        if (!isdigit(equation[pos])) {
+            
         }
         pos++;
         
     }
     printf("%s\n", output);
     while (operation) {
-        output[output_pos++] = s_pop(operation);
+        output[output_pos++] = s_pop(&operation);
         output[output_pos++] = ' ';
     }
     output[output_pos] = '\0';
@@ -104,7 +107,7 @@ int getPriority(char ch) {
     int priority = 0;
     switch(ch) {
     case '~' :
-        priority = 4;
+        priority = 5;
         break;
     case '^':
         priority = 3;
@@ -124,6 +127,7 @@ int getPriority(char ch) {
     case '+':
         priority = 1;
         break;
+    default:
     }
     return priority;
 }
@@ -181,8 +185,6 @@ double ExecutableInstructions(char op, double first, double second) {
     return result;
 }
 
-
-
 calc_stack_t * cs_push(double num, calc_stack_t *head) {
     calc_stack_t * ptr;
     if ((ptr = (calc_stack_t*)malloc(sizeof(calc_stack_t))) == NULL){
@@ -193,13 +195,13 @@ calc_stack_t * cs_push(double num, calc_stack_t *head) {
     return ptr;
 }
 
-double cs_pop(calc_stack_t *head) {
+double cs_pop(calc_stack_t ** head) {
     calc_stack_t * ptr;
     double num = 0.0;
     if (head == NULL) return 0.0;
-    ptr = head;
+    ptr = *head;
     num = ptr->num;
-    head = ptr->next;
+    *head = ptr->next;
     free(ptr);
     return num;
 }
@@ -231,18 +233,20 @@ double Calculation(char *equation) {
         }
         if (isOper(equation[pos])) {
             if (equation[pos] == '~') {
-                first_tmp_num = cs_pop(buffer);
+                first_tmp_num = cs_pop(&buffer);
                 first_tmp_num *= -1.0;
                 buffer = cs_push(first_tmp_num, buffer);
             } else {
-                second_tmp_num = cs_pop(buffer);
-                first_tmp_num = cs_pop(buffer);
+                second_tmp_num = cs_pop(&buffer);
+                first_tmp_num = cs_pop(&buffer);
                 sprintf(tmp_char, "%lf", ExecutableInstructions(equation[pos], first_tmp_num, second_tmp_num));
                 buffer = cs_push(atof(tmp_char), buffer);
+                memset(tmp_char, '\0', sizeof(tmp_char));
             }
         }
+        pos++;
     }
-    return cs_pop(buffer);
+    return cs_pop(&buffer);
 }
 
 bool isCorrectFunction(char *equation) {
@@ -311,8 +315,10 @@ bool isCorrectFunction(char *equation) {
 }
 
 int main() {
-    char primer[255] = "255.3 + 0 * (25*4)";
+    char primer[255] = "255.4 + 45.6 - 10";
     getReversePN(primer);
     printf("%s", primer);
+    double res = Calculation(primer);
+    printf("\n%lf", res);
     return 0;
 }

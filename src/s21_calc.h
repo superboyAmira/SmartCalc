@@ -30,7 +30,7 @@ typedef struct stack_t {
     struct stack_t * next;
 } stack_t;
 stack_t * s_push(stack_t * head, char a);
-char s_pop(stack_t * head);
+char s_pop(stack_t ** head);
 void s_print(stack_t *top);
 
 typedef struct calc_stack_t {
@@ -38,7 +38,7 @@ typedef struct calc_stack_t {
     struct calc_stack_t * next;
 } calc_stack_t;
 calc_stack_t * cs_push(double num, calc_stack_t *head);
-double cs_pop(calc_stack_t *head);
+double cs_pop(calc_stack_t ** head);
 double Calculation(char *equation);
 
 // string format
