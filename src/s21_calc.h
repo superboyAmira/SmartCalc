@@ -31,7 +31,7 @@ typedef struct char_stack_t {
 } char_stack_t;
 char_stack_t * s_push(char_stack_t * head, char a);
 char s_pop(char_stack_t ** head);
-void s_print(char_stack_t *top);
+// void s_print(char_stack_t *top);
 
 typedef struct calc_stack_t {
     double num;
@@ -47,10 +47,11 @@ int getPriority(char a);
 bool isOper(char c);
 bool isNum(char c);
 bool isCorrectNum(char *array_of_nums);
-bool isCorrectFunction(char *equation);
+// bool isCorrectFunction(char *equation);
 
+double Calculation(char *equation);
 double ExecutableInstructions(char op, double first, double second);
-
+void formatFunc(char *equation);
 
 
 

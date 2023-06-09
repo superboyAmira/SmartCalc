@@ -223,6 +223,15 @@ double Calculation(char *equation) {
     size_t tmp_pos = 0;
 
     while (equation[pos] != '\0') {
+        if (isalpha(equation[pos]) && !isOper(equation[pos])) {
+            formatFunc(equation);
+            break;
+        }
+        pos++;
+    }
+    pos = 0;
+
+    while (equation[pos] != '\0') {
         if (isNum(equation[pos])) {
             while (isNum(equation[pos])) {
                 tmp_char[tmp_pos++] = equation[pos++];
@@ -249,76 +258,111 @@ double Calculation(char *equation) {
     return cs_pop(&buffer);
 }
 
-bool isCorrectFunction(char *equation) {
-    /*
-    mod
-    
-    cos(x)
-    
-    sin(x)
-    sqrt(x)
-    
-    tan(x)
-    
-    acos(x)
-    asin(x)
-    atan(x)
-
-    ln(x)
-    log(x)
-    */
-    bool status = false;
+void formatFunc(char *equation) {
+    bool metka = false;
+    int border_cpy_right = 0;
+    // int border_cpy_left = 0;
     size_t pos = 0;
-    bool flag_num = false, flag_oper = false, flag_big_oper = false;
+    size_t pos_func = 0;
+    size_t pos_eq_in = 0;
+    char function[NMAX] = {'\0'};
+    char equation_in[NMAX] = {'\0'};
+    double res_in = 0.0;
+
+    while (equation[pos] != '\0') { // обрезаем скобку, то что рекурсивно вызванной функции
+        if (equation[pos] == '(') {
+            metka = true;
+        }
+        if (equation[pos] == ')' && metka == false) {
+            equation[pos] = '\0';
+        } else if (equation[pos] == ')') {
+            metka = false;
+        }
+        pos++;
+    }
+    pos = 0;
 
     while (equation[pos] != '\0') {
-        if (/*!isNum(equation[pos])&& */!isOper(equation[pos])) {
-            if (pos != 'm' && pos != 'c' && pos != 's' && pos != 't' && pos != 'a' && pos != 'l') {
-
-            } else {
-                switch (equation[pos++]) {
-                    case 'm' :
-                        if (equation[pos++] == 'o') {
-                            if (equation[pos++] == 'd') {
-                                status = true;
-                            }
-                        }
-                        break;
-                    case 'c' :
-                        if (equation[pos++] == 'o') {
-                            if (equation[pos++] == 's') {
-                                status = true;
-                            }
-                        }
-                        break;
-                    case 's' :
-                        if (equation[pos] == 'i') {
-                            pos++;
-                            if (equation[pos++] == 'n') {
-                                status = true;
-                            }
-                        } else if (equation[pos] == 'q') {
-                            pos++;
-                            if (equation[pos++] == 'r') {
-                                if (equation[pos++] == 't') {
-                                    status = true;
-                                }
-                            }
-                        }
-                        pos++;
-                        break;
-                }
+        if (isalpha(equation[pos]) && equation[pos] != ' ' && equation[pos] != '.') {
+            border_cpy_right = pos; // для обрезки
+            while (equation[pos] != '(') {
+                function[pos_func++] = equation[pos++];
             }
+            pos++;
+            while (equation[pos] != ')') {
+                if (isalpha(equation[pos])) {
+                    formatFunc(equation + pos); // ФИКС!!! нужно вкинуть только косинус внутренний, с буффером.
+                }
+                equation_in[pos_eq_in++] = equation[pos++];
+            }
+            // calculation in F()
+            getReversePN(equation_in);
+            res_in = Calculation(equation_in);
+            // functions
+            if (strncmp(function, "cos", 3) == 0) {
+                res_in = cos(res_in);
+            } else if (strncmp(function, "sin", 3) == 0) {
+                res_in = sin(res_in);
+            } else if (strncmp(function, "sqrt", 4) == 0) {
+                res_in = sqrt(res_in);
+            } else if (strncmp(function, "tan", 3) == 0) {
+                res_in = tan(res_in);
+            } else if (strncmp(function, "acos", 4) == 0) {
+                res_in = acos(res_in);
+            } else if (strncmp(function, "asin", 4) == 0) {
+                res_in = asin(res_in);
+            } else if (strncmp(function, "atan", 4) == 0) {
+                res_in = atan(res_in);
+            } else if (strncmp(function, "ln", 2) == 0) {
+                res_in = log(res_in);
+            } else if (strncmp(function, "log", 3) == 0) {
+                res_in = log10(res_in);
+            } else {
+                printf("INCORRECT INPUT\n");
+                exit(-1);
+            }
+            // zamena func na result func
+            memset(equation_in, '\0', sizeof(equation_in));
+            sprintf(equation_in, "%lf", res_in);
+            if (strlen(equation) + strlen(equation) >= NMAX) {
+                printf("RESULT IS TOO LONG\n");
+                exit(-1);
+            }
+            char *equation_tmp = (char *)malloc(strlen(equation) + strlen(equation_in));
+            memset(equation_tmp, '\0', sizeof(equation_tmp));
+
+            strncpy(equation_tmp, equation, border_cpy_right); // begin
+            strcat(equation_tmp, equation_in); // middle
+            strcat(equation_tmp, equation + border_cpy_right + pos_eq_in + pos_func + 2); // end
+
+            memset(equation, '\0', sizeof(equation));
+            strcpy(equation, equation_tmp);
+            // ->NULL
+            border_cpy_right = 0;
+            pos_func = 0;
+            pos_eq_in = 0;
+            memset(equation_tmp, '\0', sizeof(equation_tmp));
+            memset(function, '\0', sizeof(function));
+            memset(equation_in, '\0', sizeof(equation_in));
+            res_in = 0.0;
+            free(equation_tmp);
         }
+        pos++;
     }
-    return true;
 }
 
 int main() {
-    char primer[255] = "10.0 - ~10";
+    char primer[255] = "1 + cos(cos(1 - 1)) + 10";
+    formatFunc(primer);
     getReversePN(primer);
-    printf("%s", primer);
+    // printf("%s", primer);
     double res = Calculation(primer);
     printf("\n%lf", res);
     return 0;
 }
+
+/*
+1. добавить функцию отдельную по добавлению внутрь строки.
+2. реализовать подсчет вложенного вложеннго функции
+3. 
+*/
