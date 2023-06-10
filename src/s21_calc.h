@@ -9,21 +9,6 @@
 #include <string.h>
 #include <stdbool.h>
 
-// typedef enum type_t {
-//     NUM,
-//     PLUS,
-//     MINUS,
-//     MUL,
-//     DIV,
-//     MOD,
-//     SIN,
-//     COS,
-//     OPEN_BRACKET,
-//     CLOSE_BRACKET,
-//     FUNC,
-//     X,
-// } type_t;
-
 // stack functions
 typedef struct char_stack_t {
     char data;
@@ -31,7 +16,6 @@ typedef struct char_stack_t {
 } char_stack_t;
 char_stack_t * s_push(char_stack_t * head, char a);
 char s_pop(char_stack_t ** head);
-// void s_print(char_stack_t *top);
 
 typedef struct calc_stack_t {
     double num;
@@ -39,22 +23,20 @@ typedef struct calc_stack_t {
 } calc_stack_t;
 calc_stack_t * cs_push(double num, calc_stack_t *head);
 double cs_pop(calc_stack_t ** head);
-double Calculation(char *equation);
 
 // string format
-void getReversePN(char * text);
+void GetReversePN(char * text);
 int getPriority(char a);
 bool isOper(char c);
 bool isNum(char c);
 bool isCorrectNum(char *array_of_nums);
 // bool isCorrectFunction(char *equation);
 
-double Calculation(char *equation);
+double MainCalculation(char *equation);
 double ExecutableInstructions(char op, double first, double second);
-void formatFunc(char *equation);
-
-
-
+void FormatFunc(char *equation);
+void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border);
+double FuncCalculation(char *function, double res_in);
 
 #endif  // SRC_S21_CALC_H_
 

@@ -21,15 +21,7 @@ char s_pop(char_stack_t ** head) {
     return a;
 }
 
-// void s_print(char_stack_t *top) {		
-// 	char_stack_t *q = top;
-// 	while (q) {
-// 		printf("%c", q->data);
-// 		q = q->next;
-// 	}
-// }
-
-void getReversePN(char * equation) {
+void GetReversePN(char * equation) {
     char_stack_t * operation = NULL;
     char *output = (char*)calloc(strlen(equation),sizeof(char));
     size_t pos = 0, output_pos = 0;
@@ -93,7 +85,6 @@ void getReversePN(char * equation) {
         pos++;
         
     }
-    printf("%s\n", output);
     while (operation) {
         output[output_pos++] = s_pop(&operation);
         output[output_pos++] = ' ';
@@ -206,7 +197,7 @@ double cs_pop(calc_stack_t ** head) {
     return num;
 }
 
-double Calculation(char *equation) {
+double MainCalculation(char *equation) {
     /*
     Проходим постфиксную запись;
     При нахождении числа, парсим его и заносим в стек;
@@ -224,7 +215,7 @@ double Calculation(char *equation) {
 
     while (equation[pos] != '\0') {
         if (isalpha(equation[pos]) && !isOper(equation[pos])) {
-            formatFunc(equation);
+            FormatFunc(equation);
             break;
         }
         pos++;
@@ -258,10 +249,8 @@ double Calculation(char *equation) {
     return cs_pop(&buffer);
 }
 
-void formatFunc(char *equation) {
-    bool metka = false;
+void FormatFunc(char *equation) {
     int border_cpy_right = 0;
-    // int border_cpy_left = 0;
     size_t pos = 0;
     size_t pos_func = 0;
     size_t pos_eq_in = 0;
@@ -269,95 +258,100 @@ void formatFunc(char *equation) {
     char equation_in[NMAX] = {'\0'};
     double res_in = 0.0;
 
-    while (equation[pos] != '\0') { // обрезаем скобку, то что рекурсивно вызванной функции
-        if (equation[pos] == '(') {
-            metka = true;
-        }
-        if (equation[pos] == ')' && metka == false) {
-            equation[pos] = '\0';
-        } else if (equation[pos] == ')') {
-            metka = false;
-        }
-        pos++;
-    }
-    pos = 0;
-
     while (equation[pos] != '\0') {
         if (isalpha(equation[pos]) && equation[pos] != ' ' && equation[pos] != '.') {
-            border_cpy_right = pos; // для обрезки
+            border_cpy_right = pos;
             while (equation[pos] != '(') {
                 function[pos_func++] = equation[pos++];
             }
             pos++;
-            while (equation[pos] != ')') {
+            while (equation[pos] != ')') { // if cos(cos())
                 if (isalpha(equation[pos])) {
-                    formatFunc(equation + pos); // ФИКС!!! нужно вкинуть только косинус внутренний, с буффером.
+                    while (equation[pos] != ')') {
+                        equation_in[pos_eq_in++] = equation[pos++]; 
+                    }
+                    equation_in[pos_eq_in] = ')';
+                    FormatFunc(equation_in);
+                    SetStringMiddle(equation, equation_in, pos_eq_in, pos + 1);// результат на месте функции
+                    pos_eq_in = strlen(equation_in);
+                    pos--;
+                } else {
+                    equation_in[pos_eq_in++] = equation[pos++];
                 }
-                equation_in[pos_eq_in++] = equation[pos++];
             }
             // calculation in F()
-            getReversePN(equation_in);
-            res_in = Calculation(equation_in);
+            GetReversePN(equation_in);
+            res_in = MainCalculation(equation_in);
             // functions
-            if (strncmp(function, "cos", 3) == 0) {
-                res_in = cos(res_in);
-            } else if (strncmp(function, "sin", 3) == 0) {
-                res_in = sin(res_in);
-            } else if (strncmp(function, "sqrt", 4) == 0) {
-                res_in = sqrt(res_in);
-            } else if (strncmp(function, "tan", 3) == 0) {
-                res_in = tan(res_in);
-            } else if (strncmp(function, "acos", 4) == 0) {
-                res_in = acos(res_in);
-            } else if (strncmp(function, "asin", 4) == 0) {
-                res_in = asin(res_in);
-            } else if (strncmp(function, "atan", 4) == 0) {
-                res_in = atan(res_in);
-            } else if (strncmp(function, "ln", 2) == 0) {
-                res_in = log(res_in);
-            } else if (strncmp(function, "log", 3) == 0) {
-                res_in = log10(res_in);
-            } else {
-                printf("INCORRECT INPUT\n");
-                exit(-1);
-            }
+            res_in = FuncCalculation(function, res_in);
             // zamena func na result func
             memset(equation_in, '\0', sizeof(equation_in));
             sprintf(equation_in, "%lf", res_in);
-            if (strlen(equation) + strlen(equation) >= NMAX) {
-                printf("RESULT IS TOO LONG\n");
-                exit(-1);
-            }
-            char *equation_tmp = (char *)malloc(strlen(equation) + strlen(equation_in));
-            memset(equation_tmp, '\0', sizeof(equation_tmp));
-
-            strncpy(equation_tmp, equation, border_cpy_right); // begin
-            strcat(equation_tmp, equation_in); // middle
-            strcat(equation_tmp, equation + border_cpy_right + pos_eq_in + pos_func + 2); // end
-
-            memset(equation, '\0', sizeof(equation));
-            strcpy(equation, equation_tmp);
+            SetStringMiddle(equation, equation_in, border_cpy_right, border_cpy_right + strlen(equation_in) + strlen(function) + 3);
             // ->NULL
             border_cpy_right = 0;
             pos_func = 0;
             pos_eq_in = 0;
-            memset(equation_tmp, '\0', sizeof(equation_tmp));
+            // memset(equation_tmp, '\0', sizeof(equation_tmp));
             memset(function, '\0', sizeof(function));
             memset(equation_in, '\0', sizeof(equation_in));
             res_in = 0.0;
-            free(equation_tmp);
+            // free(equation_tmp);
         }
         pos++;
     }
 }
 
+void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
+    if (strlen(src) + strlen(dest) >= NMAX) {
+        printf("RESULT IS TOO LONG\n");
+        exit(-1);
+    }
+    
+    char tmp_string[NMAX] = {'\0'};
+    strncpy(tmp_string, dest, r_border); // begin
+    strcat(tmp_string, src); // middle
+    strcat(tmp_string, dest + l_border); // end
+
+    memset(dest, '\0', sizeof(dest));
+    strcpy(dest, tmp_string);
+}
+
+double FuncCalculation(char *function, double res_in) {
+    double result = 0.0;
+    if (strncmp(function, "cos", 3) == 0) {
+        result = cos(res_in);
+    } else if (strncmp(function, "sin", 3) == 0) {
+        result = sin(res_in);
+    } else if (strncmp(function, "sqrt", 4) == 0) {
+        result = sqrt(res_in);
+    } else if (strncmp(function, "tan", 3) == 0) {
+        result = tan(res_in);
+    } else if (strncmp(function, "acos", 4) == 0) {
+        result = acos(res_in);
+    } else if (strncmp(function, "asin", 4) == 0) {
+        result = asin(res_in);
+    } else if (strncmp(function, "atan", 4) == 0) {
+        result = atan(res_in);
+    } else if (strncmp(function, "ln", 2) == 0) {
+        result = log(res_in);
+    } else if (strncmp(function, "log", 3) == 0) {
+        result = log10(res_in);
+    } else {
+        printf("INCORRECT INPUT\n");
+        exit(-1);
+    }
+
+    return result;
+}
+
 int main() {
-    char primer[255] = "1 + cos(cos(1 - 1)) + 10";
-    formatFunc(primer);
-    getReversePN(primer);
+    char primer[255] = "1 + cos(sqrt(121)) + 10";
+    FormatFunc(primer);
+    GetReversePN(primer);
     // printf("%s", primer);
-    double res = Calculation(primer);
-    printf("\n%lf", res);
+    double res = MainCalculation(primer);
+    printf("%lf", res);
     return 0;
 }
 
