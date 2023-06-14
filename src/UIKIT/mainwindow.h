@@ -15,7 +15,12 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+
+private slots:
+    void digit_nums();
+
 private:
     Ui::MainWindow *ui;
+
 };
 #endif // MAINWINDOW_H
