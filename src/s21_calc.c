@@ -1,5 +1,23 @@
 #include "s21_calc.h"
 
+/*
+main
+*/
+double calc(char *equation, double x) {
+    FormatX(equation, x);
+    CheckEquation(equation);
+    FormatFunc(equation);
+    GetReversePN(equation);
+    double result = GetResult(equation);
+    return result;
+}
+/*
+-------------------------------------
+*/
+
+/*
+stack
+*/
 char_stack_t * s_push(char_stack_t * head, char a) {
     char_stack_t * ptr;
     if ((ptr = (char_stack_t*)malloc(sizeof(char_stack_t))) == NULL){
@@ -41,6 +59,242 @@ double cs_pop(calc_stack_t ** head) {
     free(ptr);
     return num;
 }
+/*
+-------------------------------------
+*/
+
+
+/*
+check and parse
+*/
+bool isNum(char c) {
+    bool status = false;
+    if ((c >= 48 && c <= 57) || c == '.' || c == 'e' || c == 'E') status = true;
+    return status;
+}
+
+bool isOper(char c) {
+    bool status = false;
+    if (c == '%' || c == '+'|| c =='-'|| c =='*'|| c =='/'|| c =='^' || c == '~') status = true;
+    return status;
+}
+
+bool isCorrectNum(char *array_of_nums) { // скорее всего не нужна, так как не вали не проходит
+    bool status = true;
+    size_t pos = 0, pos_buf = 0;
+    char buffer_separtate_num[NMAX] = {'\0'};
+    while (array_of_nums[pos] != '\0') {
+        while (array_of_nums[pos] != ' ') { // берем отдельное число из общей строки и пороверяем
+            buffer_separtate_num[pos_buf++] = array_of_nums[pos++];
+        }
+
+        if (atof(buffer_separtate_num) == 0.0 && buffer_separtate_num[0] != '0') {
+            status = false;
+        }
+        pos_buf = 0;
+        memset(&buffer_separtate_num, '\0', sizeof(buffer_separtate_num));
+        pos++;
+    }
+    return status;
+}
+
+void CheckEquation(char *equation) {
+    bool result = true;
+    char current_oper = '\0';
+    char nums[NMAX] = {'\0'};
+    size_t pos = 0;
+    size_t pos_nums = 0;
+    double current_dbl = 0;
+    int bracket = 0;
+
+    while (equation[pos] != '\0') {
+        char tmp = equation[pos];
+        if (isdigit(equation[pos])) {
+            while (isNum(equation[pos])) {
+                nums[pos_nums++] = equation[pos++];
+            }
+            nums[pos_nums++] = ' ';
+            (isCorrectNum(nums)) ? current_dbl = atof(nums) : ERR();
+            if (current_oper == '/' && current_dbl == 0.0)  ERR();
+            memset(nums, '\0', sizeof(nums));
+            pos_nums = 0;
+        }
+        if (equation[pos] == ')' || equation[pos] == '(') {
+            if (equation[pos] == '(') {
+                bracket++;
+            }
+            if (equation[pos] == ')' && bracket <= 0) {
+                ERR();
+            } else if (equation[pos] == ')' && bracket != 0) {
+                bracket--;
+            }
+        }
+        pos++;
+    }
+}
+
+void FormatX(char *equation, double x) {
+    size_t pos = 0;
+    char x_string[NMAX] = {'\0'};
+
+    while (equation[pos] != '\0') {
+        if (equation[pos] == 'x') {
+            sprintf(x_string, "%lf", x);
+            SetStringMiddle(equation, x_string, pos, pos + 1);
+        }
+        pos++;
+    }
+} 
+
+void FormatFunc(char *equation) {
+    int bracket = 0;
+    size_t border_cpy_right = 0;
+    size_t border_cpy_left = 0;
+    size_t pos = 0;
+    size_t pos_func = 0;
+    size_t pos_eq_in = 0;
+    char function[NMAX] = {'\0'};
+    char equation_in[NMAX] = {'\0'};
+    double res_in = 0.0;
+
+    while (equation[pos] != '\0') {
+        if (isalpha(equation[pos]) && equation[pos] != ' ' && equation[pos] != '.') {
+            border_cpy_right = pos;
+            if (equation[pos] == 'm') { // mod
+                strncpy(function, equation + pos, 3);
+                if (strncmp(function, "mod", 3) == 0) {
+                    SetStringMiddle(equation, "%", pos, pos + 3);
+                }
+                memset(function, '\0', sizeof(function));
+                continue;
+            }
+            while (equation[pos] != '(') { // other func
+                function[pos_func++] = equation[pos++];
+            }
+            pos++;
+            while (true) { // ()
+                if (equation[pos] == '(') {
+                    bracket++;
+                }
+                if (equation[pos] == ')' && bracket == 0) {
+                    break;
+                } else if (equation[pos] == ')' && bracket != 0) {
+                    bracket--;
+                }
+                equation_in[pos_eq_in++] = equation[pos++];
+                border_cpy_left = pos + 1;
+            }
+            // reverse format eq_in
+            if (strlen(equation_in) > 0) FormatFunc(equation_in);
+            // calculation in F()
+            GetReversePN(equation_in);
+            res_in = GetResult(equation_in);
+            // functions
+            res_in = FuncCalculation(function, res_in);
+            // zamena func na result func
+            memset(equation_in, '\0', sizeof(equation_in));
+            sprintf(equation_in, "%lf", res_in);
+            SetStringMiddle(equation, equation_in, border_cpy_right, border_cpy_left);
+            if (res_in < 0) equation[border_cpy_right] = '~';
+            pos = border_cpy_left;
+            // ->NULL
+            border_cpy_right = 0;
+            border_cpy_left = 0;
+            pos_func = 0;
+            pos_eq_in = 0;
+            memset(function, '\0', sizeof(function));
+            memset(equation_in, '\0', sizeof(equation_in));
+            res_in = 0.0;
+        }
+        pos++;
+    }
+}
+/*
+-------------------------------------
+*/
+
+/*
+calculation
+*/
+int GetPriority(char ch) {
+    int priority = 0;
+    switch(ch) {
+        case '~' :
+            priority = 5;
+            break;
+        case '^':
+            priority = 3;
+            break;
+        case '*':
+            priority = 2;
+            break;
+        case '/':
+            priority = 2;
+            break;
+        case '%':
+            priority = 2;
+            break;
+        case 'm':
+            priority = 2;
+            break;
+        case '-':
+            priority = 1;
+            break;
+        case '+':
+            priority = 1;
+            break;
+    }
+    return priority;
+}
+
+double ExecutableInstructions(char op, double first, double second) {
+    double result = 0.0;
+    switch (op) {
+        case '+':
+            result = first + second;
+            break;
+        case '-':
+            result = first - second;
+            break;
+        case '*':
+            result = first * second;
+            break;
+        case '/':
+            result = first / second;
+            break;
+        case '%':
+            result = fmod(first, second);
+            break;
+    }
+    return result;
+}
+
+double FuncCalculation(char *function, double res_in) {
+    double result = 0.0;
+    if (strncmp(function, "cos", 3) == 0) {
+        result = cos(res_in);
+    } else if (strncmp(function, "sin", 3) == 0) {
+        result = sin(res_in);
+    } else if (strncmp(function, "sqrt", 4) == 0) {
+        result = sqrt(res_in);
+    } else if (strncmp(function, "tan", 3) == 0) {
+        result = tan(res_in);
+    } else if (strncmp(function, "acos", 4) == 0) {
+        result = acos(res_in);
+    } else if (strncmp(function, "asin", 4) == 0) {
+        result = asin(res_in);
+    } else if (strncmp(function, "atan", 4) == 0) {
+        result = atan(res_in);
+    } else if (strncmp(function, "ln", 2) == 0) {
+        result = log(res_in);
+    } else if (strncmp(function, "log", 3) == 0) {
+        result = log10(res_in);
+    } else {
+        ERR();
+    }
+
+    return result;
+}
 
 void GetReversePN(char * equation) {
     char_stack_t * operation = NULL;
@@ -63,13 +317,8 @@ void GetReversePN(char * equation) {
             while (isNum(equation[pos])) {
                 output[output_pos++] = equation[pos++];
             }
-            pos--; // если не будет пробела
+            pos--;
             output[output_pos++] = ' ';
-
-            // if (!isCorrectNum(output)) { // проверка на валид
-            //     printf("INCORRECT INPUT\n"); // подумать как выводить ошибки в qt
-            //     exit(-1);
-            // }
         }
         if (isOper(equation[pos])) {
             if (operation == NULL) {
@@ -116,91 +365,7 @@ void GetReversePN(char * equation) {
     free(output);
 }
 
-int GetPriority(char ch) {
-    int priority = 0;
-    switch(ch) {
-        case '~' :
-            priority = 5;
-            break;
-        case '^':
-            priority = 3;
-            break;
-        case '*':
-            priority = 2;
-            break;
-        case '/':
-            priority = 2;
-            break;
-        case '%':
-            priority = 2;
-            break;
-        case 'm':
-            priority = 2;
-            break;
-        case '-':
-            priority = 1;
-            break;
-        case '+':
-            priority = 1;
-            break;
-    }
-    return priority;
-}
-
-bool isNum(char c) {
-    bool status = false;
-    if ((c >= 48 && c <= 57) || c == '.' || c == 'e' || c == 'E') status = true;
-    return status;
-}
-
-bool isOper(char c) {
-    bool status = false;
-    if (c == '%' || c == '+'|| c =='-'|| c =='*'|| c =='/'|| c =='^' || c == '~' || c == 'm') status = true;
-    return status;
-}
-
-bool isCorrectNum(char *array_of_nums) { // скорее всего не нужна, так как не вали не проходит
-    bool status = true;
-    size_t pos = 0, pos_buf = 0;
-    char buffer_separtate_num[NMAX] = {'\0'};
-    while (array_of_nums[pos] != '\0') {
-        while (array_of_nums[pos] != ' ') { // берем отдельное число из общей строки и пороверяем
-            buffer_separtate_num[pos_buf++] = array_of_nums[pos++];
-        }
-
-        if (atof(buffer_separtate_num) == 0.0 && buffer_separtate_num[0] != '0') {
-            status = false;
-        }
-        pos_buf = 0;
-        memset(&buffer_separtate_num, '\0', sizeof(buffer_separtate_num));
-        pos++;
-    }
-    return status;
-}
-
-double ExecutableInstructions(char op, double first, double second) {
-    double result = 0.0;
-    switch (op) {
-        case '+':
-            result = first + second;
-            break;
-        case '-':
-            result = first - second;
-            break;
-        case '*':
-            result = first * second;
-            break;
-        case '/':
-            result = first / second;
-            break;
-        case '%':
-            result = fmod(first, second);
-            break;
-    }
-    return result;
-}
-
-double MainCalculation(char *equation) {
+double GetResult(char *equation) {
     /*
     Проходим постфиксную запись;
     При нахождении числа, парсим его и заносим в стек;
@@ -242,72 +407,13 @@ double MainCalculation(char *equation) {
     }
     return cs_pop(&buffer);
 }
+/*
+-------------------------------------
+*/
 
-void FormatFunc(char *equation) {
-    int bracket = 0;
-    size_t border_cpy_right = 0;
-    size_t border_cpy_left = 0;
-    size_t pos = 0;
-    size_t pos_func = 0;
-    size_t pos_eq_in = 0;
-    char function[NMAX] = {'\0'};
-    char equation_in[NMAX] = {'\0'};
-    double res_in = 0.0;
-
-    while (equation[pos] != '\0') {
-        if (isalpha(equation[pos]) && equation[pos] != ' ' && equation[pos] != '.') {
-            border_cpy_right = pos;
-            if (equation[pos] == 'm') { // mod
-                strncpy(function, equation + pos, 3);
-                if (strncmp(function, "mod", 3) == 0) {
-                    SetStringMiddle(equation, "%", pos, pos + 3);
-                } else {
-                    printf("INCORRECT INPUT\n");
-                    exit(-1);
-                }
-                memset(function, '\0', sizeof(function));
-                continue;
-            }
-            while (equation[pos] != '(') { // other func
-                function[pos_func++] = equation[pos++];
-            }
-            pos++;
-            while (true) { // ()
-                if (equation[pos] == '(') {
-                    bracket++;
-                }
-                if (equation[pos] == ')' && bracket == 0) {
-                    break;
-                } else if (equation[pos] == ')' && bracket != 0) {
-                    bracket--;
-                }
-                equation_in[pos_eq_in++] = equation[pos++];
-                border_cpy_left = pos + 1;
-            }
-            // reverse format eq_in
-            if (strlen(equation_in) > 0) FormatFunc(equation_in);
-            // calculation in F()
-            GetReversePN(equation_in);
-            res_in = MainCalculation(equation_in);
-            // functions
-            res_in = FuncCalculation(function, res_in);
-            // zamena func na result func
-            memset(equation_in, '\0', sizeof(equation_in));
-            sprintf(equation_in, "%lf", res_in);
-            SetStringMiddle(equation, equation_in, border_cpy_right, border_cpy_left);
-            if (res_in < 0) equation[border_cpy_right] = '~';
-            // ->NULL
-            border_cpy_right = 0;
-            pos_func = 0;
-            pos_eq_in = 0;
-            memset(function, '\0', sizeof(function));
-            memset(equation_in, '\0', sizeof(equation_in));
-            res_in = 0.0;
-        }
-        pos++;
-    }
-}
-
+/*
+help
+*/
 void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
     char tmp_string[NMAX] = {'\0'};
     strncpy(tmp_string, dest, r_border); // begin
@@ -318,39 +424,18 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
     strcpy(dest, tmp_string);
 }
 
-double FuncCalculation(char *function, double res_in) {
-    double result = 0.0;
-    if (strncmp(function, "cos", 3) == 0) {
-        result = cos(res_in);
-    } else if (strncmp(function, "sin", 3) == 0) {
-        result = sin(res_in);
-    } else if (strncmp(function, "sqrt", 4) == 0) {
-        result = sqrt(res_in);
-    } else if (strncmp(function, "tan", 3) == 0) {
-        result = tan(res_in);
-    } else if (strncmp(function, "acos", 4) == 0) {
-        result = acos(res_in);
-    } else if (strncmp(function, "asin", 4) == 0) {
-        result = asin(res_in);
-    } else if (strncmp(function, "atan", 4) == 0) {
-        result = atan(res_in);
-    } else if (strncmp(function, "ln", 2) == 0) {
-        result = log(res_in);
-    } else if (strncmp(function, "log", 3) == 0) {
-        result = log10(res_in);
-    } else {
-        printf("INCORRECT INPUT\n");
-        exit(-1);
-    }
-
-    return result;
+void ERR() {
+    printf("INCORRECT INPUT");
+    exit(-1);
 }
-
+/*
+-------------------------------------
+*/
 int main() {
-    char primer[255] = "1 + 2 mod cos(0) + sin(sin(sin(0 + 0) + 0)) + 10";
-    FormatFunc(primer);
-    GetReversePN(primer);
-    double res = MainCalculation(primer);
+    
+    char primer[255] = "123+sin(sin(0+21-21))";
+    // scanf("%s", primer);
+    double res = calc(primer, 1.0);
     printf("%lf", res);
     return 0;
 }

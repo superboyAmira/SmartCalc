@@ -32,12 +32,15 @@ bool isNum(char c);
 bool isCorrectNum(char *array_of_nums);
 // bool isCorrectFunction(char *equation);
 
-double MainCalculation(char *equation);
+double GetResult(char *equation);
 double ExecutableInstructions(char op, double first, double second);
 void FormatFunc(char *equation);
 void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border);
 double FuncCalculation(char *function, double res_in);
-size_t GetEquationInBrackets(char *eq, char *result);
+void FormatX(char *equation, double x);
+double calc(char *equation, double x);
+void CheckEquation(char *equation);
+void ERR();
 
 #endif  // SRC_S21_CALC_H_
 
