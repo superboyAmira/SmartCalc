@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "../s21_calc.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,12 +22,15 @@ private slots:
     void ViewOperators();
 
     void ViewFuncs();
+
     void ViewBracket();
 
 private:
     Ui::MainWindow *ui;
 
     void FormatFont();
+
+    void Calculation();
 
 };
 #endif // MAINWINDOW_H

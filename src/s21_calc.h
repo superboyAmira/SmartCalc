@@ -38,7 +38,7 @@ void FormatFunc(char *equation);
 void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border);
 double FuncCalculation(char *function, double res_in);
 void FormatX(char *equation, double x);
-double calc(char *equation, double x);
+double Calc(char *equation, double x);
 void CheckEquation(char *equation);
 void ERR();
 

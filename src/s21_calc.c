@@ -3,7 +3,7 @@
 /*
 main
 */
-double calc(char *equation, double x) {
+double Calc(char *equation, double x) {
     FormatX(equation, x);
     CheckEquation(equation);
     FormatFunc(equation);
@@ -431,11 +431,11 @@ void ERR() {
 /*
 -------------------------------------
 */
-int main() {
+// int main() {
     
-    char primer[255] = "123+sin(sin(0+21-21))";
-    // scanf("%s", primer);
-    double res = calc(primer, 1.0);
-    printf("%lf", res);
-    return 0;
-}
+//     char primer[255] = "123+sin(sin(0+21-21))";
+//     // scanf("%s", primer);
+//     double res = calc(primer, 1.0);
+//     printf("%lf", res);
+//     return 0;
+// }
