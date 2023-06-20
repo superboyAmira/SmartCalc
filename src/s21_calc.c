@@ -114,7 +114,11 @@ void CheckEquation(char *equation) {
                 nums[pos_nums++] = equation[pos++];
             }
             nums[pos_nums++] = ' ';
-            (isCorrectNum(nums)) ? current_dbl = atof(nums) : ERR();
+            if (isCorrectNum(nums)) {
+                current_dbl = atof(nums);
+            } else {
+                ERR();
+            }
             if (current_oper == '/' && current_dbl == 0.0)  ERR();
             memset(nums, '\0', sizeof(nums));
             pos_nums = 0;
@@ -433,9 +437,9 @@ void ERR() {
 */
 // int main() {
     
-//     char primer[255] = "123+sin(sin(0+21-21))";
+//     char primer[255] = "sqrt(121)";
 //     // scanf("%s", primer);
-//     double res = calc(primer, 1.0);
+//     double res = Calc(primer, 0.0);
 //     printf("%lf", res);
 //     return 0;
 // }

@@ -1,7 +1,7 @@
 #ifndef SRC_S21_CALC_H_
 #define SRC_S21_CALC_H_
 
-#define NMAX 255
+#define NMAX 1000
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>

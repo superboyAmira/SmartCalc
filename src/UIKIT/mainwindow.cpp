@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "../s21_calc.h"
+#include "../s21_calc.c"
 
-//#include <QDebug>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -21,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_sqrt, SIGNAL(clicked()), this, SLOT(ViewFuncs()));
     connect(ui->pushButton_Ln, SIGNAL(clicked()), this, SLOT(ViewFuncs()));
     connect(ui->pushButton_log, SIGNAL(clicked()), this, SLOT(ViewFuncs()));
+    connect(ui->pushButton_x, SIGNAL(clicked()), this, SLOT(ViewOperators()));
 
     connect(ui->pushButton_0, SIGNAL(clicked()), this, SLOT(ViewNums()));
     connect(ui->pushButton_1, SIGNAL(clicked()), this, SLOT(ViewNums()));
@@ -32,7 +35,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_7, SIGNAL(clicked()), this, SLOT(ViewNums()));
     connect(ui->pushButton_8, SIGNAL(clicked()), this, SLOT(ViewNums()));
     connect(ui->pushButton_9, SIGNAL(clicked()), this, SLOT(ViewNums()));
-    connect(ui->pushButton_x, SIGNAL(clicked()), this, SLOT(ViewNums()));
 
     connect(ui->pushButton_coma, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_unMin, SIGNAL(clicked()), this, SLOT(ViewOperators()));
@@ -59,37 +61,40 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::ViewBracket() {
-    if (ui->label_output->text().at(ui->label_output->text().length() - 1) != '(')
-        ui->label_output->setText(ui->label_output->text() + ")");
-}
-
-
 void MainWindow::FormatFont() {
     static int max_size = 9;
+
     static int font_size = 48;
 
     if (ui->label_output->text().length() == 0) {
         max_size = 9;
+
         font_size = 48;
 
         QFont tmp_font = ui->label_output->font();
 
         tmp_font.setPixelSize(font_size);
+
         ui->label_output->setFont(tmp_font);
     }
 
-
     if (ui->label_output->text().length() > max_size) {
         font_size -= 4;
+
         (font_size > 24) ? max_size += 1 : max_size += 12;
 
         QFont tmp_font = ui->label_output->font();
 
         tmp_font.setPixelSize(font_size);
+
         ui->label_output->setFont(tmp_font);
 
     }
+}
+
+void MainWindow::ViewBracket() {
+    if (ui->label_output->text().at(ui->label_output->text().length() - 1) != '(')
+        ui->label_output->setText(ui->label_output->text() + ")");
 }
 
 void MainWindow::ViewNums() {
@@ -107,48 +112,84 @@ void MainWindow::ViewNums() {
         ui->label_output->setText(ui->label_output->text() + button->text());
     }
 }
+
 void MainWindow::ViewFuncs() {
     FormatFont();
 
     QPushButton * button = static_cast<QPushButton*>(QObject::sender());
 
-    ui->label_output->setText(ui->label_output->text() + button->text().toLower() + "(");
+    if (ui->label_output->text().length() == 1) {
+        if (ui->label_output->text().at(0) == '0') {
+            ui->label_output->setText(button->text());
+        } else {
+             ui->label_output->setText(ui->label_output->text() + button->text().toLower() + "(");
+        }
+    } else {
+         ui->label_output->setText(ui->label_output->text() + button->text().toLower() + "(");
+    }
 }
 
 
 void MainWindow::ViewOperators()
 {
     FormatFont();
+
     QPushButton * button = static_cast<QPushButton*>(QObject::sender());
 
     if (button->text() == "~/+" && ui->label_output->text().length() > 0) {
+
         QString all_nums = (ui->label_output->text());
+
         (all_nums.at(0) == '-') ? all_nums.remove(0, 1) : all_nums.insert(0, '-');
-//        all_nums = 0 - all_nums;
-//        QString output = QString::number(all_nums, 'g', 255);
+
         ui->label_output->setText(all_nums);
+
     } else if (button->text() == "AC" && ui->label_output->text().length() > 0) {
+
         ui->label_output->clear();
+
     } else if (button->text() == "." && ui->label_output->text().length() > 0) {
+
         if (ui->label_output->text().contains('.') == false && ui->label_output->text() != "") {
             ui->label_output->setText(ui->label_output->text() + ".");
-        }   
-    } else if (button->text() == "=" && ui->label_output->text().length() > 0) {
-        // здесь как раз вставим функцию вычисления
+        }
 
-    } else if (ui->label_output->text().length() > 0){
+    } else if (button->text() == "=" && (ui->label_output->text().length() > 0 && ui->label_output->text().toDouble() == 0.0 && ui->label_output->text().at(0) != '0')) {
+
+        char *equation = QStringToChar(ui->label_output->text());
+
+        double x = 0.0;
+
+        if (ui->input_x->isChecked()) {
+            x = ui->lineEdit_input_x->text().toDouble();
+        }
+
+        double result_dbl = Calc(equation, x);
+
+        QString result_qstr = (fabs(result_dbl - (int)result_dbl) < 0.00000001) ? QString::asprintf("%d", (int)result_dbl) : QString::asprintf("%.7lf", result_dbl);
+
+        ui->label_output->setText(result_qstr);
+
+    } else if (button->text() == "X") {
+
+        ui->label_output->setText(ui->label_output->text() + button->text().toLower());
+
+    } else if (ui->label_output->text().length() > 0 && button->text() != "=") {
+
         QChar tmp_qchar = ui->label_output->text().at(ui->label_output->text().length() - 1);
 
-        if ((tmp_qchar.isNumber() || tmp_qchar == ')') && button->text() != "%") {
+        if ((tmp_qchar.isNumber() || tmp_qchar == ')' || tmp_qchar == 'x') && button->text() != "%") {
             ui->label_output->setText(ui->label_output->text() + button->text());
-        } else if ((tmp_qchar.isNumber() || tmp_qchar == ')') && button->text() == "%") {
+        } else if ((tmp_qchar.isNumber() || tmp_qchar == ')' || tmp_qchar == 'x') && button->text() == "%") {
             ui->label_output->setText(ui->label_output->text() + "mod");
         }
     }
 }
 
-void MainWindow::Calculation() {
-    char *equation = ui->label_output->text().toStdString();
-    double result = Calc(ui->label_output->text().toStdString(), 0.0);
+char * QStringToChar(QString src) {
+    QByteArray _t = src.toLocal8Bit();
 
+    char *_returned = _t.data();
+
+    return _returned;
 }

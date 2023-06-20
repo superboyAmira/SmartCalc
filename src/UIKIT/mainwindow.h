@@ -2,7 +2,13 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "../s21_calc.h"
+
+#ifdef __cplusplus
+extern "C"
+{
+    #include "../s21_calc.h"
+}
+#endif
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -14,7 +20,6 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
 
 private slots:
     void ViewNums();
@@ -30,7 +35,10 @@ private:
 
     void FormatFont();
 
-    void Calculation();
-
 };
+
+// help functions
+
+char * QStringToChar(QString src);
+
 #endif // MAINWINDOW_H

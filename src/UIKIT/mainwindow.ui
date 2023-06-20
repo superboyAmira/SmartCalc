@@ -38,7 +38,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <property name="iconSize">
      <size>
@@ -721,33 +721,6 @@
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_x">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>280</y>
-        <width>81</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>X</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>16</width>
-        <height>16</height>
-       </size>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pushButton_cos">
       <property name="geometry">
        <rect>
@@ -1096,9 +1069,9 @@
      <widget class="QPushButton" name="pushButton_bracket_close">
       <property name="geometry">
        <rect>
-        <x>79</x>
+        <x>80</x>
         <y>280</y>
-        <width>81</width>
+        <width>80</width>
         <height>41</height>
        </rect>
       </property>
@@ -1118,6 +1091,48 @@
         <width>16</width>
         <height>16</height>
        </size>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_input_x">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>330</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="input_x">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>310</y>
+        <width>71</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Input X</string>
+      </property>
+      <property name="tristate">
+       <bool>false</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_x">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>280</y>
+        <width>81</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>X</string>
       </property>
      </widget>
     </widget>
