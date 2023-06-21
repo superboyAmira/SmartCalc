@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QVector>
 
 #ifdef __cplusplus
 extern "C"
@@ -21,6 +22,8 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void FormatFont();
+
 private slots:
     void ViewNums();
 
@@ -30,10 +33,14 @@ private slots:
 
     void ViewBracket();
 
+    void DrawGraph();
+
 private:
     Ui::MainWindow *ui;
 
-    void FormatFont();
+    double xBegin, xEnd, step, X;
+    int dots;
+    QVector<double> x, y;
 
 };
 

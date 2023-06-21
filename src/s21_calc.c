@@ -99,7 +99,6 @@ bool isCorrectNum(char *array_of_nums) { // скорее всего не нуж�
 }
 
 void CheckEquation(char *equation) {
-    bool result = true;
     char current_oper = '\0';
     char nums[NMAX] = {'\0'};
     size_t pos = 0;
@@ -108,7 +107,6 @@ void CheckEquation(char *equation) {
     int bracket = 0;
 
     while (equation[pos] != '\0') {
-        char tmp = equation[pos];
         if (isdigit(equation[pos])) {
             while (isNum(equation[pos])) {
                 nums[pos_nums++] = equation[pos++];
@@ -265,6 +263,9 @@ double ExecutableInstructions(char op, double first, double second) {
             break;
         case '/':
             result = first / second;
+            break;
+        case '^':
+            result = pow(first, second);
             break;
         case '%':
             result = fmod(first, second);
@@ -437,7 +438,7 @@ void ERR() {
 */
 // int main() {
     
-//     char primer[255] = "sqrt(121)";
+//     char primer[255] = "sqrt(121)^2";
 //     // scanf("%s", primer);
 //     double res = Calc(primer, 0.0);
 //     printf("%lf", res);

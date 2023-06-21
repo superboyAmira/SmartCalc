@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     ui->label_output->setText("");
 
+    connect(ui->pushButton_bracket_open, SIGNAL(clicked()), this, SLOT(ViewBracket()));
     connect(ui->pushButton_bracket_close, SIGNAL(clicked()), this, SLOT(ViewBracket()));
 
     connect(ui->pushButton_cos, SIGNAL(clicked()), this, SLOT(ViewFuncs()));
@@ -53,8 +54,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_minus_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_mult_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_del_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_mod_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
+    connect(ui->pushButton_degree, SIGNAL(clicked()), this, SLOT(ViewOperators()));
+
+    connect(ui->pushButton_draw_graph, SIGNAL(clicked()), this, SLOT(DrawGraph()));
 }
+
+// another func
 
 MainWindow::~MainWindow()
 {
@@ -92,9 +97,22 @@ void MainWindow::FormatFont() {
     }
 }
 
+char * QStringToChar(QString src) {
+    QByteArray _t = src.toLocal8Bit();
+
+    char *_returned = _t.data();
+
+    return _returned;
+}
+
+// ------------------
+
+// Nums and Functions
+
 void MainWindow::ViewBracket() {
-    if (ui->label_output->text().at(ui->label_output->text().length() - 1) != '(')
-        ui->label_output->setText(ui->label_output->text() + ")");
+     QPushButton * button = static_cast<QPushButton*>(QObject::sender());
+
+     ui->label_output->setText(ui->label_output->text() + button->text());
 }
 
 void MainWindow::ViewNums() {
@@ -120,7 +138,7 @@ void MainWindow::ViewFuncs() {
 
     if (ui->label_output->text().length() == 1) {
         if (ui->label_output->text().at(0) == '0') {
-            ui->label_output->setText(button->text());
+            ui->label_output->setText(button->text().toLower() + "(");
         } else {
              ui->label_output->setText(ui->label_output->text() + button->text().toLower() + "(");
         }
@@ -186,10 +204,49 @@ void MainWindow::ViewOperators()
     }
 }
 
-char * QStringToChar(QString src) {
-    QByteArray _t = src.toLocal8Bit();
 
-    char *_returned = _t.data();
+// ------------------
 
-    return _returned;
+// Graphics
+
+void MainWindow::DrawGraph() {
+    ui->widget->clearPlottables();
+
+    xBegin = ui->spinBox_x_min->value();
+    xEnd = ui->spinBox_x_max->value();
+    dots = 1000;
+    step = (xEnd + xBegin) / dots;
+    double _t = 0.0;
+    char * _c = NULL;
+
+    if ((xEnd + xBegin) != 0) {
+        xBegin *= -1;
+        ui->widget->xAxis->setRange(xBegin,xEnd);
+        ui->widget->yAxis->setRange(-5,5);
+    //    ui->widget->xAxis->setRange(ui->spinBox_x_min->value(), ui->spinBox_x_max->value());
+    //    ui->widget->yAxis->setRange(ui->spinBox_y_min->value(), ui->spinBox_y_max->value());
+
+        for (X = xBegin; X <= xEnd; X += step) {
+            x.push_back(X);
+            _c = QStringToChar(ui->label_output->text());
+            _t = Calc(_c, X);
+            y.push_back(_t);
+        }
+
+        ui->widget->addGraph();
+        ui->widget->graph(0)->addData(x,y);
+
+        double minY = y[0], maxY = y[0];
+        for (int i = 1; i < dots; i++) {
+            if (y[i] < minY) minY = y[i];
+            if (y[i] > maxY) maxY = y[i];
+        }
+        ui->widget->yAxis->setRange(minY, maxY);
+
+        ui->widget->replot();
+        x.clear();
+        y.clear();
+    }
 }
+
+// ------------------

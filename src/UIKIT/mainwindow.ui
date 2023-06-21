@@ -16,7 +16,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Calculator v1.0</string>
   </property>
   <property name="dockOptions">
    <set>QMainWindow::AllowTabbedDocks|QMainWindow::AnimatedDocks</set>
@@ -38,7 +38,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <property name="iconSize">
      <size>
@@ -856,30 +856,6 @@
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_mod_5">
-      <property name="geometry">
-       <rect>
-        <x>160</x>
-        <y>0</y>
-        <width>80</width>
-        <height>80</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>%</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>16</width>
-        <height>16</height>
-       </size>
-      </property>
-     </widget>
      <widget class="QPushButton" name="pushButton_Ln">
       <property name="geometry">
        <rect>
@@ -1039,40 +1015,13 @@
        </size>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_graph">
-      <property name="geometry">
-       <rect>
-        <x>80</x>
-        <y>310</y>
-        <width>80</width>
-        <height>51</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>GRAPH</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>16</width>
-        <height>16</height>
-       </size>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="pushButton_bracket_close">
+     <widget class="QPushButton" name="pushButton_bracket_open">
       <property name="geometry">
        <rect>
         <x>80</x>
         <y>280</y>
-        <width>80</width>
-        <height>41</height>
+        <width>40</width>
+        <height>81</height>
        </rect>
       </property>
       <property name="font">
@@ -1084,7 +1033,7 @@
        <string notr="true"/>
       </property>
       <property name="text">
-       <string>NEXT</string>
+       <string>(</string>
       </property>
       <property name="iconSize">
        <size>
@@ -1100,9 +1049,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>330</y>
-        <width>71</width>
-        <height>21</height>
+        <y>310</y>
+        <width>77</width>
+        <height>41</height>
        </rect>
       </property>
      </widget>
@@ -1110,10 +1059,15 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>310</y>
-        <width>71</width>
+        <y>290</y>
+        <width>81</width>
         <height>20</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
       </property>
       <property name="text">
        <string>Input X</string>
@@ -1122,18 +1076,170 @@
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QPushButton" name="pushButton_bracket_close">
+      <property name="geometry">
+       <rect>
+        <x>120</x>
+        <y>280</y>
+        <width>40</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="text">
+       <string>)</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+     </widget>
      <widget class="QPushButton" name="pushButton_x">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>280</y>
-        <width>81</width>
-        <height>31</height>
+        <x>160</x>
+        <y>0</y>
+        <width>80</width>
+        <height>80</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+       </font>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="text">
        <string>X</string>
       </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="graph">
+     <property name="autoFillBackground">
+      <bool>false</bool>
+     </property>
+     <attribute name="title">
+      <string>GRAPH</string>
+     </attribute>
+     <widget class="QCustomPlot" name="widget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-5</x>
+        <y>130</y>
+        <width>330</width>
+        <height>231</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:grey;</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>317</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="3">
+        <widget class="QSpinBox" name="spinBox_x_max">
+         <property name="minimum">
+          <number>-1000000</number>
+         </property>
+         <property name="maximum">
+          <number>1000000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QSpinBox" name="spinBox_x_min">
+         <property name="minimum">
+          <number>-1000000</number>
+         </property>
+         <property name="maximum">
+          <number>1000000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_y_min">
+         <property name="text">
+          <string>Y min = </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_x_min">
+         <property name="text">
+          <string>X min = </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QSpinBox" name="spinBox_y_min">
+         <property name="minimum">
+          <number>-1000000</number>
+         </property>
+         <property name="maximum">
+          <number>1000000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_x_max">
+         <property name="text">
+          <string>X max = </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QSpinBox" name="spinBox_y_max">
+         <property name="minimum">
+          <number>-1000000</number>
+         </property>
+         <property name="maximum">
+          <number>1000000</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_y_max">
+         <property name="text">
+          <string>Y max = </string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" colspan="4">
+        <widget class="QPushButton" name="pushButton_draw_graph">
+         <property name="text">
+          <string>Draw Graphic</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </widget>
    </widget>
@@ -1182,6 +1288,14 @@
    </widget>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
