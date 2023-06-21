@@ -29,8 +29,6 @@ void GetReversePN(char * text);
 int GetPriority(char a);
 bool isOper(char c);
 bool isNum(char c);
-bool isCorrectNum(char *array_of_nums);
-// bool isCorrectFunction(char *equation);
 
 double GetResult(char *equation);
 double ExecutableInstructions(char op, double first, double second);
@@ -39,7 +37,7 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border);
 double FuncCalculation(char *function, double res_in);
 void FormatX(char *equation, double x);
 double Calc(char *equation, double x);
-void CheckEquation(char *equation);
+bool CheckEquation(char *equation);
 void ERR();
 
 #endif  // SRC_S21_CALC_H_

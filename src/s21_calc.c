@@ -5,7 +5,7 @@ main
 */
 double Calc(char *equation, double x) {
     FormatX(equation, x);
-    CheckEquation(equation);
+    if (!CheckEquation(equation)) ERR();
     FormatFunc(equation);
     GetReversePN(equation);
     double result = GetResult(equation);
@@ -79,45 +79,38 @@ bool isOper(char c) {
     return status;
 }
 
-bool isCorrectNum(char *array_of_nums) { // скорее всего не нужна, так как не вали не проходит
+bool CheckEquation(char *equation) {
     bool status = true;
-    size_t pos = 0, pos_buf = 0;
-    char buffer_separtate_num[NMAX] = {'\0'};
-    while (array_of_nums[pos] != '\0') {
-        while (array_of_nums[pos] != ' ') { // берем отдельное число из общей строки и пороверяем
-            buffer_separtate_num[pos_buf++] = array_of_nums[pos++];
-        }
 
-        if (atof(buffer_separtate_num) == 0.0 && buffer_separtate_num[0] != '0') {
-            status = false;
-        }
-        pos_buf = 0;
-        memset(&buffer_separtate_num, '\0', sizeof(buffer_separtate_num));
-        pos++;
-    }
-    return status;
-}
-
-void CheckEquation(char *equation) {
-    char current_oper = '\0';
-    char nums[NMAX] = {'\0'};
+    int bracket = 0;
     size_t pos = 0;
     size_t pos_nums = 0;
-    double current_dbl = 0;
-    int bracket = 0;
+    char current_oper = '\0';
+    char nums[NMAX] = {'\0'};
+    char *check_dbl = NULL;
 
-    while (equation[pos] != '\0') {
+    while (equation[pos] != '\0' && status) {
+        if (isOper(equation[pos])) {
+            current_oper = equation[pos];
+        }
         if (isdigit(equation[pos])) {
-            while (isNum(equation[pos])) {
+            while (!isOper(equation[pos]) && equation[pos] != '('
+                    && equation[pos] != ')' && equation[pos] != '\0' 
+                    && equation[pos] != ' ') {
                 nums[pos_nums++] = equation[pos++];
             }
-            nums[pos_nums++] = ' ';
-            if (isCorrectNum(nums)) {
-                current_dbl = atof(nums);
-            } else {
-                ERR();
+            pos_nums = 0;
+            while (nums[pos_nums] != '\0') {
+                if (!isNum(nums[pos_nums])) {
+                    // ERR();
+                    status = false;
+                }
+                pos_nums++;
             }
-            if (current_oper == '/' && current_dbl == 0.0)  ERR();
+            if (atof(nums) == 0.0 && current_oper == '/') {
+                status = false;
+            }
+            
             memset(nums, '\0', sizeof(nums));
             pos_nums = 0;
         }
@@ -126,13 +119,14 @@ void CheckEquation(char *equation) {
                 bracket++;
             }
             if (equation[pos] == ')' && bracket <= 0) {
-                ERR();
+                status = false;
             } else if (equation[pos] == ')' && bracket != 0) {
                 bracket--;
             }
         }
         pos++;
     }
+    return status;
 }
 
 void FormatX(char *equation, double x) {
@@ -436,11 +430,12 @@ void ERR() {
 /*
 -------------------------------------
 */
-// int main() {
+int main() {
     
-//     char primer[255] = "sqrt(121)^2";
-//     // scanf("%s", primer);
-//     double res = Calc(primer, 0.0);
-//     printf("%lf", res);
-//     return 0;
-// }
+    char primer[255] = "1f.343";
+    scanf("%s", primer);
+    double res = 0.0;
+    res = Calc(primer, 0.0);
+    printf("%lf", res);
+    return 0;
+}
