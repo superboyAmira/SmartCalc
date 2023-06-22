@@ -3,8 +3,6 @@
 #include "../s21_calc.h"
 #include "../s21_calc.c"
 
-#include <QDebug>
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -182,17 +180,17 @@ void MainWindow::ViewOperators()
         if (ui->input_x->isChecked()) {
             x = ui->lineEdit_input_x->text().toDouble();
             if (ui->lineEdit_input_x->text() == "") {
-                QMessageBox::critical(this, "Error", "INVALID INPUT!");
+                status = false;
             }
         } else {
             if (ui->label_output->text().contains('x')) {
-                QMessageBox::critical(this, "Error", "INVALID INPUT!");
+                status = false;
             }
         }
 
         double result_dbl = Calc(equation, x, &status);
 
-        if (result_dbl == 0.0 && !status) {
+        if (result_dbl == 0.0 || !status) {
             QMessageBox::critical(this, "Error", "INVALID INPUT!");
         } else {
             QString result_qstr = (fabs(result_dbl - (int)result_dbl) < 0.00000001) ? QString::asprintf("%d", (int)result_dbl) : QString::asprintf("%.7lf", result_dbl);
@@ -249,3 +247,79 @@ void MainWindow::DrawGraph() {
 }
 
 // ------------------
+
+// credit
+
+
+
+// ------------------
+
+void MainWindow::on_pushButton_clicked() {
+    int credit_sum = ui->lineEdit_credit_amount->text().toInt();
+    int credit_timeframe_index = ui->comboBox_timeframe->currentIndex();
+    int credit_month = 0;
+    switch (credit_timeframe_index) {
+        case 0:
+            credit_month = 1;
+            break;
+        case 1:
+            credit_month = 3;
+            break;
+        case 2:
+            credit_month = 6;
+            break;
+        case 3:
+            credit_month = 9;
+            break;
+        case 4:
+            credit_month = 12;
+            break;
+        case 5:
+            credit_month = 18;
+            break;
+        case 6:
+            credit_month = 24;
+            break;
+        case 7:
+            credit_month = 36;
+            break;
+        case 8:
+            credit_month = 48;
+            break;
+        case 9:
+            credit_month = 60;
+            break;
+        case 10:
+            credit_month = 72;
+            break;
+        case 11:
+            credit_month = 84;
+            break;
+        case 12:
+            credit_month = 120;
+            break;
+        case 13:
+            credit_month = 180;
+            break;
+        case 14:
+            credit_month = 240;
+            break;
+        case 15:
+            credit_month = 300;
+            break;
+        case 16:
+            credit_month = 360;
+            break;
+    }
+    double credit_prezent = ui->lineEdit_rate->text().toDouble();
+    int credit_type = 0;
+    if (ui->radioButton_ann->isChecked()) {
+        credit_type = 1;
+    } else {
+        credit_type = 2;
+    }
+
+    double month_pay = (double)credit_sum * ((double)credit_prezent / (double)(1 + credit_prezent) - (double)credit_month - 1.0);
+    ui->label_monthly_pay_output->text().asprintf("%lf", month_pay);
+}
+

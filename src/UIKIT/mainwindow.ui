@@ -38,7 +38,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>3</number>
     </property>
     <property name="iconSize">
      <size>
@@ -779,7 +779,7 @@
       <property name="geometry">
        <rect>
         <x>160</x>
-        <y>280</y>
+        <y>0</y>
         <width>80</width>
         <height>80</height>
        </rect>
@@ -1018,7 +1018,7 @@
      <widget class="QPushButton" name="pushButton_bracket_open">
       <property name="geometry">
        <rect>
-        <x>80</x>
+        <x>160</x>
         <y>280</y>
         <width>40</width>
         <height>81</height>
@@ -1079,7 +1079,7 @@
      <widget class="QPushButton" name="pushButton_bracket_close">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>200</x>
         <y>280</y>
         <width>40</width>
         <height>81</height>
@@ -1106,8 +1106,8 @@
      <widget class="QPushButton" name="pushButton_x">
       <property name="geometry">
        <rect>
-        <x>160</x>
-        <y>0</y>
+        <x>80</x>
+        <y>280</y>
         <width>80</width>
         <height>80</height>
        </rect>
@@ -1154,12 +1154,12 @@
        <string notr="true">background-color:grey;</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>317</width>
+        <width>326</width>
         <height>111</height>
        </rect>
       </property>
@@ -1236,6 +1236,335 @@
         <widget class="QPushButton" name="pushButton_draw_graph">
          <property name="text">
           <string>Draw Graphic</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>CREDIT</string>
+     </attribute>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>151</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Credit Calculator</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>291</width>
+        <height>190</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="1" column="1">
+        <widget class="QLineEdit" name="lineEdit_rate"/>
+       </item>
+       <item row="2" column="1">
+        <widget class="QComboBox" name="comboBox_timeframe">
+         <item>
+          <property name="text">
+           <string>1 month</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3 month</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6 month</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>9 month</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1.5 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>5 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>6 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>7 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>10 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>15 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>20 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>25 year</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>30 year</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QRadioButton" name="radioButton_ann">
+         <property name="text">
+          <string>annuity</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QRadioButton" name="radioButton_diff">
+         <property name="text">
+          <string>differentiated</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" rowspan="2">
+        <widget class="QLabel" name="label_type">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Type</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_rate">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Rate, %</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLineEdit" name="lineEdit_credit_amount"/>
+       </item>
+       <item row="5" column="0" colspan="2">
+        <widget class="QPushButton" name="pushButton">
+         <property name="text">
+          <string>Calculate</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_credi_amount">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Credit amount, ₽</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_timeframe">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Timeframe, m/y</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="gridLayoutWidget_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>230</y>
+        <width>291</width>
+        <height>111</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="2" column="1">
+        <widget class="QLabel" name="label_total_output">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QLabel" name="label_rub_3">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>₽</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label_rub_2">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>₽</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_total">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Total sum</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="label_overpayment_output">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QLabel" name="label_rub_1">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>₽</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_monthly_pay">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Monthly payment</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="label_monthly_pay_output">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>0</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_overpayment">
+         <property name="font">
+          <font>
+           <pointsize>18</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Overpayment</string>
          </property>
         </widget>
        </item>

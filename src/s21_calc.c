@@ -4,7 +4,6 @@
 main
 */
 double Calc(char *equation, double x, bool *status) {
-    *status = true;
     char _t[NMAX] = {'\0'};
     double result = 0.0;
 
@@ -173,7 +172,8 @@ void FormatFunc(char *equation) {
             if (equation[pos] == 'm') { // mod
                 strncpy(function, equation + pos, 3);
                 if (strncmp(function, "mod", 3) == 0) {
-                    SetStringMiddle(equation, "%", pos, pos + 3);
+                    char insert[2] = {'%', '\0'};
+                    SetStringMiddle(equation, insert, pos, pos + 3);
                 }
                 memset(function, '\0', sizeof(function));
                 continue;
@@ -371,7 +371,7 @@ void GetReversePN(char * equation) {
         output[output_pos++] = ' ';
     }
     output[output_pos] = '\0';
-    memset(equation, '\0', sizeof(equation));
+    memset(equation, '\0', strlen(equation));
     strcpy(equation, output);
     free(output);
 }
@@ -431,7 +431,7 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
     strcat(tmp_string, src); // middle
     strcat(tmp_string, dest + l_border); // end
 
-    memset(dest, '\0', sizeof(dest));
+    memset(dest, '\0', strlen(dest));
     strcpy(dest, tmp_string);
 }
 
