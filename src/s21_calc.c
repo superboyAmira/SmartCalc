@@ -3,12 +3,21 @@
 /*
 main
 */
-double Calc(char *equation, double x) {
-    FormatX(equation, x);
-    if (!CheckEquation(equation)) ERR();
-    FormatFunc(equation);
-    GetReversePN(equation);
-    double result = GetResult(equation);
+double Calc(char *equation, double x, bool *status) {
+    *status = true;
+    char _t[NMAX] = {'\0'};
+    double result = 0.0;
+
+    strcpy(_t, equation); 
+
+    FormatX(_t, x);
+    if (!CheckEquation(_t)) {
+        *status = false;
+    } else {
+        FormatFunc(_t);
+        GetReversePN(_t);
+        result = GetResult(_t);
+    }
     return result;
 }
 /*
@@ -83,17 +92,17 @@ bool CheckEquation(char *equation) {
     bool status = true;
 
     int bracket = 0;
+    int dot = 0;
     size_t pos = 0;
     size_t pos_nums = 0;
     char current_oper = '\0';
     char nums[NMAX] = {'\0'};
-    char *check_dbl = NULL;
 
     while (equation[pos] != '\0' && status) {
         if (isOper(equation[pos])) {
             current_oper = equation[pos];
         }
-        if (isdigit(equation[pos])) {
+        if (isNum(equation[pos])) {
             while (!isOper(equation[pos]) && equation[pos] != '('
                     && equation[pos] != ')' && equation[pos] != '\0' 
                     && equation[pos] != ' ') {
@@ -101,8 +110,10 @@ bool CheckEquation(char *equation) {
             }
             pos_nums = 0;
             while (nums[pos_nums] != '\0') {
-                if (!isNum(nums[pos_nums])) {
-                    // ERR();
+                if (nums[pos_nums] == '.') {
+                    dot++;
+                }
+                if (!isNum(nums[pos_nums]) || dot > 1) {
                     status = false;
                 }
                 pos_nums++;
@@ -154,6 +165,9 @@ void FormatFunc(char *equation) {
     double res_in = 0.0;
 
     while (equation[pos] != '\0') {
+        if (equation[pos] == '-' && (equation[pos - 1] == '(' || pos == 0)) { // ~
+            equation[pos] = '~';
+        }
         if (isalpha(equation[pos]) && equation[pos] != ' ' && equation[pos] != '.') {
             border_cpy_right = pos;
             if (equation[pos] == 'm') { // mod
@@ -288,8 +302,6 @@ double FuncCalculation(char *function, double res_in) {
         result = log(res_in);
     } else if (strncmp(function, "log", 3) == 0) {
         result = log10(res_in);
-    } else {
-        ERR();
     }
 
     return result;
@@ -423,19 +435,19 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
     strcpy(dest, tmp_string);
 }
 
-void ERR() {
-    printf("INCORRECT INPUT");
-    exit(-1);
-}
+// void ERR() {
+//     printf("INCORRECT INPUT\n");
+//     exit(-1);
+// }
 /*
 -------------------------------------
 */
-int main() {
+// int main() {
     
-    char primer[255] = "1f.343";
-    scanf("%s", primer);
-    double res = 0.0;
-    res = Calc(primer, 0.0);
-    printf("%lf", res);
-    return 0;
-}
+//     char primer[255] = "55+33...4";
+//     // scanf("%s", primer);
+//     double res = 0.0;
+//     res = Calc(primer, 0.0);
+//     printf("%lf %s", res, primer);
+//     return 0;
+// }

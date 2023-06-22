@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QMessageBox>
 #include <QVector>
 
 #ifdef __cplusplus
@@ -39,7 +40,6 @@ private:
     Ui::MainWindow *ui;
 
     double xBegin, xEnd, step, X;
-    int dots;
     QVector<double> x, y;
 
 };

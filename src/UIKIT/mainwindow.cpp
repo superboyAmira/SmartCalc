@@ -168,7 +168,7 @@ void MainWindow::ViewOperators()
 
     } else if (button->text() == "." && ui->label_output->text().length() > 0) {
 
-        if (ui->label_output->text().contains('.') == false && ui->label_output->text() != "") {
+        if (ui->label_output->text() != "") {
             ui->label_output->setText(ui->label_output->text() + ".");
         }
 
@@ -177,16 +177,28 @@ void MainWindow::ViewOperators()
         char *equation = QStringToChar(ui->label_output->text());
 
         double x = 0.0;
+        bool status = true;
 
         if (ui->input_x->isChecked()) {
             x = ui->lineEdit_input_x->text().toDouble();
+            if (ui->lineEdit_input_x->text() == "") {
+                QMessageBox::critical(this, "Error", "INVALID INPUT!");
+            }
+        } else {
+            if (ui->label_output->text().contains('x')) {
+                QMessageBox::critical(this, "Error", "INVALID INPUT!");
+            }
         }
 
-        double result_dbl = Calc(equation, x);
+        double result_dbl = Calc(equation, x, &status);
 
-        QString result_qstr = (fabs(result_dbl - (int)result_dbl) < 0.00000001) ? QString::asprintf("%d", (int)result_dbl) : QString::asprintf("%.7lf", result_dbl);
+        if (result_dbl == 0.0 && !status) {
+            QMessageBox::critical(this, "Error", "INVALID INPUT!");
+        } else {
+            QString result_qstr = (fabs(result_dbl - (int)result_dbl) < 0.00000001) ? QString::asprintf("%d", (int)result_dbl) : QString::asprintf("%.7lf", result_dbl);
 
-        ui->label_output->setText(result_qstr);
+            ui->label_output->setText(result_qstr);
+        }
 
     } else if (button->text() == "X") {
 
@@ -196,7 +208,7 @@ void MainWindow::ViewOperators()
 
         QChar tmp_qchar = ui->label_output->text().at(ui->label_output->text().length() - 1);
 
-        if ((tmp_qchar.isNumber() || tmp_qchar == ')' || tmp_qchar == 'x') && button->text() != "%") {
+        if ((tmp_qchar.isNumber() || tmp_qchar == ')' || tmp_qchar == '(' || tmp_qchar == 'x') && button->text() != "%") {
             ui->label_output->setText(ui->label_output->text() + button->text());
         } else if ((tmp_qchar.isNumber() || tmp_qchar == ')' || tmp_qchar == 'x') && button->text() == "%") {
             ui->label_output->setText(ui->label_output->text() + "mod");
@@ -211,41 +223,28 @@ void MainWindow::ViewOperators()
 
 void MainWindow::DrawGraph() {
     ui->widget->clearPlottables();
+    if (ui->label_output->text() != "" && ui->spinBox_x_max->value() != 0 && ui->spinBox_x_min->value() != 0
+            && ui->spinBox_y_min->value() != 0 && ui->spinBox_y_max->value() != 0 && CheckEquation(QStringToChar(ui->label_output->text()))) {
+        bool _t = true;
+        step = 0.1;
+        xBegin = ui->spinBox_x_min->value();
+        xEnd = ui->spinBox_x_max->value() + step;
 
-    xBegin = ui->spinBox_x_min->value();
-    xEnd = ui->spinBox_x_max->value();
-    dots = 1000;
-    step = (xEnd + xBegin) / dots;
-    double _t = 0.0;
-    char * _c = NULL;
-
-    if ((xEnd + xBegin) != 0) {
-        xBegin *= -1;
         ui->widget->xAxis->setRange(xBegin,xEnd);
-        ui->widget->yAxis->setRange(-5,5);
-    //    ui->widget->xAxis->setRange(ui->spinBox_x_min->value(), ui->spinBox_x_max->value());
-    //    ui->widget->yAxis->setRange(ui->spinBox_y_min->value(), ui->spinBox_y_max->value());
+        ui->widget->yAxis->setRange(ui->spinBox_y_min->value(), ui->spinBox_y_max->value());
 
         for (X = xBegin; X <= xEnd; X += step) {
             x.push_back(X);
-            _c = QStringToChar(ui->label_output->text());
-            _t = Calc(_c, X);
-            y.push_back(_t);
+            y.push_back(Calc(QStringToChar(ui->label_output->text()), X, &_t));
         }
 
         ui->widget->addGraph();
         ui->widget->graph(0)->addData(x,y);
-
-        double minY = y[0], maxY = y[0];
-        for (int i = 1; i < dots; i++) {
-            if (y[i] < minY) minY = y[i];
-            if (y[i] > maxY) maxY = y[i];
-        }
-        ui->widget->yAxis->setRange(minY, maxY);
-
         ui->widget->replot();
         x.clear();
         y.clear();
+    } else {
+        QMessageBox::critical(this, "Error", "INVALID INPUT!");
     }
 }
 
