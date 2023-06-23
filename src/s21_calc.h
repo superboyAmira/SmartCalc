@@ -24,21 +24,21 @@ typedef struct calc_stack_t {
 calc_stack_t * cs_push(double num, calc_stack_t *head);
 double cs_pop(calc_stack_t ** head);
 
-// string format
+double GetResult(char *equation, bool *status);
 void GetReversePN(char * text);
 int GetPriority(char a);
+
 bool isOper(char c);
 bool isNum(char c);
 
-double GetResult(char *equation);
-double ExecutableInstructions(char op, double first, double second);
-void FormatFunc(char *equation);
+
+double ExecutableInstructions(char op, double first, double second, bool *status);
+void FormatFunc(char *equation, bool *status);
 void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border);
-double FuncCalculation(char *function, double res_in);
+double FuncCalculation(char *function, double res_in, bool *status);
 void FormatX(char *equation, double x);
-double Calc(char *equation, double x);
+double Calc(char *equation, double x, bool *status);
 bool CheckEquation(char *equation);
-void ERR();
 
 #endif  // SRC_S21_CALC_H_
 

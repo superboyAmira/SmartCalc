@@ -13,9 +13,9 @@ double Calc(char *equation, double x, bool *status) {
     if (!CheckEquation(_t)) {
         *status = false;
     } else {
-        FormatFunc(_t);
+        FormatFunc(_t, status);
         GetReversePN(_t);
-        result = GetResult(_t);
+        result = (status) ? GetResult(_t, status) : 0.0;
     }
     return result;
 }
@@ -117,9 +117,7 @@ bool CheckEquation(char *equation) {
                 }
                 pos_nums++;
             }
-            if (atof(nums) == 0.0 && current_oper == '/') {
-                status = false;
-            }
+            dot = 0;
             
             memset(nums, '\0', sizeof(nums));
             pos_nums = 0;
@@ -152,7 +150,7 @@ void FormatX(char *equation, double x) {
     }
 } 
 
-void FormatFunc(char *equation) {
+void FormatFunc(char *equation, bool *status) {
     int bracket = 0;
     size_t border_cpy_right = 0;
     size_t border_cpy_left = 0;
@@ -195,12 +193,12 @@ void FormatFunc(char *equation) {
                 border_cpy_left = pos + 1;
             }
             // reverse format eq_in
-            if (strlen(equation_in) > 0) FormatFunc(equation_in);
+            if (strlen(equation_in) > 0) FormatFunc(equation_in, status);
             // calculation in F()
             GetReversePN(equation_in);
-            res_in = GetResult(equation_in);
+            res_in = GetResult(equation_in, status);
             // functions
-            res_in = FuncCalculation(function, res_in);
+            res_in = FuncCalculation(function, res_in, status);
             // zamena func na result func
             memset(equation_in, '\0', sizeof(equation_in));
             sprintf(equation_in, "%lf", res_in);
@@ -257,7 +255,7 @@ int GetPriority(char ch) {
     return priority;
 }
 
-double ExecutableInstructions(char op, double first, double second) {
+double ExecutableInstructions(char op, double first, double second, bool *status) {
     double result = 0.0;
     switch (op) {
         case '+':
@@ -270,7 +268,12 @@ double ExecutableInstructions(char op, double first, double second) {
             result = first * second;
             break;
         case '/':
-            result = first / second;
+            if (second != 0.0) {
+                result = first / second;
+            } else {
+                result  = 0.0;
+                *status = false;
+            }
             break;
         case '^':
             result = pow(first, second);
@@ -282,26 +285,64 @@ double ExecutableInstructions(char op, double first, double second) {
     return result;
 }
 
-double FuncCalculation(char *function, double res_in) {
+double FuncCalculation(char *function, double res_in, bool *status) {
     double result = 0.0;
     if (strncmp(function, "cos", 3) == 0) {
         result = cos(res_in);
     } else if (strncmp(function, "sin", 3) == 0) {
         result = sin(res_in);
     } else if (strncmp(function, "sqrt", 4) == 0) {
-        result = sqrt(res_in);
+        if (res_in < 0.0) {
+            *status = false;
+            result = 0.0;
+        } else {
+            result = sqrt(res_in);
+        }
     } else if (strncmp(function, "tan", 3) == 0) {
-        result = tan(res_in);
+        if (cos(res_in) == 0.0) {
+            *status = false;
+            result = 0.0;
+        } else {
+            result = tan(res_in);
+        }
+        
     } else if (strncmp(function, "acos", 4) == 0) {
-        result = acos(res_in);
+        if (res_in > 1.0 || res_in < -1.0) {
+            *status = false;
+            result = 0.0;
+        } else {
+            result = acos(res_in);
+        }
     } else if (strncmp(function, "asin", 4) == 0) {
-        result = asin(res_in);
+        if (res_in > 1.0 || res_in < -1.0) {
+            *status = false;
+            result = 0.0;
+        } else {
+            result = asin(res_in);
+        }
     } else if (strncmp(function, "atan", 4) == 0) {
         result = atan(res_in);
     } else if (strncmp(function, "ln", 2) == 0) {
-        result = log(res_in);
+        if (res_in < 0.0) {
+            *status = false;
+            result = 0.0;
+
+        } else if (res_in == 0.0) {
+            result = -100000;
+        } else {
+            result = log(res_in);
+        }
     } else if (strncmp(function, "log", 3) == 0) {
-        result = log10(res_in);
+        if (res_in < 0.0) {
+            *status = false;
+            result = 0.0;
+        } else if (res_in == 0.0) {
+        result = -100000;
+        } else {
+            result = log10(res_in);
+        }
+    } else {
+        *status = false;
     }
 
     return result;
@@ -376,7 +417,7 @@ void GetReversePN(char * equation) {
     free(output);
 }
 
-double GetResult(char *equation) {
+double GetResult(char *equation, bool *status) {
     /*
     Проходим постфиксную запись;
     При нахождении числа, парсим его и заносим в стек;
@@ -409,7 +450,7 @@ double GetResult(char *equation) {
             } else {
                 second_tmp_num = cs_pop(&buffer);
                 first_tmp_num = cs_pop(&buffer);
-                sprintf(tmp_char, "%lf", ExecutableInstructions(equation[pos], first_tmp_num, second_tmp_num));
+                sprintf(tmp_char, "%lf", ExecutableInstructions(equation[pos], first_tmp_num, second_tmp_num, status));
                 buffer = cs_push(atof(tmp_char), buffer);
                 memset(tmp_char, '\0', sizeof(tmp_char));
             }
@@ -435,19 +476,28 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
     strcpy(dest, tmp_string);
 }
 
-// void ERR() {
-//     printf("INCORRECT INPUT\n");
-//     exit(-1);
-// }
 /*
 -------------------------------------
 */
 // int main() {
     
-//     char primer[255] = "55+33...4";
-//     // scanf("%s", primer);
+
+
+//     char primer[255] = "5.5 + 5.4";
+//     bool status = true;
+
 //     double res = 0.0;
-//     res = Calc(primer, 0.0);
-//     printf("%lf %s", res, primer);
+//     res = Calc(primer, 0.0, &status);
+//     printf("res = %lf / status = %d\n", res, status);
+//     // for (double i = -10; i < 11; i+=0.1) {
+//     //     if (fabs(i) < 1e-7)
+//     //         i = 0.0;
+//     //     printf("!%.100lf!\n", i);
+//     //     sprintf(primer, "log(%lf)", i);
+//     //     res = Calc(primer, 0.0, &status);
+//     //     printf("i = %lf / res = %lf / status = %d\n", i, res, status);
+//     // }
+//     // scanf("%s", primer);
+    
 //     return 0;
 // }

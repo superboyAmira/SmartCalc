@@ -55,6 +55,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_degree, SIGNAL(clicked()), this, SLOT(ViewOperators()));
 
     connect(ui->pushButton_draw_graph, SIGNAL(clicked()), this, SLOT(DrawGraph()));
+
+    ui->spinBox_x_max->setValue(10);
+    ui->spinBox_x_min->setValue(-10);
+    ui->spinBox_y_max->setValue(10);
+    ui->spinBox_y_min->setValue(-10);
 }
 
 // another func
@@ -176,6 +181,7 @@ void MainWindow::ViewOperators()
 
         double x = 0.0;
         bool status = true;
+        bool num = false;
 
         if (ui->input_x->isChecked()) {
             x = ui->lineEdit_input_x->text().toDouble();
@@ -190,10 +196,18 @@ void MainWindow::ViewOperators()
 
         double result_dbl = Calc(equation, x, &status);
 
-        if (result_dbl == 0.0 || !status) {
-            QMessageBox::critical(this, "Error", "INVALID INPUT!");
+        if (result_dbl == 0.0 && !status) {
+            QMessageBox::critical(this, "Error", "INVALID INPUT!<CALC>");
         } else {
             QString result_qstr = (fabs(result_dbl - (int)result_dbl) < 0.00000001) ? QString::asprintf("%d", (int)result_dbl) : QString::asprintf("%.7lf", result_dbl);
+
+            for (int i = result_qstr.length() - 1; i != 0; i--) {
+                if (result_qstr.at(i) == '0' && !num) {
+                    result_qstr.resize(i);
+                } else if (result_qstr.at(i) != '0') {
+                    num = true;
+                }
+            }
 
             ui->label_output->setText(result_qstr);
         }
@@ -221,8 +235,11 @@ void MainWindow::ViewOperators()
 
 void MainWindow::DrawGraph() {
     ui->widget->clearPlottables();
-    if (ui->label_output->text() != "" && ui->spinBox_x_max->value() != 0 && ui->spinBox_x_min->value() != 0
-            && ui->spinBox_y_min->value() != 0 && ui->spinBox_y_max->value() != 0 && CheckEquation(QStringToChar(ui->label_output->text()))) {
+    if (ui->label_output->text() != "" && ui->spinBox_x_max->value() == 0 && ui->spinBox_x_min->value() == 0
+            && ui->spinBox_y_min->value() == 0 && ui->spinBox_y_max->value() == 0 && CheckEquation(QStringToChar(ui->label_output->text()))) {
+         QMessageBox::critical(this, "Error", "INVALID INPUT!<GRAPH>");
+    } else {
+        double tmp = 0.0;
         bool _t = true;
         step = 0.1;
         xBegin = ui->spinBox_x_min->value();
@@ -232,8 +249,15 @@ void MainWindow::DrawGraph() {
         ui->widget->yAxis->setRange(ui->spinBox_y_min->value(), ui->spinBox_y_max->value());
 
         for (X = xBegin; X <= xEnd; X += step) {
-            x.push_back(X);
-            y.push_back(Calc(QStringToChar(ui->label_output->text()), X, &_t));
+            if (fabs(X) < 1e-7)
+                X = 0.0;
+            _t = true;
+
+            tmp = Calc(QStringToChar(ui->label_output->text()), X, &_t);
+            if (_t) {
+                x.push_back(X);
+                y.push_back(tmp);
+            }
         }
 
         ui->widget->addGraph();
@@ -241,8 +265,7 @@ void MainWindow::DrawGraph() {
         ui->widget->replot();
         x.clear();
         y.clear();
-    } else {
-        QMessageBox::critical(this, "Error", "INVALID INPUT!");
+
     }
 }
 
