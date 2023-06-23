@@ -157,13 +157,17 @@ void MainWindow::ViewOperators()
 
     QPushButton * button = static_cast<QPushButton*>(QObject::sender());
 
-    if (button->text() == "~/+" && ui->label_output->text().length() > 0) {
 
-        QString all_nums = (ui->label_output->text());
 
-        (all_nums.at(0) == '-') ? all_nums.remove(0, 1) : all_nums.insert(0, '-');
+    if (button->text() == "~/+" && ui->label_output->text().length() >= 0) {
 
-        ui->label_output->setText(all_nums);
+        if (ui->label_output->text().at(ui->label_output->text().length()) == '(') {
+            QString all_nums = (ui->label_output->text());
+
+            (all_nums.at(0) == '~') ? all_nums.remove(0, 1) : all_nums.insert(0, '~');
+
+            ui->label_output->setText(all_nums);
+        }
 
     } else if (button->text() == "AC" && ui->label_output->text().length() > 0) {
 
@@ -196,7 +200,7 @@ void MainWindow::ViewOperators()
 
         double result_dbl = Calc(equation, x, &status);
 
-        if (result_dbl == 0.0 && !status) {
+        if (!status) {
             QMessageBox::critical(this, "Error", "INVALID INPUT!<CALC>");
         } else {
             QString result_qstr = (fabs(result_dbl - (int)result_dbl) < 0.00000001) ? QString::asprintf("%d", (int)result_dbl) : QString::asprintf("%.7lf", result_dbl);
@@ -235,8 +239,8 @@ void MainWindow::ViewOperators()
 
 void MainWindow::DrawGraph() {
     ui->widget->clearPlottables();
-    if (ui->label_output->text() != "" && ui->spinBox_x_max->value() == 0 && ui->spinBox_x_min->value() == 0
-            && ui->spinBox_y_min->value() == 0 && ui->spinBox_y_max->value() == 0 && CheckEquation(QStringToChar(ui->label_output->text()))) {
+    if (ui->label_output->text().length() == 0 || (ui->spinBox_x_max->value() == 0 && ui->spinBox_x_min->value() == 0
+            && ui->spinBox_y_min->value() == 0 && ui->spinBox_y_max->value() == 0) || !CheckEquation(QStringToChar(ui->label_output->text()))) {
          QMessageBox::critical(this, "Error", "INVALID INPUT!<GRAPH>");
     } else {
         double tmp = 0.0;

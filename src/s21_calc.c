@@ -376,14 +376,18 @@ void GetReversePN(char * equation) {
             if (operation == NULL) {
                 operation = s_push(operation, equation[pos]);
             } else {
-                if (GetPriority(operation->data) < GetPriority(equation[pos])){
+                if (GetPriority(operation->data) < GetPriority(equation[pos])) {
                     operation = s_push(operation, equation[pos]);
                 } else {
-                    while ((operation != NULL) && (GetPriority(operation->data) >= GetPriority(equation[pos]))) {
-                        output[output_pos++] = s_pop(&operation);
-                        output[output_pos++] = ' ';
+                    if (GetPriority(operation->data) == 3 && GetPriority(equation[pos]) == 3) {
+                        operation = s_push(operation, equation[pos]);
+                    } else {
+                        while ((operation != NULL) && (GetPriority(operation->data) >= GetPriority(equation[pos]))) {
+                            
+                            output[output_pos++] = s_pop(&operation);
+                            output[output_pos++] = ' ';
+                        }
                     }
-                    operation = s_push(operation, equation[pos]);
                 }
             }
         }
@@ -428,6 +432,7 @@ double GetResult(char *equation, bool *status) {
     */
     double first_tmp_num = 0.0;
     double second_tmp_num = 0.0;
+    double third_tmp_num_for_2_degree = 0.0;
     char tmp_char[NMAX] = {'\0'};
     calc_stack_t * buffer = NULL;
     size_t pos = 0;
@@ -483,7 +488,7 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
     
 
 
-//     char primer[255] = "5.5 + 5.4";
+//     char primer[255] = "2^3^2";
 //     bool status = true;
 
 //     double res = 0.0;
