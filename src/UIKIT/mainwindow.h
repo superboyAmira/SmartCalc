@@ -36,7 +36,7 @@ private slots:
 
     void DrawGraph();
 
-    void on_pushButton_clicked();
+    void ResultCredit();
 
 private:
     Ui::MainWindow *ui;

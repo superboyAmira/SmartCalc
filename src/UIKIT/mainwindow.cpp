@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "../s21_calc.h"
 #include "../s21_calc.c"
+#include "../s21_credit.c"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -55,6 +56,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->pushButton_degree, SIGNAL(clicked()), this, SLOT(ViewOperators()));
 
     connect(ui->pushButton_draw_graph, SIGNAL(clicked()), this, SLOT(DrawGraph()));
+
+    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(ResultCredit()));
 
     ui->spinBox_x_max->setValue(10);
     ui->spinBox_x_min->setValue(-10);
@@ -281,72 +284,88 @@ void MainWindow::DrawGraph() {
 
 // ------------------
 
-void MainWindow::on_pushButton_clicked() {
-    int credit_sum = ui->lineEdit_credit_amount->text().toInt();
-    int credit_timeframe_index = ui->comboBox_timeframe->currentIndex();
-    int credit_month = 0;
-    switch (credit_timeframe_index) {
-        case 0:
-            credit_month = 1;
-            break;
-        case 1:
-            credit_month = 3;
-            break;
-        case 2:
-            credit_month = 6;
-            break;
-        case 3:
-            credit_month = 9;
-            break;
-        case 4:
-            credit_month = 12;
-            break;
-        case 5:
-            credit_month = 18;
-            break;
-        case 6:
-            credit_month = 24;
-            break;
-        case 7:
-            credit_month = 36;
-            break;
-        case 8:
-            credit_month = 48;
-            break;
-        case 9:
-            credit_month = 60;
-            break;
-        case 10:
-            credit_month = 72;
-            break;
-        case 11:
-            credit_month = 84;
-            break;
-        case 12:
-            credit_month = 120;
-            break;
-        case 13:
-            credit_month = 180;
-            break;
-        case 14:
-            credit_month = 240;
-            break;
-        case 15:
-            credit_month = 300;
-            break;
-        case 16:
-            credit_month = 360;
-            break;
-    }
-    double credit_prezent = ui->lineEdit_rate->text().toDouble();
-    int credit_type = 0;
-    if (ui->radioButton_ann->isChecked()) {
-        credit_type = 1;
+void MainWindow::ResultCredit() {
+    if (ui->lineEdit_credit_amount->text().length() == 0 || ui->lineEdit_rate->text().length() == 0) {
+        QMessageBox::critical(this, "Error", "INVALID INPUT!<CREDIT>");
     } else {
-        credit_type = 2;
+        credit_data info = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        info.credit_sum = ui->lineEdit_credit_amount->text().toInt();
+        int credit_timeframe_index = ui->comboBox_timeframe->currentIndex();
+        int credit_month = 0;
+        switch (credit_timeframe_index) {
+            case 0:
+                credit_month = 1;
+                break;
+            case 1:
+                credit_month = 3;
+                break;
+            case 2:
+                credit_month = 6;
+                break;
+            case 3:
+                credit_month = 9;
+                break;
+            case 4:
+                credit_month = 12;
+                break;
+            case 5:
+                credit_month = 18;
+                break;
+            case 6:
+                credit_month = 24;
+                break;
+            case 7:
+                credit_month = 36;
+                break;
+            case 8:
+                credit_month = 48;
+                break;
+            case 9:
+                credit_month = 60;
+                break;
+            case 10:
+                credit_month = 72;
+                break;
+            case 11:
+                credit_month = 84;
+                break;
+            case 12:
+                credit_month = 120;
+                break;
+            case 13:
+                credit_month = 180;
+                break;
+            case 14:
+                credit_month = 240;
+                break;
+            case 15:
+                credit_month = 300;
+                break;
+            case 16:
+                credit_month = 360;
+                break;
+        }
+        info.timeframe = credit_month;
+        info.rate = ui->lineEdit_rate->text().toDouble();
+        if (ui->radioButton_ann->isChecked()) {
+            info.type = ANN;
+        } else {
+            info.type = DIFF;
+        }
+        MainCredit(&info);
+        QString tmp;
+        if (info.type == ANN) {
+            tmp = QString::asprintf("%.2lf", info.month_pay_ann);
+            ui->label_monthly_pay_output->setText(tmp);
+        } else {
+            QString result_min = QString::asprintf("%.2lf", info.month_pay_diff_min);
+            QString result_max = QString::asprintf("%.2lf", info.month_pay_diff_max);
+            ui->label_monthly_pay_output->setText(result_min + "..." + result_max);
+        }
+        tmp = QString::asprintf("%.2lf", info.overpayment);
+        ui->label_overpayment_output->setText(tmp);
+        tmp = QString::asprintf("%.2lf", info.total_payment);
+        ui->label_total_output->setText(tmp);
     }
-
-    double month_pay = (double)credit_sum * ((double)credit_prezent / (double)(1 + credit_prezent) - (double)credit_month - 1.0);
-    ui->label_monthly_pay_output->text().asprintf("%lf", month_pay);
 }
 

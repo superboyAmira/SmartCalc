@@ -54,6 +54,23 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border);
 Credit and Deposit
 */
 
+typedef struct credit_data {
+    double credit_sum;
+    int timeframe;
+    double rate;
+    int type;
+
+    double month_pay_ann;
+    double month_pay_diff_min;
+    double month_pay_diff_max;
+    double overpayment;
+    double total_payment;
+} credit_data;
+
+#define DIFF 1
+#define ANN 2
+
+
 void MainCredit(credit_data *info);
 
 /*

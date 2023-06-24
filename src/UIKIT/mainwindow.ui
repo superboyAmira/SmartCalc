@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>321</width>
-    <height>493</height>
+    <width>579</width>
+    <height>495</height>
    </rect>
   </property>
   <property name="font">
@@ -27,7 +27,7 @@
      <rect>
       <x>0</x>
       <y>80</y>
-      <width>321</width>
+      <width>611</width>
       <height>381</height>
      </rect>
     </property>
@@ -38,7 +38,7 @@
      <enum>QTabWidget::Triangular</enum>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <property name="iconSize">
      <size>
@@ -1159,8 +1159,8 @@
        <rect>
         <x>0</x>
         <y>20</y>
-        <width>326</width>
-        <height>111</height>
+        <width>410</width>
+        <height>112</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout">
@@ -1250,9 +1250,9 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>10</y>
-        <width>151</width>
-        <height>16</height>
+        <y>5</y>
+        <width>221</width>
+        <height>21</height>
        </rect>
       </property>
       <property name="font">
@@ -1268,10 +1268,10 @@
      <widget class="QWidget" name="gridLayoutWidget">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>6</x>
         <y>40</y>
         <width>291</width>
-        <height>190</height>
+        <height>181</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -1446,7 +1446,7 @@
        <rect>
         <x>10</x>
         <y>230</y>
-        <width>291</width>
+        <width>501</width>
         <height>111</height>
        </rect>
       </property>
@@ -1602,9 +1602,9 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>90</x>
       <y>470</y>
-      <width>171</width>
+      <width>221</width>
       <height>20</height>
      </rect>
     </property>
