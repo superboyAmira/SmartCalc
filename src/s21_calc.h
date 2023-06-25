@@ -70,7 +70,6 @@ typedef struct credit_data {
 #define DIFF 1
 #define ANN 2
 
-
 void MainCredit(credit_data *info);
 
 /*
