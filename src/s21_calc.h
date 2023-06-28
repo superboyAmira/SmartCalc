@@ -54,6 +54,9 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border);
 Credit and Deposit
 */
 
+#define DIFF 1
+#define ANN 2
+
 typedef struct credit_data {
     double credit_sum;
     int timeframe;
@@ -67,10 +70,38 @@ typedef struct credit_data {
     double total_payment;
 } credit_data;
 
-#define DIFF 1
-#define ANN 2
-
 void MainCredit(credit_data *info);
+
+typedef struct deposit_data {
+    /*сумма вклада, срок размещения,
+     процентная ставка, налоговая ставка, периодичность выплат, 
+    капитализация процентов, список пополнений, список частичных снятий*/
+    double sum;
+    int timeframe_type;
+    int timeframe;
+    double interest_rate;
+    double tax_rate;
+    int frequency;
+    bool capitalisation;
+
+
+    int supplement_date;
+    double supplement_value;
+
+
+    int elimination_date;
+    double elimination_value;
+    /*Выход: начисленные проценты, сумма налога, сумма на вкладе к концу срока*/
+    double total_rate;
+    double total_tax;
+    double total_sum;
+    double total_profit;
+} deposit_data;
+
+void MainDeposit(deposit_data *info);
+void Tax(deposit_data *info);
+
+void round_2(double *num);
 
 /*
 -----

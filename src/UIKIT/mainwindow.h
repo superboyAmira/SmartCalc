@@ -38,6 +38,8 @@ private slots:
 
     void ResultCredit();
 
+    void ResultDeposit();
+
 private:
     Ui::MainWindow *ui;
 

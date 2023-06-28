@@ -38,26 +38,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(ui->pushButton_coma, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_unMin, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_unMin_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_clear, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_clear_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_equal, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_equal_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
 
     connect(ui->pushButton_plus, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_minus, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_mult, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_del, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_mod, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_plus_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_minus_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_mult_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
-    connect(ui->pushButton_del_5, SIGNAL(clicked()), this, SLOT(ViewOperators()));
     connect(ui->pushButton_degree, SIGNAL(clicked()), this, SLOT(ViewOperators()));
 
     connect(ui->pushButton_draw_graph, SIGNAL(clicked()), this, SLOT(DrawGraph()));
 
     connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(ResultCredit()));
+
+    connect(ui->pushButton_10, SIGNAL(clicked()), this, SLOT(ResultDeposit()));
 
     ui->spinBox_x_max->setValue(10);
     ui->spinBox_x_min->setValue(-10);
@@ -73,12 +68,12 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::FormatFont() {
-    static int max_size = 9;
+    static int max_size = 35;
 
     static int font_size = 48;
 
     if (ui->label_output->text().length() == 0) {
-        max_size = 9;
+        max_size = 35;
 
         font_size = 48;
 
@@ -92,7 +87,7 @@ void MainWindow::FormatFont() {
     if (ui->label_output->text().length() > max_size) {
         font_size -= 4;
 
-        (font_size > 24) ? max_size += 1 : max_size += 12;
+        (font_size > 24) ? max_size += 1 : max_size += 20;
 
         QFont tmp_font = ui->label_output->font();
 
@@ -280,10 +275,6 @@ void MainWindow::DrawGraph() {
 
 // credit
 
-
-
-// ------------------
-
 void MainWindow::ResultCredit() {
     if (ui->lineEdit_credit_amount->text().length() == 0 || ui->lineEdit_rate->text().length() == 0) {
         QMessageBox::critical(this, "Error", "INVALID INPUT!<CREDIT>");
@@ -369,3 +360,90 @@ void MainWindow::ResultCredit() {
     }
 }
 
+// ------------------
+
+int timeframeParser(int index, int type) {
+    const double month_day[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    const double kvartal_day[4] = {90, 91, 92, 92};
+
+    int result = 0;
+
+    if (type == 0) {// days
+        switch (index) {
+            case 0:
+                if (type == 0) result = 31;
+                else if (type == 1) result = 1;
+                break;
+            case 1:
+                if (type == 0) for (int i = 0; i < 3; i++) result += month_day[i];
+                else if (type == 1) result = 3;
+                break;
+            case 2:
+                if (type == 0) for (int i = 0; i < 6; i++) result += month_day[i];
+                else if (type == 1) result = 6;
+                else if (type == 2) result = 1;
+                break;
+            case 3:
+                if (type == 0) for (int i = 0; i < 9; i++) result += month_day[i];
+                else if (type == 1) result = 9;
+                else if (type == 2) result = 2;
+                break;
+            case 4:
+                if (type == 0) for (int i = 0; i < 12; i++) result += month_day[i];
+                else if (type == 1) result = 12;
+                else if (type == 2) result = 4;
+                else if (type == 3) result = 1;
+                break;
+            case 5:
+                if (type == 0) for (int i = 0; i < 24; i++) result += month_day[i % 12];
+                else if (type == 1) result = 24;
+                else if (type == 2) result = 8;
+                else if (type == 3) result = 2;
+                break;
+            case 6:
+                if (type == 0) for (int i = 0; i < 36; i++) result += month_day[i % 12];
+                else if (type == 1) result = 36;
+                else if (type == 2) result = 12;
+                else if (type == 3) result = 3;
+                break;
+            case 7:
+                if (type == 0) for (int i = 0; i < 48; i++) result += month_day[i % 12];
+                else if (type == 1) result = 48;
+                else if (type == 2) result = 16;
+                else if (type == 3) result = 4;
+                break;
+            case 8:
+                if (type == 0) for (int i = 0; i < 60; i++) result += month_day[i % 12];
+                else if (type == 1) result = 60;
+                else if (type == 2) result = 20;
+                else if (type == 3) result = 5;
+                break;
+            case 9:
+                if (type == 0) for (int i = 0; i < 120; i++) result += month_day[i % 12];
+                else if (type == 1) result = 120;
+                else if (type == 2) result = 40;
+                else if (type == 3) result = 10;
+                break;
+            case 10:
+                if (type == 0) for (int i = 0; i < 240; i++) result += month_day[i % 12];
+                else if (type == 1) result = 240;
+                else if (type == 2) result = 80;
+                else if (type == 3) result = 20;
+                break;
+        }
+    }
+
+    return result;
+}
+
+// deposit
+
+void MainWindow::ResultDeposit() {
+    deposit_data *info = new deposit_data;
+    info->sum = ui->lineEdit_amount->text().toDouble();
+    info->timeframe_type = ui->comboBox_frequency->currentIndex();
+    info->timeframe = timeframeParser(ui->comboBox_timeframe->currentIndex(), info->timeframe_type);
+}
+
+
+// ------------------
