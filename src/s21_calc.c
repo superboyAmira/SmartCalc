@@ -432,7 +432,6 @@ double GetResult(char *equation, bool *status) {
     */
     double first_tmp_num = 0.0;
     double second_tmp_num = 0.0;
-    double third_tmp_num_for_2_degree = 0.0;
     char tmp_char[NMAX] = {'\0'};
     calc_stack_t * buffer = NULL;
     size_t pos = 0;

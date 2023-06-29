@@ -3,6 +3,9 @@
 #include "../s21_calc.h"
 #include "../s21_calc.c"
 #include "../s21_credit.c"
+#include "../s21_deposit.c"
+
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -58,6 +61,11 @@ MainWindow::MainWindow(QWidget *parent)
     ui->spinBox_x_min->setValue(-10);
     ui->spinBox_y_max->setValue(10);
     ui->spinBox_y_min->setValue(-10);
+
+    ui->lineEdit_amount->setText("100000");
+    ui->lineEdit_rate_2->setText("12");
+    ui->lineEdit_tax->setText("12");
+    ui->checkBox_capital->checkState();
 }
 
 // another func
@@ -364,11 +372,9 @@ void MainWindow::ResultCredit() {
 
 int timeframeParser(int index, int type) {
     const double month_day[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    const double kvartal_day[4] = {90, 91, 92, 92};
 
     int result = 0;
 
-    if (type == 0) {// days
         switch (index) {
             case 0:
                 if (type == 0) result = 31;
@@ -431,7 +437,6 @@ int timeframeParser(int index, int type) {
                 else if (type == 3) result = 20;
                 break;
         }
-    }
 
     return result;
 }
@@ -439,10 +444,45 @@ int timeframeParser(int index, int type) {
 // deposit
 
 void MainWindow::ResultDeposit() {
-    deposit_data *info = new deposit_data;
-    info->sum = ui->lineEdit_amount->text().toDouble();
-    info->timeframe_type = ui->comboBox_frequency->currentIndex();
-    info->timeframe = timeframeParser(ui->comboBox_timeframe->currentIndex(), info->timeframe_type);
+    deposit_data info = {0,0,0,0,0,false,{0,0,0},0,0,0,{0,0,0},0,0,0,0,0,0,0};
+    (ui->checkBox_capital->isChecked()) ? info.capitalisation = true : info.capitalisation = false;
+    info.sum = ui->lineEdit_amount->text().toDouble();
+    info.timeframe_type = ui->comboBox_frequency->currentIndex();
+    if (!info.capitalisation) {
+        info.timeframe = timeframeParser(ui->comboBox_timeframe_depos->currentIndex(), 0);
+    } else {
+        info.timeframe = timeframeParser(ui->comboBox_timeframe_depos->currentIndex(), info.timeframe_type);
+    }
+    if (info.timeframe == 0) {
+        QMessageBox::critical(this, "Error", "INVALID INPUT!<DEPOSIT>");
+    } else {
+        info.interest_rate = ui->lineEdit_rate_2->text().toDouble();
+        info.tax_rate = ui->lineEdit_tax->text().toDouble();
+
+
+        if (ui->checkBox_supplemention->isChecked()) {
+            info.supplement_type = ui->comboBox_deposit->currentIndex();
+            info.supplement_date_arr[0] = ui->dateEdit_depo->date().day();
+            info.supplement_date_arr[1] = ui->dateEdit_depo->date().month();
+            info.supplement_date_arr[2] = ui->dateEdit_depo->date().year();
+            info.supplement_value = ui->lineEdit_depo->text().toDouble();
+        }
+        if (ui->checkBox_elim->isChecked()) {
+            info.elimination_type = ui->comboBox_elim->currentIndex();
+            info.elimination_date_arr[0] = ui->dateEdit_elim->date().day();
+            info.elimination_date_arr[1] = ui->dateEdit_elim->date().month();
+            info.elimination_date_arr[2] = ui->dateEdit_elim->date().year();
+            info.elimination_value = ui->lineEdit_elim->text().toDouble();
+        }
+        MainDeposit(&info);
+        QString interset = QString::asprintf("%.2lf", info.total_profit);
+        QString total_sum = QString::asprintf("%.2lf", info.total_sum);
+        QString total_tax = QString::asprintf("%.2lf", info.total_tax);
+
+        ui->label_interest_output->setText(interset);
+        ui->label_total_sum_output->setText(total_sum);
+        ui->label_tax_output->setText(total_tax);
+    }
 }
 
 

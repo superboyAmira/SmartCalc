@@ -2,7 +2,6 @@
 
 
 void MainCredit(credit_data *info) {
-    bool status = true;
     if (info->type == ANN) {
         info->month_pay_ann = info->credit_sum * (info->rate / (100 * 12)) / (1 - pow(1 + (info->rate / (100 * 12)), -1 * info->timeframe));
         info->month_pay_ann = (int)(info->month_pay_ann * 100 + 0.5) / 100.0;

@@ -1131,7 +1131,7 @@
           </font>
          </property>
          <property name="styleSheet">
-          <string>0</string>
+          <string notr="true"/>
          </property>
          <property name="text">
           <string>Total sum</string>

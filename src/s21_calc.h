@@ -81,14 +81,15 @@ typedef struct deposit_data {
     int timeframe;
     double interest_rate;
     double tax_rate;
-    int frequency;
     bool capitalisation;
 
-
+    int supplement_date_arr[3];
+    int supplement_type;
     int supplement_date;
     double supplement_value;
 
-
+    int elimination_date_arr[3];
+    int elimination_type;
     int elimination_date;
     double elimination_value;
     /*Выход: начисленные проценты, сумма налога, сумма на вкладе к концу срока*/
@@ -100,6 +101,9 @@ typedef struct deposit_data {
 
 void MainDeposit(deposit_data *info);
 void Tax(deposit_data *info);
+void parserDate(deposit_data *info);
+void addSupp(double *balance, deposit_data *info);
+void addElim(double *balance, deposit_data *info);
 
 void round_2(double *num);
 
