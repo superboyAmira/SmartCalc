@@ -6,15 +6,17 @@ FLAGS = -c $(DEBUG_FLAGS) -std=c11
 LEAKS = nothing
 
 # Library
-LIB_SRC = lib/
-SRCS = $(addprefix $(LIB_SRC), s21_matrix.c s21_help_func.c)
+LIB_SRC = 
+SRCS = $(addprefix $(LIB_SRC), s21_calc.c s21_credit.c s21_deposit.c)
 OBJS = $(SRCS:%.c=%.o)
 
-LIB_NAME = s21_matrix.a
+LIB_NAME = s21_calc.a
 LIB_FLAGS = -lcheck -lm -lpthread
 
+# UI
+
 # Testing
-TEST_SRC = test_files/test.c
+TEST_SRC = s21_calc_tests.c
 TEST_OBJ = $(TEST_SRC:.c=.o)
 
 
@@ -30,26 +32,49 @@ else
 	LEAKS = CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt ./test
 endif
 
-all: clean s21_matrix.a test gcov_report
+all: clean s21_calc.a dvi
 
-s21_matrix.a: $(OBJS)
+s21_calc.a: $(OBJS)
 	ar rc $(LIB_NAME) $(OBJS)
 	ranlib $(LIB_NAME)
+	rm -rf *.o
 
-%.o: %.c s21_matrix.h
+%.o: %.c s21_calc.h
 	$(CC) $(FLAGS) $< -o $@
 clean:
-	rm -rf lib_obj lib/*.o ./*.a ./*.o ./a.out gcov_test *.html *.css report lib/*.dSYM ./*.gcno ./*.gcda ./*.info ./*.dSYM ./CPPLINT*
+	rm -rf lib_obj lib/*.o ./*.a ./*.o ./a.out gcov_test report lib/*.dSYM ./*.gcno ./*.gcda ./*.info ./*.dSYM ./CPPLINT*
 
-test: s21_matrix.a
+test: s21_calc.a
 	$(CC) $(TEST_FLAGS_GCOV) $(TEST_SRC) $(SRCS) $(LIB_NAME) $(LIB_FLAGS) -o gcov_test $(shell pkg-config --libs --cflags check)
 	chmod +x *
 	./gcov_test
 
-gcov_report: s21_matrix.a
+gcov_report: s21_calc.a
 	lcov -t "gcov_test" -o gcov_test.info --no-external -c -d . # -t отвечает за имя теста https://stackoverflow.com/questions/837639/is-there-a-way-to-focus-lcov-code-coverage-reports-to-just-one-or-two-directorie
 	genhtml -o report/ gcov_test.info # генерирует html страницу
 	open ./report/index.html
+
+dvi:
+	open readme.html
+
+install:
+	rm -rf build
+	mkdir build
+	cd UIKIT && qmake && make && mv UIKIT.app ../build && cd ..
+
+uninstall: clean
+	rm -rf build*
+	rm -rf UIKIT/moc*
+	rm -rf UIKIT/*.o
+	rm -rf UIKIT/ui*
+
+dist: install
+	rm -rf Archive_calc_v1.0/
+	mkdir Archive_calc_v1.0/
+	mkdir Archive_calc_v1.0/src
+	cp -r ./build/UIKIT.app Archive_calc_v1.0/src/
+	tar cvzf Archive_calc_v1.0.tgz Archive_calc_v1.0/
+	rm -rf Archive_calc_v1.0/
 
 check: test
 	cp ../materials/linters/.clang-format .
@@ -59,3 +84,11 @@ check: test
 	cp ../materials/linters/CPPLINT.cfg .
 	python3 ../materials/linters/cpplint.py --extension=c lib/*.c lib/*.h
 	rm -rf CPPLINT.cfg
+
+leaks: test
+	ifeq ($(SYS),Linux)
+		valgrind -s --trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all ./test
+	endif
+	ifeq ($(SYS),Darwin)
+		leaks --atExit -- ./test
+	endif

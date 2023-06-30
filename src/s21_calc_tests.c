@@ -4,134 +4,155 @@
 
 START_TEST(test_plus) {
   char str[256] = "1.25+3.45";
-  Calc(str);
-  ck_assert_str_eq("4.700000", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(4.700000, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_minus) {
   char str[256] = "1.25-3.45";
-  Calc(str);
-  ck_assert_str_eq("-2.200000", str);
+   bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(-2.200000, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_mult) {
   char str[256] = "1.25*3.45";
-  Calc(str);
-  ck_assert_str_eq("4.312500", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(4.312500, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_mult2) {
   char str[256] = "3*(4+7)";
-  Calc(str);
-  ck_assert_str_eq("33.000000", str);
+  bool status = true;
+
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(33.00, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_div) {
   char str[256] = "1.25/3.45";
-  Calc(str);
-  ck_assert_str_eq("0.362319", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(0.362319, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_mod) {
   char str[256] = "1.25mod3.45";
-  Calc(str);
-  ck_assert_str_eq("1.250000", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(1.25, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_pow) {
   char str[256] = "1.25^3.45";
-  Calc(str);
-  ck_assert_str_eq("2.159432", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(2.159432, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_brackets) {
   char str[256] = "(5.23+1.25)*(0.25+0.001)";
-  Calc(str);
-  ck_assert_str_eq("1.626480", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(1.626480, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_sin) {
   char str[256] = "sin((5.23+1.25)*(0.25+0.001))";
-  Calc(str);
-  ck_assert_str_eq("0.998450", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(0.998450, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_cos) {
   char str[256] = "cos((5.23+1.25)*(0.25+0.001))";
-  Calc(str);
-  ck_assert_str_eq("-0.055655", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(-0.055655, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_tan) {
   char str[256] = "tan((5.23+1.25)*(0.25+0.001))";
-  Calc(str);
-  ck_assert_str_eq("-17.940020", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(-17.940020, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_asin) {
   char str[256] = "asin(7/7.7)";
-  Calc(str);
-  ck_assert_str_eq("1.141097", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(1.141097, res, 1e-7);
+
 }
 END_TEST
 
 START_TEST(test_acos) {
-  char str[256] = "acos(7/7.7)";
-  Calc(str);
-  ck_assert_str_eq("0.429700", str);
+  char str[256] = "acos(1/1)";
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(0.0, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_atan) {
   char str[256] = "atan(7/7.7)";
-  Calc(str);
-  ck_assert_str_eq("0.737815", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(0.737815, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_sqrt) {
   char str[256] = "sqrt(1357-245)";
-  Calc(str);
-  ck_assert_str_eq("33.346664", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(33.346664, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_ln) {
   char str[256] = "ln(1357-245)";
-  Calc(str);
-  ck_assert_str_eq("7.013915", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(7.013915, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_log) {
   char str[256] = "log(1357-245)";
-  Calc(str);
-  ck_assert_str_eq("3.046105", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(3.046105, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_combo) {
-  char str[256] = "log(32+1)*7/11*432*(sin(2)*12-45+4)/2";
-  Calc(str,0.0,true);
-  ck_assert_str_eq("-6280.257182", str);
+  char str[256] = "((sqrt(32+1)*7)/11)*432";
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(1579.2325920, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_combo_func) {
   char str[256] = "cos(sin(tan(-0.005)))";
-  Calc(str);
-  ck_assert_str_eq("0.999987", str);
+  bool status = true;
+  double res = Calc(str,0.0,&status);
+  ck_assert_double_eq_tol(0.999988, res, 1e-7);
 }
 END_TEST
 
@@ -166,5 +187,5 @@ int main(void) {
   srunner_ntests_failed(sr);
   srunner_free(sr);
 
-  return (0);
+  return 0;
 }

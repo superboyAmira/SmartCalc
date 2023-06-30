@@ -6,6 +6,7 @@
 #include "../s21_deposit.c"
 
 #include <QDebug>
+#include <string>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -165,14 +166,10 @@ void MainWindow::ViewOperators()
 
 
 
-    if (button->text() == "~/+" && ui->label_output->text().length() >= 0) {
+    if (button->text() == "~/+" && ui->label_output->text().length() > 0) {
 
-        if (ui->label_output->text().at(ui->label_output->text().length()) == '(') {
-            QString all_nums = (ui->label_output->text());
-
-            (all_nums.at(0) == '~') ? all_nums.remove(0, 1) : all_nums.insert(0, '~');
-
-            ui->label_output->setText(all_nums);
+        if (ui->label_output->text().at(ui->label_output->text().length() - 1) == '(') {
+            ui->label_output->setText(ui->label_output->text() + "-");
         }
 
     } else if (button->text() == "AC" && ui->label_output->text().length() > 0) {
@@ -186,6 +183,12 @@ void MainWindow::ViewOperators()
         }
 
     } else if (button->text() == "=" && (ui->label_output->text().length() > 0 && ui->label_output->text().toDouble() == 0.0 && ui->label_output->text().at(0) != '0')) {
+
+//        std::string s = ui->label_output->text().toStdString();
+
+//        char equation[NMAX] = {'\0'};
+
+//        strcpy(equation, s.c_str());
 
         char *equation = QStringToChar(ui->label_output->text());
 
@@ -211,11 +214,13 @@ void MainWindow::ViewOperators()
         } else {
             QString result_qstr = (fabs(result_dbl - (int)result_dbl) < 0.00000001) ? QString::asprintf("%d", (int)result_dbl) : QString::asprintf("%.7lf", result_dbl);
 
-            for (int i = result_qstr.length() - 1; i != 0; i--) {
-                if (result_qstr.at(i) == '0' && !num) {
-                    result_qstr.resize(i);
-                } else if (result_qstr.at(i) != '0') {
-                    num = true;
+            if (result_qstr.contains('.')) {
+                for (int i = result_qstr.length() - 1; i != 0; i--) {
+                    if (result_qstr.at(i) == '0' && !num) {
+                        result_qstr.resize(i);
+                    } else if (result_qstr.at(i) != '0') {
+                        num = true;
+                    }
                 }
             }
 

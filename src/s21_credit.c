@@ -8,7 +8,6 @@ void MainCredit(credit_data *info) {
         info->overpayment = (info->month_pay_ann * info->timeframe) - info->credit_sum;
         info->total_payment = info->overpayment + info->credit_sum;
     } else {
-        double pay[255] = {0.0};
         double pay_main_credit = (info->credit_sum / info->timeframe);
         info->month_pay_diff_max = pay_main_credit + ((info->credit_sum * (info->rate / 100) * 30.416666667) / 365);
         info->month_pay_diff_max = (int)(info->month_pay_diff_max * 100 + 0.5) / 100.0;

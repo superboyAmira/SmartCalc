@@ -94,17 +94,13 @@ bool CheckEquation(char *equation) {
     int dot = 0;
     size_t pos = 0;
     size_t pos_nums = 0;
-    char current_oper = '\0';
     char nums[NMAX] = {'\0'};
 
     while (equation[pos] != '\0' && status) {
-        if (isOper(equation[pos])) {
-            current_oper = equation[pos];
-        }
         if (isNum(equation[pos])) {
             while (!isOper(equation[pos]) && equation[pos] != '('
                     && equation[pos] != ')' && equation[pos] != '\0' 
-                    && equation[pos] != ' ') {
+                    && equation[pos] != ' ' && !isdigit(equation[pos])) {
                 nums[pos_nums++] = equation[pos++];
             }
             pos_nums = 0;
@@ -134,6 +130,9 @@ bool CheckEquation(char *equation) {
         }
         pos++;
     }
+    if (isOper(equation[pos - 1])) {
+        status = false;
+    }
     return status;
 }
 
@@ -143,7 +142,7 @@ void FormatX(char *equation, double x) {
 
     while (equation[pos] != '\0') {
         if (equation[pos] == 'x') {
-            sprintf(x_string, "%lf", x);
+            sprintf(x_string, "(%lf)", x);
             SetStringMiddle(equation, x_string, pos, pos + 1);
         }
         pos++;
@@ -279,7 +278,11 @@ double ExecutableInstructions(char op, double first, double second, bool *status
             result = pow(first, second);
             break;
         case '%':
-            result = fmod(first, second);
+            if (second < 0.0) {
+                result = 0.0 - fmod(first, second);
+            } else {
+                result = fmod(first, second);
+            }
             break;
     }
     return result;
@@ -455,6 +458,7 @@ double GetResult(char *equation, bool *status) {
                 second_tmp_num = cs_pop(&buffer);
                 first_tmp_num = cs_pop(&buffer);
                 sprintf(tmp_char, "%lf", ExecutableInstructions(equation[pos], first_tmp_num, second_tmp_num, status));
+                if (!status) break;
                 buffer = cs_push(atof(tmp_char), buffer);
                 memset(tmp_char, '\0', sizeof(tmp_char));
             }
@@ -487,18 +491,18 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
     
 
 
-//     char primer[255] = "2^3^2";
+//     char primer[255] = "((sqrt(32+1)*7)/11)*432";
 //     bool status = true;
 
 //     double res = 0.0;
 //     res = Calc(primer, 0.0, &status);
-//     printf("res = %lf / status = %d\n", res, status);
+//     // printf("res = %lf / status = %d\n", res, status);
 //     // for (double i = -10; i < 11; i+=0.1) {
 //     //     if (fabs(i) < 1e-7)
 //     //         i = 0.0;
-//     //     printf("!%.100lf!\n", i);
-//     //     sprintf(primer, "log(%lf)", i);
-//     //     res = Calc(primer, 0.0, &status);
+//     //     printf("!%.5lf!\n", i);
+//     //     // sprintf(primer, "1/%lf", i);
+//     //     res = Calc(primer, i, &status);
 //     //     printf("i = %lf / res = %lf / status = %d\n", i, res, status);
 //     // }
 //     // scanf("%s", primer);
