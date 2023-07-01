@@ -1000,10 +1000,6 @@ mainwindow.o: mainwindow.cpp mainwindow.h \
 		/usr/local/lib/QtCore.framework/Headers/qvector.h \
 		../s21_calc.h \
 		ui_mainwindow.h \
-		qcustomplot.h \
-		/usr/local/lib/QtCore.framework/Headers/qmath.h \
-		/usr/local/lib/QtCore.framework/Headers/qnumeric.h \
-		/usr/local/lib/QtCore.framework/Headers/QtNumeric \
 		../s21_calc.c \
 		../s21_credit.c \
 		../s21_deposit.c \
