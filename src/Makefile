@@ -26,10 +26,13 @@ GCOV_INFO = gcov_result.info
 ifeq ($(SYS), Darwin)
 	LIB_FLAGS = -lcheck
 	LEAKS = leaks --atExit -- test
+	QMAKE = qmake
 	APP = UIKIT.app
 else
 	LIB_FLAGS = -lcheck -lsubunit -pthread -lrt -lm
 	LEAKS = CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt ./test
+	USER = $(shell whoami)
+	QMAKE = /home/$(USER)/Qt/6.5.1/gcc_64/bin/qmake
 	APP = UIKIT
 endif
 
@@ -62,7 +65,7 @@ dvi:
 install:
 	rm -rf build
 	mkdir build
-	cd $(APP_DIR) && qmake && make && mv $(APP) ../build && cd ..
+	cd $(APP_DIR) && $(QMAKE) && make && mv $(APP) ../build && cd ..
 
 uninstall: clean
 	rm -rf build*
@@ -74,11 +77,11 @@ dist: install
 	rm -rf Archive_calc_v1.0/
 	mkdir Archive_calc_v1.0/
 	mkdir Archive_calc_v1.0/src
-	cp -r ./build/$(APP).app Archive_calc_v1.0/src/
+	cp -r ./build/$(APP) Archive_calc_v1.0/src/
 	tar cvzf Archive_calc_v1.0.tgz Archive_calc_v1.0/
 	rm -rf Archive_calc_v1.0/
 
-check: test
+check:
 	cp ../materials/linters/.clang-format .
 	clang-format -style=google -n *.c
 	rm -rf .clang-format

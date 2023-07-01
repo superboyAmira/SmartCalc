@@ -5,15 +5,15 @@
 START_TEST(test_plus) {
   char str[256] = "1.25+3.45";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(4.700000, res, 1e-7);
 }
 END_TEST
 
 START_TEST(test_minus) {
   char str[256] = "1.25-3.45";
-   bool status = true;
-  double res = Calc(str,0.0,&status);
+  bool status = true;
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(-2.200000, res, 1e-7);
 }
 END_TEST
@@ -21,7 +21,7 @@ END_TEST
 START_TEST(test_mult) {
   char str[256] = "1.25*3.45";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(4.312500, res, 1e-7);
 }
 END_TEST
@@ -30,7 +30,7 @@ START_TEST(test_mult2) {
   char str[256] = "3*(4+7)";
   bool status = true;
 
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(33.00, res, 1e-7);
 }
 END_TEST
@@ -38,7 +38,7 @@ END_TEST
 START_TEST(test_div) {
   char str[256] = "1.25/3.45";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(0.362319, res, 1e-7);
 }
 END_TEST
@@ -46,7 +46,7 @@ END_TEST
 START_TEST(test_mod) {
   char str[256] = "1.25mod3.45";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(1.25, res, 1e-7);
 }
 END_TEST
@@ -54,7 +54,7 @@ END_TEST
 START_TEST(test_pow) {
   char str[256] = "1.25^3.45";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(2.159432, res, 1e-7);
 }
 END_TEST
@@ -62,7 +62,7 @@ END_TEST
 START_TEST(test_brackets) {
   char str[256] = "(5.23+1.25)*(0.25+0.001)";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(1.626480, res, 1e-7);
 }
 END_TEST
@@ -70,7 +70,7 @@ END_TEST
 START_TEST(test_sin) {
   char str[256] = "sin((5.23+1.25)*(0.25+0.001))";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(0.998450, res, 1e-7);
 }
 END_TEST
@@ -78,7 +78,7 @@ END_TEST
 START_TEST(test_cos) {
   char str[256] = "cos((5.23+1.25)*(0.25+0.001))";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(-0.055655, res, 1e-7);
 }
 END_TEST
@@ -86,7 +86,7 @@ END_TEST
 START_TEST(test_tan) {
   char str[256] = "tan((5.23+1.25)*(0.25+0.001))";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(-17.940020, res, 1e-7);
 }
 END_TEST
@@ -94,16 +94,15 @@ END_TEST
 START_TEST(test_asin) {
   char str[256] = "asin(7/7.7)";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(1.141097, res, 1e-7);
-
 }
 END_TEST
 
 START_TEST(test_acos) {
   char str[256] = "acos(1/1)";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(0.0, res, 1e-7);
 }
 END_TEST
@@ -111,7 +110,7 @@ END_TEST
 START_TEST(test_atan) {
   char str[256] = "atan(7/7.7)";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(0.737815, res, 1e-7);
 }
 END_TEST
@@ -119,7 +118,7 @@ END_TEST
 START_TEST(test_sqrt) {
   char str[256] = "sqrt(1357-245)";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(33.346664, res, 1e-7);
 }
 END_TEST
@@ -127,7 +126,7 @@ END_TEST
 START_TEST(test_ln) {
   char str[256] = "ln(1357-245)";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(7.013915, res, 1e-7);
 }
 END_TEST
@@ -135,7 +134,7 @@ END_TEST
 START_TEST(test_log) {
   char str[256] = "log(1357-245)";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(3.046105, res, 1e-7);
 }
 END_TEST
@@ -143,7 +142,7 @@ END_TEST
 START_TEST(test_combo) {
   char str[256] = "((sqrt(32+1)*7)/11)*432";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(1579.2325920, res, 1e-7);
 }
 END_TEST
@@ -151,7 +150,7 @@ END_TEST
 START_TEST(test_combo_func) {
   char str[256] = "cos(sin(tan(-0.005)))";
   bool status = true;
-  double res = Calc(str,0.0,&status);
+  double res = Calc(str, 0.0, &status);
   ck_assert_double_eq_tol(0.999988, res, 1e-7);
 }
 END_TEST
@@ -159,7 +158,7 @@ END_TEST
 START_TEST(test_brackets_err) {
   char str[256] = "cos(sin(tan(-0.005))";
   bool status = true;
-  Calc(str,0.0,&status);
+  Calc(str, 0.0, &status);
   ck_assert_int_eq(false, status);
 }
 END_TEST
@@ -167,7 +166,7 @@ END_TEST
 START_TEST(test_del_0) {
   char str[256] = "10.124/0.0";
   bool status = true;
-  Calc(str,0.0,&status);
+  Calc(str, 0.0, &status);
   ck_assert_int_eq(false, status);
 }
 END_TEST
@@ -277,10 +276,10 @@ START_TEST(test_deposit_5) {
   info.supplement_date_arr[0] = 15;
   info.supplement_date_arr[1] = 3;
   info.supplement_date_arr[2] = 2023;
-  
+
   info.supplement_type = 0;
   info.supplement_date = 0;
-  info.supplement_value = 1000; 
+  info.supplement_value = 1000;
 
   MainDeposit(&info);
   ck_assert_double_eq_tol(12848.08, info.total_profit, 1e-0);
@@ -289,7 +288,6 @@ START_TEST(test_deposit_5) {
   ck_assert_double_eq_tol(113848.08, info.total_sum, 1e-0);
 }
 END_TEST
-
 
 START_TEST(test_deposit_6) {
   deposit_data info = {0};
@@ -306,7 +304,7 @@ START_TEST(test_deposit_6) {
 
   info.elimination_type = 1;
   info.elimination_date = 0;
-  info.elimination_value = 1000;  
+  info.elimination_value = 1000;
 
   MainDeposit(&info);
   ck_assert_double_eq_tol(12533.46, info.total_profit, 1e-2);
@@ -331,10 +329,10 @@ START_TEST(test_deposit_7) {
 
   info.supplement_type = 1;
   info.elimination_date = 0;
-  info.supplement_value = 1000;  
+  info.supplement_value = 1000;
 
   MainDeposit(&info);
-  ck_assert_double_eq_tol(12961.5 , info.total_profit, 1e-1);
+  ck_assert_double_eq_tol(12961.5, info.total_profit, 1e-1);
 
   ck_assert_double_eq_tol(0.0, info.total_tax, 1e-2);
   ck_assert_double_eq_tol(118961.5, info.total_sum, 1e-1);
@@ -356,13 +354,13 @@ START_TEST(test_deposit_8) {
 
   info.supplement_type = 2;
   info.elimination_date = 0;
-  info.supplement_value = 1000;  
+  info.supplement_value = 1000;
 
   MainDeposit(&info);
-  ck_assert_double_eq_tol(12839.8  , info.total_profit, 1e-1);
+  ck_assert_double_eq_tol(12839.8, info.total_profit, 1e-1);
 
   ck_assert_double_eq_tol(0.0, info.total_tax, 1e-2);
-  ck_assert_double_eq_tol(114839.8 , info.total_sum, 1e-1);
+  ck_assert_double_eq_tol(114839.8, info.total_sum, 1e-1);
 }
 END_TEST
 
@@ -381,10 +379,10 @@ START_TEST(test_deposit_9) {
 
   info.supplement_type = 3;
   info.elimination_date = 0;
-  info.supplement_value = 1000;  
+  info.supplement_value = 1000;
 
   MainDeposit(&info);
-  ck_assert_double_eq_tol(12809.5  , info.total_profit, 1e-1);
+  ck_assert_double_eq_tol(12809.5, info.total_profit, 1e-1);
 
   ck_assert_double_eq_tol(0.0, info.total_tax, 1e-2);
   ck_assert_double_eq_tol(113809, info.total_sum, 1e-0);
@@ -406,7 +404,7 @@ START_TEST(test_deposit_10) {
 
   info.elimination_type = 2;
   info.elimination_date = 0;
-  info.elimination_value = 1000; 
+  info.elimination_value = 1000;
 
   MainDeposit(&info);
   ck_assert_double_eq_tol(12655.1, info.total_profit, 1e-1);
@@ -431,7 +429,7 @@ START_TEST(test_deposit_11) {
 
   info.supplement_type = 1;
   info.elimination_date = 0;
-  info.supplement_value = 11000;  
+  info.supplement_value = 11000;
 
   info.elimination_date_arr[0] = 2;
   info.elimination_date_arr[1] = 7;
@@ -439,7 +437,7 @@ START_TEST(test_deposit_11) {
 
   info.elimination_type = 2;
   info.elimination_date = 0;
-  info.elimination_value = 1000; 
+  info.elimination_value = 1000;
 
   MainDeposit(&info);
   ck_assert_double_eq_tol(18960.49, info.total_profit, 1e-2);
@@ -464,7 +462,7 @@ START_TEST(test_deposit_12) {
 
   info.supplement_type = 0;
   info.elimination_date = 0;
-  info.supplement_value = 11000;  
+  info.supplement_value = 11000;
 
   info.elimination_date_arr[0] = 2;
   info.elimination_date_arr[1] = 7;
@@ -481,7 +479,6 @@ START_TEST(test_deposit_12) {
   ck_assert_double_eq_tol(124931.4, info.total_sum, 1e-1);
 }
 END_TEST
-
 
 int main(void) {
   Suite *s1 = suite_create("Core");
@@ -523,7 +520,7 @@ int main(void) {
   tcase_add_test(tc1_1, test_deposit_9);
   tcase_add_test(tc1_1, test_deposit_10);
   tcase_add_test(tc1_1, test_deposit_11);
-   tcase_add_test(tc1_1, test_deposit_12);
+  tcase_add_test(tc1_1, test_deposit_12);
   srunner_run_all(sr, CK_ENV);
   srunner_ntests_failed(sr);
   srunner_free(sr);

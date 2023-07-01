@@ -1,213 +1,213 @@
 #include "s21_calc.h"
 
-const double month_day[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 30.9976};
+const double month_day[12] = {31, 28, 31, 30, 31, 30,
+                              31, 31, 30, 31, 30, 30.9976};
 const double kvartal_day[4] = {90, 91, 92, 91.9976};
 
-void round_2(double *num) {
-    *num = (int)(*num * 100 + 0.5) / 100.0;
-}
+void round_2(double *num) { *num = (int)(*num * 100 + 0.5) / 100.0; }
 
 void parserDate(deposit_data *info, bool supp, bool elim) {
-    // if ((info->supplement_date_arr[0] == 1 && info->supplement_date_arr[1] == 1 && info->supplement_date_arr[2] == 2023 )) {
-    //     if (info->supplement_type == 0) {
-    //         info->supplement_value = 0;
-    //     } else if (info->supplement_type == 1) {
-    //         info->supplement_date_arr[1]++;
-    //     } else if (info->supplement_type == 2) {
-    //         info->supplement_date_arr[1] += 3;
-    //     } else if (info->supplement_type == 3) {
-    //         info->supplement_date_arr[2]++;
-    //     }
-    // } else if (info->elimination_date_arr[0] == 1 && info->elimination_date_arr[1] == 1 && info->elimination_date_arr[2] == 2023 ) {
-    //      if (info->elimination_type == 0) {
-    //         info->elimination_value = 0;
-    //     } else if (info->elimination_type == 1) {
-    //         info->elimination_date_arr[1]++;
-    //     } else if (info->elimination_type == 2) {
-    //         info->elimination_date_arr[1] += 3;
-    //     } else if (info->elimination_type == 3) {
-    //         info->elimination_date_arr[2]++;
-    //     }
-    // }
-
-    if (info->timeframe_type == 0) {
-        if (info->supplement_value != 0.0 && supp) {
-            for (int i = 0; i < (info->supplement_date_arr[1] + (12 * (info->supplement_date_arr[2] - 2023)) - 1); i++) {
-                info->supplement_date += round(month_day[i % 12]);
-            }
-            info->supplement_date += info->supplement_date_arr[0];
-        }
-        if (info->elimination_value != 0.0 && elim) {
-            for (int i = 0; i < (info->elimination_date_arr[1] + (12 * (info->elimination_date_arr[2] - 2023)) - 1); i++) {
-                info->elimination_date += round(month_day[i % 12]);
-            }
-            info->elimination_date += info->elimination_date_arr[0];
-        }   
-    } else if (info->timeframe_type == 1) {
-        if (info->supplement_value != 0.0 && supp) {
-            info->supplement_date = info->supplement_date_arr[1] + 12 * (info->supplement_date_arr[2] - 2023);
-        }
-        if (info->elimination_value != 0.0 && elim) {
-            info->elimination_date = info->elimination_date_arr[1] + 12 * (info->elimination_date_arr[2] - 2023);
-        }  
-    } else if (info->timeframe_type == 2) {
-        if (info->supplement_value != 0.0 && supp) {
-            info->supplement_date = info->supplement_date_arr[1];
-            if (info->supplement_date >= 1 && info->supplement_date <= 3) info->supplement_date = 1 + 4 * (info->supplement_date_arr[2] - 2023);
-            else if (info->supplement_date >= 4 && info->supplement_date <= 6) info->supplement_date = 2 + 4 * (info->supplement_date_arr[2] - 2023);
-            else if (info->supplement_date >= 7 && info->supplement_date <= 9) info->supplement_date = 3 + 4 * (info->supplement_date_arr[2] - 2023);
-            else if (info->supplement_date >= 10 && info->supplement_date <= 12) info->supplement_date = 4 + 4 * (info->supplement_date_arr[2] - 2023);
-        }
-        if (info->elimination_value != 0.0 && elim) {
-            info->elimination_date = info->elimination_date_arr[1];
-            if (info->elimination_date >= 1 && info->elimination_date <= 3) info->elimination_date = 1 + 4 * (info->elimination_date_arr[2] - 2023);
-            else if (info->elimination_date >= 4 && info->elimination_date <= 6) info->elimination_date = 2 + 4 * (info->elimination_date_arr[2] - 2023);
-            else if (info->elimination_date >= 7 && info->elimination_date <= 9) info->elimination_date = 3 + 4 * (info->elimination_date_arr[2] - 2023);
-            else if (info->elimination_date >= 10 && info->elimination_date <= 12) info->elimination_date = 4 + 4 * (info->elimination_date_arr[2] - 2023);        
-        }
-    } else if (info->timeframe_type == 3) {
-        if (info->supplement_value > 0.0 && supp) {
-            info->supplement_date = info->supplement_date_arr[2] - 2023;
-        }
-        if (info->elimination_value > 0.0 && elim) {
-            info->elimination_date = info->elimination_date_arr[2] - 2023;
-        }
+  if (info->timeframe_type == 0) {
+    if (info->supplement_value != 0.0 && supp) {
+      for (int i = 0; i < (info->supplement_date_arr[1] +
+                           (12 * (info->supplement_date_arr[2] - 2023)) - 1);
+           i++) {
+        info->supplement_date += round(month_day[i % 12]);
+      }
+      info->supplement_date += info->supplement_date_arr[0];
     }
+    if (info->elimination_value != 0.0 && elim) {
+      for (int i = 0; i < (info->elimination_date_arr[1] +
+                           (12 * (info->elimination_date_arr[2] - 2023)) - 1);
+           i++) {
+        info->elimination_date += round(month_day[i % 12]);
+      }
+      info->elimination_date += info->elimination_date_arr[0];
+    }
+  } else if (info->timeframe_type == 1) {
+    if (info->supplement_value != 0.0 && supp) {
+      info->supplement_date = info->supplement_date_arr[1] +
+                              12 * (info->supplement_date_arr[2] - 2023);
+    }
+    if (info->elimination_value != 0.0 && elim) {
+      info->elimination_date = info->elimination_date_arr[1] +
+                               12 * (info->elimination_date_arr[2] - 2023);
+    }
+  } else if (info->timeframe_type == 2) {
+    if (info->supplement_value != 0.0 && supp) {
+      info->supplement_date = info->supplement_date_arr[1];
+      if (info->supplement_date >= 1 && info->supplement_date <= 3)
+        info->supplement_date = 1 + 4 * (info->supplement_date_arr[2] - 2023);
+      else if (info->supplement_date >= 4 && info->supplement_date <= 6)
+        info->supplement_date = 2 + 4 * (info->supplement_date_arr[2] - 2023);
+      else if (info->supplement_date >= 7 && info->supplement_date <= 9)
+        info->supplement_date = 3 + 4 * (info->supplement_date_arr[2] - 2023);
+      else if (info->supplement_date >= 10 && info->supplement_date <= 12)
+        info->supplement_date = 4 + 4 * (info->supplement_date_arr[2] - 2023);
+    }
+    if (info->elimination_value != 0.0 && elim) {
+      info->elimination_date = info->elimination_date_arr[1];
+      if (info->elimination_date >= 1 && info->elimination_date <= 3)
+        info->elimination_date = 1 + 4 * (info->elimination_date_arr[2] - 2023);
+      else if (info->elimination_date >= 4 && info->elimination_date <= 6)
+        info->elimination_date = 2 + 4 * (info->elimination_date_arr[2] - 2023);
+      else if (info->elimination_date >= 7 && info->elimination_date <= 9)
+        info->elimination_date = 3 + 4 * (info->elimination_date_arr[2] - 2023);
+      else if (info->elimination_date >= 10 && info->elimination_date <= 12)
+        info->elimination_date = 4 + 4 * (info->elimination_date_arr[2] - 2023);
+    }
+  } else if (info->timeframe_type == 3) {
+    if (info->supplement_value > 0.0 && supp) {
+      info->supplement_date = info->supplement_date_arr[2] - 2023;
+    }
+    if (info->elimination_value > 0.0 && elim) {
+      info->elimination_date = info->elimination_date_arr[2] - 2023;
+    }
+  }
 }
 
 void addSupp(double *balance, deposit_data *info) {
-    for (int i = 0; i <= info->timeframe; i++) {
-        if (info->supplement_date - 1 == i) {
-            balance[i] += info->supplement_value;
-            if (info->capitalisation) 
-                info->total_profit -= info->supplement_value;
-        }
+  for (int i = 0; i <= info->timeframe; i++) {
+    if (info->supplement_date - 1 == i) {
+      balance[i] += info->supplement_value;
+      if (info->capitalisation)
+        info->total_profit -= info->supplement_value;
     }
+  }
 }
 
 void addElim(double *balance, deposit_data *info) {
-    for (int i = 0; i <= info->timeframe; i++) {
-        if (info->elimination_date - 1 == i) {
-            balance[i] -= info->elimination_value;
-            if (info->capitalisation)
-                info->total_profit += info->elimination_value;
-        }
+  for (int i = 0; i <= info->timeframe; i++) {
+    if (info->elimination_date - 1 == i) {
+      balance[i] -= info->elimination_value;
+      if (info->capitalisation)
+        info->total_profit += info->elimination_value;
     }
+  }
 }
 
 void Tax(deposit_data *info) {
-    if (info->total_profit > 1000000 * 0.075) {
-        info->total_tax = (info->total_profit - 1000000 * 0.075) * info->tax_rate / 100;
-        info->total_profit = info->total_profit - info->total_tax;
-        info->total_sum = info->sum + info->total_profit;
-    } else {
-        info->total_tax = 0.0;
-    }
+  if (info->total_profit > 1000000 * 0.075) {
+    info->total_tax =
+        (info->total_profit - 1000000 * 0.075) * info->tax_rate / 100;
+    info->total_profit = info->total_profit - info->total_tax;
+    info->total_sum = info->sum + info->total_profit;
+  } else {
+    info->total_tax = 0.0;
+  }
 }
 
 void MainDeposit(deposit_data *info) {
-    if (!info->capitalisation) info->timeframe_type = 0;
-    parserDate(info, true, true);
+  if (!info->capitalisation)
+    info->timeframe_type = 0;
+  parserDate(info, true, true);
 
-    double balance[1000] = {0};
-    balance[0] = info->sum;
+  double balance[1000] = {0};
+  balance[0] = info->sum;
 
-    for (int i = 0; i <= info->timeframe; i++) {
-        if (info->supplement_type == 0 && info->supplement_value > 0 ){ // разовое
-            addSupp(balance, info);
-            break;
-        } else if (info->supplement_type == 1) { // month
-            
-            addSupp(balance, info);
-            
-            info->supplement_date_arr[1]++;
-            if (info->supplement_date_arr[1] > 12) {
-                info->supplement_date_arr[2]++;
-                info->supplement_date_arr[1] = 1;
-            }
-            info->supplement_date = 0;
-            parserDate(info, true, false);
-        } else if (info->supplement_type == 2) { // quater
-            addSupp(balance, info);
-            info->supplement_date_arr[1] += 3;
-            if (info->supplement_date_arr[1] > 12) {
-                info->supplement_date_arr[2]++;
-                info->supplement_date_arr[1] = info->supplement_date_arr[1] - 12;
-            }
-            info->supplement_date = 0;
-            parserDate(info, true, false);
-        } else if (info->supplement_type == 3) { // year
-            addSupp(balance, info);
-            info->supplement_date_arr[2]++;
-            info->supplement_date = 0;
-            parserDate(info, true, false);
-        }
-        if (info->elimination_type == 0 && info->elimination_value > 0 ){ // разовое
-            addElim(balance, info);
-            break;
-        } else if (info->elimination_type == 1) { // month
-            addElim(balance, info);
-            
-            info->elimination_date_arr[1]++;
-            if (info->elimination_date_arr[1] > 12) {
-                info->elimination_date_arr[2]++;
-                info->elimination_date_arr[1] = 1;
-            }
-            info->elimination_date = 0;
-            parserDate(info, false, true);
-        } else if (info->elimination_type == 2) { // quater
-            addElim(balance, info);
-            info->elimination_date_arr[1] += 3;
-            if (info->elimination_date_arr[1] > 12) {
-                info->elimination_date_arr[2]++;
-                info->elimination_date_arr[1] = info->elimination_date_arr[1] - 12;
-            }
-            info->elimination_date = 0;
-            parserDate(info, false, true);
-        } else if (info->elimination_type == 3) { // year
-            addElim(balance, info);
-            info->elimination_date_arr[2]++;
-            info->elimination_date = 0;
-            parserDate(info, false, true);
-        }
+  for (int i = 0; i <= info->timeframe; i++) {
+    if (info->supplement_type == 0 && info->supplement_value > 0) { // разовое
+      addSupp(balance, info);
+      break;
+    } else if (info->supplement_type == 1) { // month
+
+      addSupp(balance, info);
+
+      info->supplement_date_arr[1]++;
+      if (info->supplement_date_arr[1] > 12) {
+        info->supplement_date_arr[2]++;
+        info->supplement_date_arr[1] = 1;
+      }
+      info->supplement_date = 0;
+      parserDate(info, true, false);
+    } else if (info->supplement_type == 2) { // quater
+      addSupp(balance, info);
+      info->supplement_date_arr[1] += 3;
+      if (info->supplement_date_arr[1] > 12) {
+        info->supplement_date_arr[2]++;
+        info->supplement_date_arr[1] = info->supplement_date_arr[1] - 12;
+      }
+      info->supplement_date = 0;
+      parserDate(info, true, false);
+    } else if (info->supplement_type == 3) { // year
+      addSupp(balance, info);
+      info->supplement_date_arr[2]++;
+      info->supplement_date = 0;
+      parserDate(info, true, false);
     }
+    if (info->elimination_type == 0 && info->elimination_value > 0) { // разовое
+      addElim(balance, info);
+      break;
+    } else if (info->elimination_type == 1) { // month
+      addElim(balance, info);
 
-    if (!info->capitalisation) { // добавить пополнения и снятия и итоговая сумма с их учетом
-        for (int i = 1; i <= info->timeframe; i++) {
-            info->total_profit += balance[i - 1] * ((info->interest_rate / 100.0) / 365);
-            balance[i] += balance[i - 1];
-        }
-        round_2(&info->total_profit);
-        info->total_sum = balance[info->timeframe];
-        info->total_rate = info->total_profit / info->sum * 100.0;
-        round_2(&info->total_rate);
-    } else {
-        if (info->timeframe_type == 0) { // days
-            for (int i = 1; i <= info->timeframe; i++) {
-                balance[i] += balance[i - 1] + balance[i-1] * (((info->interest_rate / 100.0) / 365));
-            }
-        } else if (info->timeframe_type == 1) { // moth
-            for (int i = 1; i <= info->timeframe; i++) {
-                balance[i] += balance[i - 1] + balance[i-1] * (((info->interest_rate / 100.0) / 365) * month_day[(i - 1) % 12]);
-            }
-        } else if (info->timeframe_type == 2) { // quater
-            for (int i = 1; i <= info->timeframe; i++) {
-                balance[i] += balance[i - 1] + balance[i-1] * (((info->interest_rate / 100.0) / 365) * kvartal_day[(i- 1) % 4]);
-            }
-        } else { // year
-            for (int i = 1; i <= info->timeframe; i++) {
-                balance[i] = balance[i - 1] + balance[i-1] * (((info->interest_rate / 100.0) / 365) * 365);
-            }
-        }
-        info->total_sum = balance[info->timeframe ];
-        info->total_profit += info->total_sum - info->sum;
-        info->total_rate = info->total_profit / info->sum * 100.0;
-        round_2(&info->total_sum);
-        round_2(&info->total_profit);
-        round_2(&info->total_rate);
+      info->elimination_date_arr[1]++;
+      if (info->elimination_date_arr[1] > 12) {
+        info->elimination_date_arr[2]++;
+        info->elimination_date_arr[1] = 1;
+      }
+      info->elimination_date = 0;
+      parserDate(info, false, true);
+    } else if (info->elimination_type == 2) { // quater
+      addElim(balance, info);
+      info->elimination_date_arr[1] += 3;
+      if (info->elimination_date_arr[1] > 12) {
+        info->elimination_date_arr[2]++;
+        info->elimination_date_arr[1] = info->elimination_date_arr[1] - 12;
+      }
+      info->elimination_date = 0;
+      parserDate(info, false, true);
+    } else if (info->elimination_type == 3) { // year
+      addElim(balance, info);
+      info->elimination_date_arr[2]++;
+      info->elimination_date = 0;
+      parserDate(info, false, true);
     }
-    
-    
+  }
 
-    Tax(info);
+  if (!info->capitalisation) { // добавить пополнения и снятия и итоговая сумма
+                               // с их учетом
+    for (int i = 1; i <= info->timeframe; i++) {
+      info->total_profit +=
+          balance[i - 1] * ((info->interest_rate / 100.0) / 365);
+      balance[i] += balance[i - 1];
+    }
+    round_2(&info->total_profit);
+    info->total_sum = balance[info->timeframe];
+    info->total_rate = info->total_profit / info->sum * 100.0;
+    round_2(&info->total_rate);
+  } else {
+    if (info->timeframe_type == 0) { // days
+      for (int i = 1; i <= info->timeframe; i++) {
+        balance[i] += balance[i - 1] +
+                      balance[i - 1] * (((info->interest_rate / 100.0) / 365));
+      }
+    } else if (info->timeframe_type == 1) { // moth
+      for (int i = 1; i <= info->timeframe; i++) {
+        balance[i] += balance[i - 1] +
+                      balance[i - 1] * (((info->interest_rate / 100.0) / 365) *
+                                        month_day[(i - 1) % 12]);
+      }
+    } else if (info->timeframe_type == 2) { // quater
+      for (int i = 1; i <= info->timeframe; i++) {
+        balance[i] += balance[i - 1] +
+                      balance[i - 1] * (((info->interest_rate / 100.0) / 365) *
+                                        kvartal_day[(i - 1) % 4]);
+      }
+    } else { // year
+      for (int i = 1; i <= info->timeframe; i++) {
+        balance[i] =
+            balance[i - 1] +
+            balance[i - 1] * (((info->interest_rate / 100.0) / 365) * 365);
+      }
+    }
+    info->total_sum = balance[info->timeframe];
+    info->total_profit += info->total_sum - info->sum;
+    info->total_rate = info->total_profit / info->sum * 100.0;
+    round_2(&info->total_sum);
+    round_2(&info->total_profit);
+    round_2(&info->total_rate);
+  }
+
+  Tax(info);
 }
