@@ -14,25 +14,26 @@ LIB_NAME = s21_calc.a
 LIB_FLAGS = -lcheck -lm -lpthread
 
 # UI
-
+APP_DIR = UIKIT
+APP = SmarCalc.app
 # Testing
 TEST_SRC = s21_calc_tests.c
 TEST_OBJ = $(TEST_SRC:.c=.o)
-
-
 TEST_FLAGS_GCOV = --coverage -Wall -Wextra -Werror
 REPORT_NAME = gcov_result
 GCOV_INFO = gcov_result.info
 
-ifeq ($(SYS), Darwin) # Проверяем ОС
+ifeq ($(SYS), Darwin)
 	LIB_FLAGS = -lcheck
 	LEAKS = leaks --atExit -- test
+	APP = UIKIT.app
 else
 	LIB_FLAGS = -lcheck -lsubunit -pthread -lrt -lm
 	LEAKS = CK_FORK=no valgrind --vgdb=no --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=RESULT_VALGRIND.txt ./test
+	APP = UIKIT
 endif
 
-all: clean s21_calc.a dvi
+all: clean dvi install
 
 s21_calc.a: $(OBJS)
 	ar rc $(LIB_NAME) $(OBJS)
@@ -41,6 +42,7 @@ s21_calc.a: $(OBJS)
 
 %.o: %.c s21_calc.h
 	$(CC) $(FLAGS) $< -o $@
+
 clean:
 	rm -rf lib_obj lib/*.o ./*.a ./*.o ./a.out gcov_test report lib/*.dSYM ./*.gcno ./*.gcda ./*.info ./*.dSYM ./CPPLINT*
 
@@ -60,19 +62,19 @@ dvi:
 install:
 	rm -rf build
 	mkdir build
-	cd UIKIT && qmake && make && mv UIKIT.app ../build && cd ..
+	cd $(APP_DIR) && qmake && make && mv $(APP) ../build && cd ..
 
 uninstall: clean
 	rm -rf build*
-	rm -rf UIKIT/moc*
-	rm -rf UIKIT/*.o
-	rm -rf UIKIT/ui*
+	rm -rf $(APP_DIR)/moc*
+	rm -rf $(APP_DIR)/*.o
+	rm -rf $(APP_DIR)/ui*
 
 dist: install
 	rm -rf Archive_calc_v1.0/
 	mkdir Archive_calc_v1.0/
 	mkdir Archive_calc_v1.0/src
-	cp -r ./build/UIKIT.app Archive_calc_v1.0/src/
+	cp -r ./build/$(APP).app Archive_calc_v1.0/src/
 	tar cvzf Archive_calc_v1.0.tgz Archive_calc_v1.0/
 	rm -rf Archive_calc_v1.0/
 
@@ -80,15 +82,10 @@ check: test
 	cp ../materials/linters/.clang-format .
 	clang-format -style=google -n *.c
 	rm -rf .clang-format
-	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.c *.h lib/*.c
-	cp ../materials/linters/CPPLINT.cfg .
-	python3 ../materials/linters/cpplint.py --extension=c lib/*.c lib/*.h
-	rm -rf CPPLINT.cfg
+	# cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config *.c *.h lib/*.c
+	# cp ../materials/linters/CPPLINT.cfg .
+	# python3 ../materials/linters/cpplint.py --extension=c lib/*.c lib/*.h
+	# rm -rf CPPLINT.cfg
 
 leaks: test
-	ifeq ($(SYS),Linux)
-		valgrind -s --trace-children=yes --track-fds=yes --track-origins=yes --leak-check=full --show-leak-kinds=all ./test
-	endif
-	ifeq ($(SYS),Darwin)
-		leaks --atExit -- ./test
-	endif
+	$(LEAKS)

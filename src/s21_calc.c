@@ -130,6 +130,9 @@ bool CheckEquation(char *equation) {
         }
         pos++;
     }
+    if (bracket > 0) {
+        status = false;
+    }
     if (isOper(equation[pos - 1])) {
         status = false;
     }
@@ -487,25 +490,3 @@ void SetStringMiddle(char *dest, char *src, size_t r_border, size_t l_border) {
 /*
 -------------------------------------
 */
-// int main() {
-    
-
-
-//     char primer[255] = "((sqrt(32+1)*7)/11)*432";
-//     bool status = true;
-
-//     double res = 0.0;
-//     res = Calc(primer, 0.0, &status);
-//     // printf("res = %lf / status = %d\n", res, status);
-//     // for (double i = -10; i < 11; i+=0.1) {
-//     //     if (fabs(i) < 1e-7)
-//     //         i = 0.0;
-//     //     printf("!%.5lf!\n", i);
-//     //     // sprintf(primer, "1/%lf", i);
-//     //     res = Calc(primer, i, &status);
-//     //     printf("i = %lf / res = %lf / status = %d\n", i, res, status);
-//     // }
-//     // scanf("%s", primer);
-    
-//     return 0;
-// }

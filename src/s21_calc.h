@@ -101,7 +101,7 @@ typedef struct deposit_data {
 
 void MainDeposit(deposit_data *info);
 void Tax(deposit_data *info);
-void parserDate(deposit_data *info);
+void parserDate(deposit_data *info, bool supp, bool elim);
 void addSupp(double *balance, deposit_data *info);
 void addElim(double *balance, deposit_data *info);
 

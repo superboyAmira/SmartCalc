@@ -22,20 +22,3 @@ void MainCredit(credit_data *info) {
         info->overpayment = info->total_payment - info->credit_sum;
     }
 }
-// int main() {
-//     // credit_data info = {0};
-//     // info.credit_sum = 20000;
-//     // info.rate = 12;
-//     // info.timeframe = 36;
-//     // info.type = ANN;
-//     // MainCredit(&info);
-//     credit_data info2= {0};
-//     info2.credit_sum = 130000;
-//     info2.rate = 15;
-//     info2.timeframe = 12;
-//     info2.type = DIFF;
-//     MainCredit(&info2);
-
-
-//     return 0;
-// }
