@@ -9,11 +9,18 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    ../Model/s21_calc.c \
+    ../Model/s21_credit.c \
+    ../Model/s21_deposit.c \
     main.cpp \
     mainwindow.cpp \
     qcustomplot.cpp
 
 HEADERS += \
+    ../Model/ArithmeticCalc.h \
+    ../Model/Observable.h \
+    ../Model/Observer.h \
+    ../Model/s21_calc.h \
     mainwindow.h \
     qcustomplot.h
 

@@ -8,7 +8,7 @@
 #ifdef __cplusplus
 extern "C"
 {
-    #include "../s21_calc.h"
+    #include "../Model/s21_calc.h"
 }
 #endif
 

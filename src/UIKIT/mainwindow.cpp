@@ -1,9 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../s21_calc.h"
-#include "../s21_calc.c"
-#include "../s21_credit.c"
-#include "../s21_deposit.c"
+// #include "../Model/s21_calc.h"
+// #include "../Model/s21_calc.c"
+#include "../Model/s21_credit.c"
+#include "../Model/s21_deposit.c"
+#include "../Model/ArithmeticCalc.h"
 
 #include <QDebug>
 #include <string>
