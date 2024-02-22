@@ -1,0 +1,182 @@
+
+=================================================================
+==58358==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 192 byte(s) in 6 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835d331 in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:166
+    #3 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #4 0x55d5a83548d2 in ModelCalc_full2_Test::TestBody() Tests/calc_test.cc:121
+    #5 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 128 byte(s) in 4 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835d331 in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:166
+    #3 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #4 0x55d5a8354298 in ModelCalc_full_Test::TestBody() Tests/calc_test.cc:113
+    #5 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 96 byte(s) in 3 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835d331 in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:166
+    #3 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #4 0x55d5a8354f2f in ModelCalc_full3_Test::TestBody() Tests/calc_test.cc:131
+    #5 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a834f9cc in ModelCalc_LightEquation3_Test::TestBody() Tests/calc_test.cc:25
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8350c02 in ModelCalc_LightEquation6_Test::TestBody() Tests/calc_test.cc:46
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8351214 in ModelCalc_LightEquation7_Test::TestBody() Tests/calc_test.cc:53
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a83505f0 in ModelCalc_LightEquation5_Test::TestBody() Tests/calc_test.cc:39
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a834ffde in ModelCalc_LightEquation4_Test::TestBody() Tests/calc_test.cc:32
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835244a in ModelCalc_Brackets12_Test::TestBody() Tests/calc_test.cc:74
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8352a5c in ModelCalc_Brackets2_Test::TestBody() Tests/calc_test.cc:81
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8353056 in ModelCalc_minus_Test::TestBody() Tests/calc_test.cc:88
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8353578 in ModelCalc_cos_Test::TestBody() Tests/calc_test.cc:95
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835d331 in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:166
+    #3 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #4 0x55d5a8353624 in ModelCalc_cos_Test::TestBody() Tests/calc_test.cc:97
+    #5 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8353bb2 in ModelCalc_grade_Test::TestBody() Tests/calc_test.cc:103
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a83541ec in ModelCalc_full_Test::TestBody() Tests/calc_test.cc:111
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8351826 in ModelCalc_LightEquation8_Test::TestBody() Tests/calc_test.cc:60
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8351e38 in ModelCalc_LightEquation9_Test::TestBody() Tests/calc_test.cc:67
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835d331 in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:166
+    #3 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #4 0x55d5a835d3bb in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:168
+    #5 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #6 0x55d5a8354298 in ModelCalc_full_Test::TestBody() Tests/calc_test.cc:113
+    #7 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8354826 in ModelCalc_full2_Test::TestBody() Tests/calc_test.cc:119
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a834f3ba in ModelCalc_LightEquation2_Test::TestBody() Tests/calc_test.cc:18
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8354e60 in ModelCalc_full3_Test::TestBody() Tests/calc_test.cc:127
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a834eda8 in ModelCalc_LightEquation1_Test::TestBody() Tests/calc_test.cc:11
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a83554bc in ModelCalc_full3_x_Test::TestBody() Tests/calc_test.cc:137
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835d331 in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:166
+    #3 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #4 0x55d5a8355568 in ModelCalc_full3_x_Test::TestBody() Tests/calc_test.cc:139
+    #5 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a8355b32 in ModelCalc_Exception1_Test::TestBody() Tests/calc_test.cc:145
+    #3 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Direct leak of 32 byte(s) in 1 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x55d5a835bcae in CalcModel::CalcModel() Tests/../Models/calc_model.h:16
+    #2 0x55d5a835d331 in CalcModel::ReplaceFunctions() Tests/../Models/calc_model.h:166
+    #3 0x55d5a835c0c8 in CalcModel::UpdateModel(double) Tests/../Models/calc_model.h:48
+    #4 0x55d5a8356f8e in ModelCalc_Exception3_Test::TestBody() Tests/calc_test.cc:165
+    #5 0x55d5a839ff9e in void testing::internal::HandleExceptionsInMethodIfSupported<testing::Test, void>(testing::Test*, void (testing::Test::*)(), char const*) (/home/superboy/C8_3DViewer_v1.0-1/src/test+0x64f9e) (BuildId: 6f3511ff0bb061b45188bf00e45530a6e75502a4)
+
+Indirect leak of 326 byte(s) in 4 object(s) allocated from:
+    #0 0x7f4ed0edfbb8 in operator new(unsigned long) ../../../../src/libsanitizer/asan/asan_new_delete.cpp:95
+    #1 0x7f4ed0b58f4d in std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (/lib/x86_64-linux-gnu/libstdc++.so.6+0x158f4d) (BuildId: 1fcdadafe5a79e1031ab0da645aa3798954cf53d)
+
+SUMMARY: AddressSanitizer: 1478 byte(s) leaked in 40 allocation(s).
+make: *** [Makefile:34: fsanitize] Ошибка 1
