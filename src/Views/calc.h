@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "credit.h"
+#include "deposit.h"
 
 #include "../Controllers/calc_controller.h"
 
@@ -93,6 +94,7 @@ private:
     Ui::Calc *ui;
 
     Credit ui_credit;
+    Deposit ui_deposit;
     s21::CalcController controller;
 
 };

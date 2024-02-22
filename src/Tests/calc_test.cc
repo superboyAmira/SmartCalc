@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../Models/calc_model.h"
+#include "test.h"
 
 bool AreEqual(long double num1, long double num2, int precision) {
     long double epsilon = 1.0 / std::pow(10, precision);
@@ -8,7 +8,7 @@ bool AreEqual(long double num1, long double num2, int precision) {
 }
 
 TEST(ModelCalc, LightEquation1) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "1+5";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -16,7 +16,7 @@ TEST(ModelCalc, LightEquation1) {
 }
 
 TEST(ModelCalc, LightEquation2) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "1+55";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -24,7 +24,7 @@ TEST(ModelCalc, LightEquation2) {
 }
 
 TEST(ModelCalc, LightEquation3) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "123+54";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -32,7 +32,7 @@ TEST(ModelCalc, LightEquation3) {
 }
 
 TEST(ModelCalc, LightEquation4) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "5*6";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -40,7 +40,7 @@ TEST(ModelCalc, LightEquation4) {
 }
 
 TEST(ModelCalc, LightEquation5) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "50*6";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -48,7 +48,7 @@ TEST(ModelCalc, LightEquation5) {
 }
 
 TEST(ModelCalc, LightEquation6) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "5*6+5";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -56,7 +56,7 @@ TEST(ModelCalc, LightEquation6) {
 }
 
 TEST(ModelCalc, LightEquation7) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "5*6*7";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -64,7 +64,7 @@ TEST(ModelCalc, LightEquation7) {
 }
 
 TEST(ModelCalc, LightEquation8) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "5+6*10";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -72,7 +72,7 @@ TEST(ModelCalc, LightEquation8) {
 }
 
 TEST(ModelCalc, LightEquation9) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "5*6/6";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -80,7 +80,7 @@ TEST(ModelCalc, LightEquation9) {
 }
 
 TEST(ModelCalc, Brackets12) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "(6+6)/6";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -88,7 +88,7 @@ TEST(ModelCalc, Brackets12) {
 }
 
 TEST(ModelCalc, Brackets2) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "((6+6)/6)+9";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -96,7 +96,7 @@ TEST(ModelCalc, Brackets2) {
 }
 
 TEST(ModelCalc, minus) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "10-20";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -104,7 +104,7 @@ TEST(ModelCalc, minus) {
 }
 
 TEST(ModelCalc, cos) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "cos(10)";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -113,7 +113,7 @@ TEST(ModelCalc, cos) {
 }
 
 TEST(ModelCalc, grade) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "2^3^2";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -122,7 +122,7 @@ TEST(ModelCalc, grade) {
 }
 
 TEST(ModelCalc, full) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "(ln(50)+100)%(2+2.5)+sin(0.5)+tan(10)+sqrt(acos(0.24+0.1222))";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -131,7 +131,7 @@ TEST(ModelCalc, full) {
 }
 
 TEST(ModelCalc, full2) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "acos(~0.5)+asin(~0.5)+atan(0.1)*cos(30)*sin(20)*tan(45)";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -140,7 +140,7 @@ TEST(ModelCalc, full2) {
 }
 
 TEST(ModelCalc, full3) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "acos(x)+asin(x)+atan(0.1)";
   long double x = -0.4;
   model.SetEquation(eq);
@@ -151,7 +151,7 @@ TEST(ModelCalc, full3) {
 }
 
 TEST(ModelCalc, full3_x) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "log(0.3)";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -160,7 +160,7 @@ TEST(ModelCalc, full3_x) {
 }
 
 TEST(ModelCalc, Exception1) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "5/0";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -170,7 +170,7 @@ TEST(ModelCalc, Exception1) {
 }
 
 TEST(ModelCalc, Exception2) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "5/0))))";
   model.SetEquation(eq);
   model.UpdateModel();
@@ -180,7 +180,7 @@ TEST(ModelCalc, Exception2) {
 }
 
 TEST(ModelCalc, Exception3) {
-  CalcModel model;
+  s21::CalcModel model;
   std::string eq = "ln(~100)";
   model.SetEquation(eq);
   model.UpdateModel();

@@ -11,21 +11,26 @@ CONFIG += c++17
 SOURCES += \
     Views/calc.cc \
     Views/credit.cc \
+    Views/deposit.cpp \
     main.cc \
     qcustomplot.cpp
 
 HEADERS += \
     Controllers/credit_controller.h \
+    Controllers/deposit_controller.h \
     Models/calc_model.h \
     Controllers/calc_controller.h \
     Models/credit_model.h \
+    Models/deposit_model.h \
     Views/calc.h \
     Views/credit.h \
+    Views/deposit.h \
     qcustomplot.h
 
 FORMS += \
     Views/calc.ui \
-    Views/credit.ui
+    Views/credit.ui \
+    Views/deposit.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -185,3 +185,8 @@ void Calc::on_pushButton_credit_clicked()
     ui_credit.show();
 }
 
+void Calc::on_pushButton_Deposit_clicked()
+{
+    ui_deposit.show();
+}
+

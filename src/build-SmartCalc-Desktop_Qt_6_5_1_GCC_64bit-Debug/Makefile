@@ -783,7 +783,7 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../Views/credit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QWidget \
-		../Controllers/calc_controller.h \
+		../Controllers/credit_controller.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlabel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qframe.h \
@@ -797,6 +797,28 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialog.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Models/credit_model.h \
+		../Controllers/calc_controller.h \
 		../qcustomplot.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QPointer \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QSharedPointer \
@@ -805,8 +827,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qbasictimer.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPainter \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qpainter.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPainterPath \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qpainterpath.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPaintEvent \
@@ -818,7 +838,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDateTime \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QMultiMap \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QFlags \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDebug \
@@ -853,7 +872,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractanimation.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstracteventdispatcher.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qeventloop.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qanimationgroup.h \
@@ -881,7 +899,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborarray.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborvalue.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborcommon.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/quuid.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qendian.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcbormap.h \
@@ -984,8 +1001,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qglyphrun.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qrawfont.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qfontdatabase.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessible.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessible_base.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessiblebridge.h \
@@ -1043,17 +1058,8 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qtguiversion.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qundogroup.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qundostack.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QtWidgets \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QtWidgetsDepends \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qaccessiblewidget.h \
@@ -1071,7 +1077,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolordialog.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolormap.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolumnview.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommandlinkbutton.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommonstyle.h \
@@ -1113,7 +1118,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qgroupbox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qheaderview.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qinputdialog.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qitemdelegate.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qitemeditorfactory.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qkeysequenceedit.h \
@@ -1349,6 +1353,42 @@ moc_credit.cpp: ../Views/credit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QSizeF \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QTransform \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qnativeinterface.h \
+		../Controllers/credit_controller.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpicture.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/QString \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QCheckBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QMessageBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qmessagebox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialog.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Models/credit_model.h \
 		moc_predefs.h \
 		../../../Qt/6.6.2/gcc_64/libexec/moc
 	/home/superboy/Qt/6.6.2/gcc_64/libexec/moc $(DEFINES) --include /home/superboy/C8_3DViewer_v1.0-1/src/build-SmartCalc-Desktop_Qt_6_5_1_GCC_64bit-Debug/moc_predefs.h -I/home/superboy/Qt/6.6.2/gcc_64/mkspecs/linux-g++ -I/home/superboy/C8_3DViewer_v1.0-1/src -I/home/superboy/Qt/6.6.2/gcc_64/include -I/home/superboy/Qt/6.6.2/gcc_64/include/QtPrintSupport -I/home/superboy/Qt/6.6.2/gcc_64/include/QtWidgets -I/home/superboy/Qt/6.6.2/gcc_64/include/QtGui -I/home/superboy/Qt/6.6.2/gcc_64/include/QtCore -I. -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Views/credit.h -o moc_credit.cpp
@@ -2664,7 +2704,7 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../Views/credit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QWidget \
-		../Controllers/calc_controller.h \
+		../Controllers/credit_controller.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlabel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qframe.h \
@@ -2678,6 +2718,28 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialog.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Models/credit_model.h \
+		../Controllers/calc_controller.h \
 		../qcustomplot.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QPointer \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QSharedPointer \
@@ -2686,8 +2748,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qbasictimer.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPainter \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qpainter.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPainterPath \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qpainterpath.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPaintEvent \
@@ -2699,7 +2759,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDateTime \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QMultiMap \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QFlags \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDebug \
@@ -2734,7 +2793,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractanimation.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstracteventdispatcher.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qeventloop.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qanimationgroup.h \
@@ -2762,7 +2820,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborarray.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborvalue.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborcommon.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/quuid.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qendian.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcbormap.h \
@@ -2865,8 +2922,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qglyphrun.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qrawfont.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qfontdatabase.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessible.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessible_base.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessiblebridge.h \
@@ -2924,17 +2979,8 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qtguiversion.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qundogroup.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qundostack.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QtWidgets \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QtWidgetsDepends \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qaccessiblewidget.h \
@@ -2952,7 +2998,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolordialog.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolormap.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolumnview.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommandlinkbutton.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommonstyle.h \
@@ -2994,7 +3039,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qgroupbox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qheaderview.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qinputdialog.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qitemdelegate.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qitemeditorfactory.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qkeysequenceedit.h \
@@ -3064,13 +3108,7 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QElapsedTimer \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QTimeZone \
 		../Models/calc_model.h \
-		ui_calc.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QApplication \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QDoubleSpinBox \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QGridLayout \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QMenuBar \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QPushButton \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QStatusBar
+		ui_calc.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calc.o ../Views/calc.cc
 
 credit.o: ../Views/credit.cc ../Views/credit.h \
@@ -3235,30 +3273,43 @@ credit.o: ../Views/credit.cc ../Views/credit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QSizeF \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QTransform \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qnativeinterface.h \
-		ui_credit.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/QVariant \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QApplication \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qapplication.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qcoreapplication.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qeventloop.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qcoreapplication_platform.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qfuture.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qfutureinterface.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qmutex.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qdeadlinetimer.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qelapsedtimer.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qtsan_impl.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qresultstore.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qfuture_impl.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qthreadpool.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qthread.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qrunnable.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qexception.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qpromise.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qguiapplication.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qinputmethod.h \
+		../Controllers/credit_controller.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpicture.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/QString \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QCheckBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QMessageBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qmessagebox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialog.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qguiapplication_platform.h
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Models/credit_model.h \
+		ui_credit.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o credit.o ../Views/credit.cc
 
 main.o: ../main.cc ../Views/calc.h \
@@ -3427,7 +3478,7 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		../Views/credit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QWidget \
-		../Controllers/calc_controller.h \
+		../Controllers/credit_controller.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLabel \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlabel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qframe.h \
@@ -3441,6 +3492,28 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qmessagebox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialog.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdialogbuttonbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../Models/credit_model.h \
+		../Controllers/calc_controller.h \
 		../qcustomplot.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QPointer \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QSharedPointer \
@@ -3449,8 +3522,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qbasictimer.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPainter \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qpainter.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPainterPath \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qpainterpath.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/QPaintEvent \
@@ -3462,7 +3533,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDateTime \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QMultiMap \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QFlags \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDebug \
@@ -3497,7 +3567,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractanimation.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstracteventdispatcher.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qeventloop.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractnativeeventfilter.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractproxymodel.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qanimationgroup.h \
@@ -3525,7 +3594,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborarray.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborvalue.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcborcommon.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/quuid.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qendian.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qcbormap.h \
@@ -3628,8 +3696,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qglyphrun.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qrawfont.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qfontdatabase.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessible.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessible_base.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qaccessiblebridge.h \
@@ -3687,17 +3753,8 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qtguiversion.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qundogroup.h \
 		../../../Qt/6.6.2/gcc_64/include/QtGui/qundostack.h \
-		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QtWidgets \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QtWidgetsDepends \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemview.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractscrollarea.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qaccessiblewidget.h \
@@ -3715,7 +3772,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolordialog.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolormap.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcolumnview.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommandlinkbutton.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qpushbutton.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommonstyle.h \
@@ -3757,7 +3813,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qgroupbox.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qheaderview.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qinputdialog.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qitemdelegate.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qitemeditorfactory.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qkeysequenceedit.h \

@@ -7,7 +7,7 @@
 #include <QMessageBox>
 #include "qcustomplot.h"
 
-#include <QDebug>
+// #include <QDebug>
 
 #include "../Models/calc_model.h"
 
