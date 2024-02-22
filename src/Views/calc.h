@@ -90,6 +90,8 @@ private slots:
 
     void on_pushButton_credit_clicked();
 
+    void on_pushButton_Deposit_clicked();
+
 private:
     Ui::Calc *ui;
 

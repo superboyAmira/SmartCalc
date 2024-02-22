@@ -46,7 +46,7 @@ public:
     {
         if (Credit->objectName().isEmpty())
             Credit->setObjectName("Credit");
-        Credit->resize(693, 537);
+        Credit->resize(568, 416);
         gridLayout_3 = new QGridLayout(Credit);
         gridLayout_3->setObjectName("gridLayout_3");
         gridLayout_2 = new QGridLayout();

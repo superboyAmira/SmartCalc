@@ -11,7 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Views/calc.cc \
     Views/credit.cc \
-    Views/deposit.cpp \
+    Views/deposit.cc \
     main.cc \
     qcustomplot.cpp
 
