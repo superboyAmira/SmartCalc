@@ -54,7 +54,7 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../Views/calc.cc \
 		../Views/credit.cc \
-		../Views/deposit.cpp \
+		../Views/deposit.cc \
 		../main.cc \
 		../qcustomplot.cpp moc_calc.cpp \
 		moc_credit.cpp \
@@ -236,7 +236,7 @@ DIST          = ../../../../Qt/6.6.2/gcc_64/mkspecs/features/spec_pre.prf \
 		../Views/deposit.h \
 		../qcustomplot.h ../Views/calc.cc \
 		../Views/credit.cc \
-		../Views/deposit.cpp \
+		../Views/deposit.cc \
 		../main.cc \
 		../qcustomplot.cpp
 QMAKE_TARGET  = SmartCalc
@@ -589,7 +589,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../Qt/6.6.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Controllers/credit_controller.h ../Controllers/deposit_controller.h ../Models/calc_model.h ../Controllers/calc_controller.h ../Models/credit_model.h ../Models/deposit_model.h ../Views/calc.h ../Views/credit.h ../Views/deposit.h ../qcustomplot.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Views/calc.cc ../Views/credit.cc ../Views/deposit.cpp ../main.cc ../qcustomplot.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Views/calc.cc ../Views/credit.cc ../Views/deposit.cc ../main.cc ../qcustomplot.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Views/calc.ui ../Views/credit.ui ../Views/deposit.ui $(DISTDIR)/
 
 
@@ -829,6 +829,10 @@ moc_calc.cpp: ../Views/calc.h \
 		../Views/deposit.h \
 		../Controllers/deposit_controller.h \
 		../Models/deposit_model.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QDateEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
 		../Controllers/calc_controller.h \
 		../qcustomplot.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QPointer \
@@ -847,8 +851,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QVector \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qvector.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDateTime \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QMultiMap \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QFlags \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDebug \
@@ -1093,7 +1095,6 @@ moc_calc.cpp: ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommonstyle.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcompleter.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatawidgetmapper.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdial.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdockwidget.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdrawutil.h \
@@ -1568,6 +1569,39 @@ moc_deposit.cpp: ../Views/deposit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qnativeinterface.h \
 		../Controllers/deposit_controller.h \
 		../Models/deposit_model.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpicture.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QDateEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QCheckBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractbutton.h \
 		moc_predefs.h \
 		../../../Qt/6.6.2/gcc_64/libexec/moc
 	/home/superboy/Qt/6.6.2/gcc_64/libexec/moc $(DEFINES) --include /home/superboy/C8_3DViewer_v1.0-1/src/build-SmartCalc-Desktop_Qt_6_5_1_GCC_64bit-Debug/moc_predefs.h -I/home/superboy/Qt/6.6.2/gcc_64/mkspecs/linux-g++ -I/home/superboy/C8_3DViewer_v1.0-1/src -I/home/superboy/Qt/6.6.2/gcc_64/include -I/home/superboy/Qt/6.6.2/gcc_64/include/QtPrintSupport -I/home/superboy/Qt/6.6.2/gcc_64/include/QtWidgets -I/home/superboy/Qt/6.6.2/gcc_64/include/QtGui -I/home/superboy/Qt/6.6.2/gcc_64/include/QtCore -I. -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Views/deposit.h -o moc_deposit.cpp
@@ -2925,6 +2959,10 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../Views/deposit.h \
 		../Controllers/deposit_controller.h \
 		../Models/deposit_model.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QDateEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
 		../Controllers/calc_controller.h \
 		../qcustomplot.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QPointer \
@@ -2943,8 +2981,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QVector \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qvector.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDateTime \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QMultiMap \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QFlags \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDebug \
@@ -3189,7 +3225,6 @@ calc.o: ../Views/calc.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommonstyle.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcompleter.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatawidgetmapper.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdial.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdockwidget.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdrawutil.h \
@@ -3533,7 +3568,7 @@ credit.o: ../Views/credit.cc ../Views/credit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qpushbutton.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o credit.o ../Views/credit.cc
 
-deposit.o: ../Views/deposit.cpp ../Views/deposit.h \
+deposit.o: ../Views/deposit.cc ../Views/deposit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QWidget \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qwidget.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -3697,8 +3732,70 @@ deposit.o: ../Views/deposit.cpp ../Views/deposit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qnativeinterface.h \
 		../Controllers/deposit_controller.h \
 		../Models/deposit_model.h \
-		ui_deposit.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o deposit.o ../Views/deposit.cpp
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLabel \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlabel.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qframe.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpicture.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextdocument.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QLineEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlineedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextcursor.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextformat.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qpen.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qtextoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QComboBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcombobox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractitemdelegate.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyleoption.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qlocale.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractspinbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qvalidator.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qregularexpression.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractslider.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qstyle.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabbar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qrubberband.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qabstractitemmodel.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QDateEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QCheckBox \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcheckbox.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qabstractbutton.h \
+		ui_deposit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/QVariant \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QApplication \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qapplication.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qcoreapplication.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qeventloop.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qcoreapplication_platform.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qfuture.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qfutureinterface.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qmutex.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qdeadlinetimer.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qelapsedtimer.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qtsan_impl.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qresultstore.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qfuture_impl.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qthreadpool.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qthread.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qrunnable.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qexception.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qpromise.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qguiapplication.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qinputmethod.h \
+		../../../Qt/6.6.2/gcc_64/include/QtGui/qguiapplication_platform.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QGridLayout \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qgridlayout.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlayout.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qlayoutitem.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qboxlayout.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QPushButton \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qpushbutton.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o deposit.o ../Views/deposit.cc
 
 main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QMainWindow \
@@ -3904,6 +4001,10 @@ main.o: ../main.cc ../Views/calc.h \
 		../Views/deposit.h \
 		../Controllers/deposit_controller.h \
 		../Models/deposit_model.h \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/QDateEdit \
+		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
+		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
 		../Controllers/calc_controller.h \
 		../qcustomplot.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QPointer \
@@ -3922,8 +4023,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QVector \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/qvector.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDateTime \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qdatetime.h \
-		../../../Qt/6.6.2/gcc_64/include/QtCore/qcalendar.h \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QMultiMap \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QFlags \
 		../../../Qt/6.6.2/gcc_64/include/QtCore/QDebug \
@@ -4168,7 +4267,6 @@ main.o: ../main.cc ../Views/calc.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcommonstyle.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qcompleter.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatawidgetmapper.h \
-		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdatetimeedit.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdial.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdockwidget.h \
 		../../../Qt/6.6.2/gcc_64/include/QtWidgets/qdrawutil.h \

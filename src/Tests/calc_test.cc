@@ -3,8 +3,8 @@
 #include "test.h"
 
 bool AreEqual(long double num1, long double num2, int precision) {
-    long double epsilon = 1.0 / std::pow(10, precision);
-    return std::abs(num1 - num2) < epsilon;
+  long double epsilon = 1.0 / std::pow(10, precision);
+  return std::abs(num1 - num2) < epsilon;
 }
 
 TEST(ModelCalc, LightEquation1) {
@@ -123,7 +123,8 @@ TEST(ModelCalc, grade) {
 
 TEST(ModelCalc, full) {
   s21::CalcModel model;
-  std::string eq = "(ln(50)+100)%(2+2.5)+sin(0.5)+tan(10)+sqrt(acos(0.24+0.1222))";
+  std::string eq =
+      "(ln(50)+100)%(2+2.5)+sin(0.5)+tan(10)+sqrt(acos(0.24+0.1222))";
   model.SetEquation(eq);
   model.UpdateModel();
   // std::cout << std::setprecision(10) << model.GetResult() << std::endl;

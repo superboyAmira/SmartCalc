@@ -23,6 +23,6 @@ TEST(Credit, LightEquation2) {
   model.UpdateModel();
   EXPECT_TRUE(AreEqual(5166.67, model.GetMonthPay(), 2));
   EXPECT_TRUE(AreEqual(4208.33, model.GetMinDiffMonthPay(), 2));
-  EXPECT_TRUE(AreEqual(12500.00 , model.GetOverpayment(), 2));
-  EXPECT_TRUE(AreEqual(112500.00 , model.GetTotal(), 2));
+  EXPECT_TRUE(AreEqual(12500.00, model.GetOverpayment(), 2));
+  EXPECT_TRUE(AreEqual(112500.00, model.GetTotal(), 2));
 }

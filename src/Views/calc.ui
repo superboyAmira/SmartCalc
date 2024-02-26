@@ -244,7 +244,7 @@
       <item row="6" column="0">
        <widget class="QCheckBox" name="checkBox_x">
         <property name="text">
-         <string>CheckBox</string>
+         <string>X inside?</string>
         </property>
        </widget>
       </item>
